@@ -1,6 +1,7 @@
 {
   "excludeFiles": [
-    "client/app/config/custom.constants.js"
+    "client/app/config/custom.constants.js",
+    "client/components/**/*.min.js"
   ],
   "esnext": true,
   "disallowEmptyBlocks": true,
