@@ -1,0 +1,9 @@
+<div id="TriggerEdit" class="top-space-lg-m20">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" appname="{{ctrl.appName}}" pipname="{{ctrl.trigger.src_pipeline.name}}" trigger="true"></breadcrumbs>
+    </nav>
+    <div class="pull-right">
+        <delete-button ng-if="ctrl.edit" title="{{ 'trigger_edit_btn_delete' | translate }}" delete="ctrl.deleteTrigger()"></delete-button>
+    </div>
+    <trigger-management trigger="ctrl.trigger" project="ctrl.project" done="ctrl.updateTrigger()"></trigger-management>
+</div>

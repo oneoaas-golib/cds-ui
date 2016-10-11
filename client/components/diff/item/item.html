@@ -1,0 +1,8 @@
+<div ng-switch="ctrl.type">
+    <div ng-switch-when="text">
+        <textarea class="form-control"  rows="{{ctrl.getHeight(ctrl.value)}}" ng-class="{ 'diff_old': ctrl.color === 'removed', 'diff_new': ctrl.color === 'added' }" readonly>{{ctrl.value}}</textarea>
+    </div>
+    <div ng-switch-default>
+        <input type="text" value="{{ctrl.value}}" class="form-control" ng-class="{ 'diff_old': ctrl.color === 'removed', 'diff_new': ctrl.color === 'added' }" readonly></input>
+    </div>
+</div>

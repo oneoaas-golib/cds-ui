@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="action_show_title_using">Action utilisée {{nb}} fois</translation>
+
+    <translation id="action_show_btn_delete"> Supprimer l'action</translation>
+    <translation id="action_show_btn_delete_plugin"> Supprimer le plugin</translation>
+</translations>

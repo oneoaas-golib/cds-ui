@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_list_column_pipeline_name">Pipeline</translation>
+    <translation id="application_list_column_pipeline_type">Type</translation>
+    <translation id="application_list_column_environment_name">Environment</translation>
+    <translation id="application_list_column_date">Date</translation>
+    <translation id="application_list_column_branch">Branch</translation>
+    <translation id="application_list_column_build_number">Build</translation>
+    <translation id="application_list_column_status">Status</translation>
+
+    <translation id="application_list_btn_add">Add an application</translation>
+    <translation id="application_list_btn_create">Create</translation>
+
+    <translation id="application_list_history_show">Show history</translation>
+    <translation id="application_list_history_hide">Hide history</translation>
+</translations>

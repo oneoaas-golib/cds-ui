@@ -1,0 +1,52 @@
+#BuildRun {
+
+    .nav-tabs >li > a .error {
+        color: red;
+    }
+    .nav-tabs > li.active > a .error {
+        color: red;
+    }
+
+    .tab-pane {
+        .panel {
+
+            .progress {
+                height: 18px;
+                margin-bottom: 0px;
+            }
+
+            .progress span{
+                display: block;
+                position: absolute;
+                width: 100%;
+            }
+        }
+    }
+
+    .skip {
+        color: #636363;
+    }
+
+    .success {
+        color: @color-succes;
+    }
+
+
+    button {
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    .well {
+        background-color: transparent;
+        border: 1px solid #202f3c;
+        color: @font-color;
+        border-radius:3px;
+    }
+
+    .error {
+        color: @color-fail;
+        font-weight: 600;
+    }
+}

@@ -1,0 +1,56 @@
+<div ng-switch="ctrl.type" mass-autocomplete>
+    <input ng-switch-when="number" type="number" step="0.01" class="form-control" ng-model="ctrl.param.value" ng-readonly="ctrl.edit !== 'true'">
+    <input ng-switch-when="key" type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="true" >
+    <input ng-switch-when="password" type="password" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit !== 'true'" >
+    <input ng-switch-when="boolean" type="checkbox" ng-model="ctrl.param.value"  ng-disabled="ctrl.edit !== 'true'">
+    <div ng-if="ctrl.isaction === 'true'" ng-switch-when="text">
+        <ui-select ng-model="ctrl.editorOptions.mode">
+            <ui-select-match>{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="l in ctrl.listLanguages | filter: $select.search">
+                <div ng-bind-html="l | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+
+        <textarea ui-codemirror  ui-codemirror-opts="ctrl.editorOptions" ui-refresh="true" ng-model="ctrl.param.value"
+              rows="{{ctrl.getHeight(ctrl.param.value)}}" cols="40" ng-change="ctrl.loadSuggest()"
+              ng-readonly="ctrl.edit !== 'true'" mass-autocomplete-item="ctrl.autocomplete_options" ng-disabled="ctrl.edit !== 'true'">
+        </textarea>
+        <div class="ac-container" ng-show="ctrl.param.results.length > 0">
+            <ul class="ac-menu">
+                <li ng-repeat="result in ctrl.param.results" class="ac-menu-item ng-scope">
+                    <a href="" ng-click="ctrl.apply_selection($index)" ng-bind-html="result.label" class="ng-binding">
+                        <div class="row">
+                            <strong>{{result}}</strong>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <textarea ng-if="ctrl.isaction !== 'true'" ng-switch-when="text" class="form-control" rows="{{ctrl.getHeight(ctrl.param.value)}}" cols="40" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit !== 'true'" mass-autocomplete-item="ctrl.autocomplete_options"></textarea>
+    <div ng-switch-when="pipeline">
+        <ui-select ng-model="ctrl.param.value"  ng-if="ctrl.runlist === 'true'"  ng-readonly="ctrl.edit !== 'true'">
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="p.name as p in ctrl.pipelines | filter: { name : $select.search }">
+                <div ng-bind-html="p.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <input ng-if="ctrl.runlist !== 'true'" type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit !== 'true'">
+    </div>
+    <div ng-switch-when="list">
+        <ui-select ng-model="ctrl.param.value"  ng-if="ctrl.runlist === 'true'"  ng-readonly="ctrl.edit !== 'true'">
+            <ui-select-match>{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="v in ctrl.listValues">
+                <div ng-bind-html="v | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <input ng-if="ctrl.runlist !== 'true'" type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit !== 'true'">
+    </div>
+    <div ng-switch-default>
+        <input type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit!=='true'"
+               mass-autocomplete-item="ctrl.autocomplete_options">
+    </div>
+</div>
+
+

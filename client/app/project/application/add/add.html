@@ -1,0 +1,10 @@
+<div id="ApplicationAdd">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}"></breadcrumbs>
+    </nav>
+    <div class="zone bottom-space-lg-m20">
+        <wizard-application-add application="ctrl.newApp" done="ctrl.createApplication()" applications="ctrl.project.applications"
+                                   buttontitle="Create" repomanager="ctrl.projectRepoManagers"></wizard-application-add>
+        <hr/>
+    </div>
+</div>

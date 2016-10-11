@@ -1,0 +1,115 @@
+@sidebarWidth : 0px;
+@sidebarMinWidth : 85px;
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: @sidebarWidth;
+    width: 0;
+    height: 100%;
+    margin-left: -@sidebarWidth;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #161D23;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    color: #b2bfdc;
+
+    .sidebar-nav {
+        position: absolute;
+        top: 0;
+        width: @sidebarWidth;
+        margin: 0;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 50px;
+        list-style: none;
+        transition: all 0.5s ease;
+
+        .sidebar-brand {
+            width : 100%;
+            margin-bottom: 30px;
+            padding-top: 20px;
+            text-align: center;
+
+        }
+
+        li {
+            transition: all 0.5s ease;
+            line-height: 40px;
+            list-style: none;
+
+            .selected {
+                a {
+                    color: white;
+                    font-weight: bold;
+                }
+            }
+
+            a {
+                width : 100%;
+                text-decoration: none;
+                color: inherit;
+                i {
+                    line-height: 40px;
+                }
+            }
+
+            .project {
+                padding-left: 10px;
+            }
+
+            ul {
+                margin-left: -20px;
+            }
+        }
+    }
+
+    i {
+        margin-right : 5px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: @sidebarWidth;
+        background-color: #20182d;
+
+        i {
+            color: white;
+        }
+
+        a {
+            font-size: 1.5em;
+        }
+    }
+}
+
+#wrapper.toggled {
+    #sidebar-wrapper {
+        width: @sidebarMinWidth;
+
+        .sidebar-nav {
+            width: @sidebarMinWidth;
+
+            li {
+                transition: all 0.5s ease;
+                text-indent: 5px;
+            }
+        }
+
+        .footer {
+            display: none;
+        }
+
+    }
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        width: @sidebarWidth;
+    }
+}

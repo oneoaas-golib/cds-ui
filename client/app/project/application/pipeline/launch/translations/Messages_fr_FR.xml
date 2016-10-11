@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_pipeline_launch_params_title">Paramètres du pipeline</translation>
+    <translation id="application_pipeline_launch_params_git_title">Paramètre GIT</translation>
+    <translation id="application_pipeline_parent_title">Build parent</translation>
+    <translation id="application_pipeline_environment_title">Environnement</translation>
+    <translation id="application_pipeline_commit_title">Liste des nouveaux commits</translation>
+
+    <translation id="application_pipeline_btn_run">Lancer le pipeline</translation>
+
+    <translation id="application_pipeline_err_parent">Vous devez choisir une version.</translation>
+    <translation id="application_pipeline_err_env">Vous devez choisir un environnement pour le déploiement.</translation>
+
+    <translation id="application_pipeline_msg_err_param_pipeline">Les paramètres de type "pipeline" ne peuvent pas être vides</translation>
+</translations>

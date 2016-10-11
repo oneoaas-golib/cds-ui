@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="pipeline_build_workflow_msg_stage_deleted">Step deleted</translation>
+    <translation id="pipeline_build_workflow_msg_action_moved">Job moved</translation>
+    <translation id="pipeline_build_workflow_msg_action_deleted">Job deleted</translation>
+    <translation id="pipeline_build_workflow_pipeline_updated">Pipeline updated</translation>
+    <translation id="pipeline_build_workflow_msg_action_updated">Job updated</translation>
+
+    <translation id="pipeline_build_workflow_label_edit">Edit</translation>
+    <translation id="pipeline_build_workflow_label_new_action">New job</translation>
+    <translation id="pipeline_build_workflow_label_no_stage">Pipeline is empty. You can add a stage by clicking on the button above.</translation>
+    <translation id="pipeline_build_workflow_label_enable">Enabled</translation>
+    <translation id="pipeline_build_workflow_label_disable">Disabled</translation>
+    <translation id="pipeline_build_workflow_label_prerequisite">Prerequisites</translation>
+
+    <translation id="pipeline_build_workflow_column_param_name">Parameter</translation>
+    <translation id="pipeline_build_workflow_column_param_value">Value</translation>
+
+    <translation id="pipeline_build_workflow_btn_add">Add</translation>
+
+    <translation id="pipeline_build_workflow_placeholder_action_filter">Action filter</translation>
+    <translation id="pipeline_build_workflow_add_stage">Add stage</translation>
+</translations>

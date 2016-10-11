@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="signup_button_signup">Create an account</translation>
+
+    <translation id="signup_field_name">Fullname</translation>
+    <translation id="signup_field_email">Email</translation>
+    <translation id="signup_field_username">Username</translation>
+
+    <translation id="signup_error_email_pattern">Email is not valid.</translation>
+    <translation id="signup_error_email_required">Email is required.</translation>
+    <translation id="signup_error_fullname">Fullname is required.</translation>
+    <translation id="signup_error_username">Username is required.</translation>
+
+    <translation id="signup_title">CDS registration</translation>
+
+</translations>

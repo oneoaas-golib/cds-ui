@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="project_show_title_tab_application">Applications</translation>
+    <translation id="project_show_title_tab_pipeline">Pipelines</translation>
+    <translation id="project_show_title_tab_environment">Environments</translation>
+    <translation id="project_show_title_tab_variable">Variables</translation>
+    <translation id="project_show_title_tab_permission">Permissions</translation>
+    <translation id="project_show_title_tab_advanced">Advanced</translation>
+    <translation id="project_show_title_switch_write">Write</translation>
+    <translation id="project_show_title_switch_read">Read</translation>
+    <translation id="project_show_title_verif_token">Repository manager authorization: </translation>
+    <translation id="project_show_repo_manager">Repositories Managers</translation>
+    <translation id="project_show_title_group_management">Project permissions</translation>
+    <translation id="project_show_title_env_permission">Environments permissions</translation>
+
+    <translation id="project_show_button_edit">Edit project</translation>
+
+    <translation id="project_show_pipeline_column">Pipelines</translation>
+
+    <translation id="project_show_message_group_saved">Groups saved</translation>
+    <translation id="project_show_message_variables_saved">Variables saved</translation>
+    <translation id="project_show_message_env_saved">Environnements saved</translation>
+    <translation id="project_show_message_get_code">Click on the link below to get the verification code: </translation>
+    <translation id="project_show_message_get_linked">The repositories manager is linked to your CDS project.</translation>
+
+    <translation id="project_show_advanced_btn_rename">Rename project</translation>
+    <translation id="project_show_advanced_btn_repo">Add repositories manager</translation>
+    <translation id="project_show_advanced_btn_verifcode">Validate</translation>
+
+    <translation id="project_show_delete_title">Delete projet</translation>
+
+    <translation id="project_show_label_no_repo_manager">No repository manager link to this project.</translation>
+
+    <translation id="project_show_column_repo_manager_name">Manager name</translation>
+    <translation id="project_show_column_repo_manager_url">Manager URL</translation>
+
+    <translation id="project_show_env_filter_placeholder">Environment filter</translation>
+</translations>

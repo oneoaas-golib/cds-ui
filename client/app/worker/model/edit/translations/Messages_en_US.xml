@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="model_edit_title">Workers</translation>
+    <translation id="model_edit_title_delete">Delete</translation>
+    <translation id="model_edit_title_worker">Worker using this model</translation>
+    <translation id="model_edit_title_capa">Capabilities</translation>
+
+    <translation id="model_edit_msg_no_capability">No capability.</translation>
+    <translation id="model_edit_msg_no_worker">No worker.</translation>
+    <translation id="model_edit_msg_mandatory">This filed is mandatory.</translation>
+    <translation id="model_edit_msg_deleted">Model deleted.</translation>
+
+    <translation id="model_edit_column_capability_name">Name</translation>
+    <translation id="model_edit_column_capability_type">Type</translation>
+    <translation id="model_edit_column_capability_value">Value</translation>
+    <translation id="model_edit_column_worker_name">Worker name</translation>
+    <translation id="model_edit_column_worker_owner">Owner</translation>
+
+    <translation id="model_edit_field_model_name">Model name</translation>
+    <translation id="model_edit_field_model_type">Model type</translation>
+    <translation id="model_edit_field_model_image">Model docker image</translation>
+
+    <translation id="model_edit_btn_capa_add">Add</translation>
+    <translation id="model_edit_btn_save_model">Save model</translation>
+    <translation id="model_edit_btn_delete_model"> Delete model</translation>
+</translations>

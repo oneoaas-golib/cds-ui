@@ -1,0 +1,8 @@
+<form id="WizardPermissionAdd" name="form" data-ng-submit="wz.submit(form)" novalidate>
+    <group-management groups="wz.project.groups" edit="true"></group-management>
+
+    <div class="well">
+        <p data-translate="wizard_add_permission_explanation"></p>
+    </div>
+    <button type="submit" class="btn btn-primary pull-right" ng-disabled="!wz.checkGroups()">{{wz.buttontitle}}</button>
+</form>

@@ -1,0 +1,47 @@
+<div id="sidebar-wrapper" ng-if="false">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand" ng-if="false">
+            <a class="brand" ng-click="sidebar.toggled()">
+                <img alt="cdsApp" width="75" height="45" src="assets/images/com-square-bichro-H512.png"/>
+            </a>
+        </li>
+        <li>
+            <div class="input-group" ng-if="sidebar.visible">
+                <span class="input-group-addon"><i class="fa fa-eye"></i></span>
+                <input type="text" class="form-control" data-ng-model="sidebar.searchValue" focus-if="sidebar.focusSearch" ng-blur="sidebar.blurSearch()" ng-change="sidebar.resetActiveIndex()" >
+                <span class="input-group-addon" ng-click="sidebar.searchValue = ''"><i class="fa fa-close"></i></span>
+            </div>
+        </li>
+        <li ng-if="sidebar.visible" ng-repeat="p in sidebar.filteredProject = (sidebar.projects | filter:sidebar.searchFilterProject) track by $index">
+            <div data-ng-mouseenter="p.showEdit = true" data-ng-mouseleave="p.showEdit = false" ng-class="{ 'selected': $index === sidebar.activeProjectIndex}">
+                <span class="project link" ui-sref="app.project-show({'key':p.key})" data-ng-click="p.showApp = !p.showApp" ><i class="glyphicon glyphicon-list-alt" data-ng-click="sidebar.searchValue=p.name"></i>{{p.name}}</span>
+                <div class="pull-right">
+                    <i class="fa fa-chevron-down right-space-lg-p20 link" ng-if="p.showApp || sidebar.searchValue" data-ng-click="p.showApp = !p.showApp"></i>
+                    <i class="fa fa-chevron-right right-space-lg-p20 link" ng-if="p.showEdit && !p.showApp && !sidebar.searchValue" data-ng-click="p.showApp = !p.showApp"></i>
+                </div>
+            </div>
+            <ul ng-if="p.showApp || sidebar.searchValue">
+                <li>
+                    <div class="col-md-12" ng-if="!p.applications">
+                        <p data-translate="sidebar_labal_no_applications"></p>
+                    </div>
+                </li>
+                <li ng-repeat="app in sidebar.filteredApplication = (p.applications | fuzzyBy: 'filterField': sidebar.searchValue) track by $index">
+                    <div ng-class="{ 'selected': $index === sidebar.activeApplicationIndex && $parent.$index === sidebar.activeProjectIndex}">
+                        <a href="#" ui-sref="app.application-show({'key':p.key, 'appName': app.name})"><i class="fa fa-rocket"></i>{{app.name}}</a>
+                        <div class="pull-right" ng-if="app.subApp">
+                            <i class="fa fa-chevron-right right-space-lg-p20" ng-if="!app.showSubApp" data-ng-click="app.showSubApp = !app.showSubApp"></i>
+                            <i class="fa fa-chevron-down right-space-lg-p20" ng-if="app.showSubApp" data-ng-click="app.showSubApp = !app.showSubApp"></i>
+                        </div>
+                    </div>
+                    <ul ng-if="app.showSubApp">
+                        <li ng-repeat="sub in app.subApp track by $index" ng-class="{ 'selected': $index === sidebar.activeSubApplicationIndex && $parent.$index === sidebar.activeApplicationIndex}">
+                            <a href="#" ui-sref="app.application-show({'key':p.key, 'appName': sub.name})"><i class="fa fa-rocket"></i>{{sub.subName}}</a>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

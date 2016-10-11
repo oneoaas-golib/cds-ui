@@ -1,0 +1,19 @@
+<div class="row top-space-m8">
+    <div class="col-xs-12">
+        <label for="topics">{{ 'notif_label_recipients_topics' | translate }}</label>
+        <ui-select multiple="true" ng-model="ctrl.content.topics" id="topics">
+            <ui-select-match>{{$item.name}}</ui-select-match>
+            <ui-select-choices repeat="t.name as t in ctrl.topics | filter: { name : $select.search }" refresh="ctrl.refreshResults($select)" refresh-delay="0">
+                <div ng-bind-html="t.name| highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>
+<div class="row top-space-m12">
+    <div class="col-xs-12">
+        <div mass-autocomplete>
+            <label for="message">{{ 'notif_label_body' | translate }}</label>
+            <textarea type="text" ng-model="ctrl.content.template.message" class="form-control" rows="{{ctrl.getBodyHeight()}}" id="message" mass-autocomplete-item="ctrl.autocomplete_options"></textarea>
+        </div>
+    </div>
+</div>

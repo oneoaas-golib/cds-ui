@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="group_management_column_name">Group name</translation>
+    <translation id="group_management_column_role">Permissions</translation>
+
+    <translation id="group_management_btn_save">Save</translation>
+</translations>

@@ -1,0 +1,60 @@
+<h2>Create a new Project</h2>
+<wizard on-finish="finishedWizard()" indicators-position="top">
+    <wz-step wz-title="{{ 'wizard_add_tab_create_project' | translate }}">
+        <div class="top-space-m40">
+            <wizard-project-add project="ctrl.project" done="ctrl.nextTab(EMPTY)" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-project-add>
+        </div>
+    </wz-step>
+    <wz-step wz-title="{{ 'wizard_add_tab_create_application' | translate }}">
+        <div class="top-space-m20">
+            <wizard-application-add application="ctrl.project.application" done="ctrl.nextTab()" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-application-add>
+        </div>
+    </wz-step>
+    <wz-step wz-title="{{ 'wizard_add_tab_create_deployment' | translate }}">
+        <div class="top-space-m40">
+            <wizard-deployment-add project="ctrl.project" done="ctrl.nextTab()" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-deployment-add>
+        </div>
+    </wz-step>
+    <wz-step wz-title="{{ 'wizard_add_tab_create_permission' | translate }}" >
+        <div class="top-space-m40">
+            <wizard-permission-add project="ctrl.project" done="ctrl.done()" buttontitle="{{'wizard_add_button_create' | translate }}"></wizard-permission-add>
+        </div>
+    </wz-step>
+</wizard>
+
+<!--
+<uib-tabset id="WizardAdd" active="ctrl.tab.active">
+    <uib-tab
+        index="0"
+        heading="{{ 'wizard_add_tab_create_project' | translate }}"
+        active="ctrl.tab.project.active"
+        disable="ctrl.tab.project.disable"
+        select="ctrl.activeTab('project')">
+        <wizard-project-add project="ctrl.project" done="ctrl.nextTab(EMPTY)" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-project-add>
+    </uib-tab>
+    <uib-tab
+        index="1"
+        heading="{{ 'wizard_add_tab_create_application' | translate }}"
+        active="ctrl.tab.application.active"
+        disable="ctrl.tab.application.disable"
+        select="ctrl.activeTab('application')">
+        <wizard-application-add application="ctrl.project.application" done="ctrl.nextTab()" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-application-add>
+    </uib-tab>
+    <uib-tab
+        index="2"
+        heading="{{ 'wizard_add_tab_create_deployment' | translate }}"
+        active="ctrl.tab.deployment.active"
+        disable="ctrl.tab.deployment.disable"
+        select="ctrl.activeTab('deployment')">
+        <wizard-deployment-add project="ctrl.project" done="ctrl.nextTab()" buttontitle="{{'wizard_add_button_next' | translate }}"></wizard-deployment-add>
+    </uib-tab>
+    <uib-tab
+        index="3"
+        heading="{{ 'wizard_add_tab_create_permission' | translate }}"
+        disable="ctrl.tab.permission.disable"
+        active="ctrl.tab.permission.active">
+        <wizard-permission-add project="ctrl.project" done="ctrl.done()" buttontitle="{{'wizard_add_button_create' | translate }}"></wizard-permission-add>
+    </uib-tab>
+</uib-tabset>
+-->
+

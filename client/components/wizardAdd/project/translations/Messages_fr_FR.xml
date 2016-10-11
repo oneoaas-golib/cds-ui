@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_project_add_field_name">Nom du project: </translation>
+    <translation id="wizard_project_add_field_key">Clé unique identifiant le projet (auto généré): </translation>
+    <translation id="wizard_project_add_application_empty">Projet vide</translation>
+    <translation id="wizard_project_add_application_add">Ajouter une application</translation>
+
+    <translation id="wizard_project_add_error_name_required">Le nom du projet doit être renseigné.</translation>
+    <translation id="wizard_project_add_error_key_required">La clé unique doit être renseignée.</translation>
+    <translation id="wizard_project_add_error_pattern">La clé unique doit être alphanumérique en majuscule.</translation>
+
+    <translation id="wizard_project_add_example_ui_url">Votre projet sera accessible à cette url : </translation>
+    <translation id="wizard_project_add_example_cli">Avec le CLI : cds project info </translation>
+
+</translations>

@@ -1,0 +1,8 @@
+<switcher ng-model="ctrl.edit"
+          false-label="{{'rw_switcher_write' | translate}}"
+          false-value="true"
+          true-value="false"
+          true-label="{{'rw_switcher_read' | translate}}"
+          ng-change="ctrl.changeEditMode(newValue, oldValue)"
+>
+</switcher>

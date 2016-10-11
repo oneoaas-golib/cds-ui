@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="group_list_title_list">Group list</translation>
+    <translation id="group_list_title_add">Create a group</translation>
+
+    <translation id="group_list_label_add">Group name</translation>
+    <translation id="group_list_btn_add">Create the group</translation>
+    <translation id="group_list_add_err_required">Group name is required.</translation>
+
+    <translation id="group_list_column_name">Name</translation>
+</translations>

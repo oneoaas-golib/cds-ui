@@ -1,0 +1,52 @@
+<form id="PipelineLaunch" name="form" novalidate>
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" appname="{{ctrl.appName}}" pipname="{{ctrl.pipName}}"></breadcrumbs>
+    </nav>
+
+    <!-- GIT Param -->
+    <div ng-if="!ctrl.hasParent">
+        <h4 data-translate="application_pipeline_launch_params_git_title" class="top-space-lg-m20"></h4>
+        <parameter-management params="ctrl.selected.gitParameters" run="true" showdescription="false" showtype="false"></parameter-management>
+    </div>
+
+    <!-- Parameters -->
+    <h4 data-translate="application_pipeline_launch_params_title" class="top-space-lg-m20"></h4>
+    <parameter-management params="ctrl.selected.parameters" run="true" runlist="true" showdescription="false" showtype="false" suggest="ctrl.suggest" pipelines="ctrl.pipelines"></parameter-management>
+
+    <!-- Build parent -->
+    <div ng-if="ctrl.hasParent">
+        <h4 data-translate="application_pipeline_parent_title" class="top-space-lg-m20"></h4>
+        <ui-select ng-model="ctrl.selected.parent" name="parent" required on-select="ctrl.refreshCommits()">
+            <ui-select-match>{{"v" +$select.selected.version + ' (' + $select.selected.trigger.vcs_branch + ')'}}</ui-select-match>
+            <ui-select-choices repeat="b in ctrl.oldBuilds | filter: { status : 'Success' } | filter: { version : $select.search } | orderBy: '-version'">
+                <span data-ng-bind="'v'+ b.version + ' (' + b.trigger.vcs_branch + ')'"></span>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.parent.$error" class="has-error">
+            <div ng-message="required">
+                <p class="help-block" ng-show="ctrl.submitted" data-translate="application_pipeline_err_parent"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Environment -->
+    <div ng-if="ctrl.pipeline.type !== 'build'">
+        <h4 data-translate="application_pipeline_environment_title" class="top-space-lg-m20"></h4>
+        <ui-select ng-model="ctrl.selected.environment" name="env" required>
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="e in ctrl.environments | filter: { name : $select.search }">
+                <div ng-bind-html="e.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.env.$error" class="has-error">
+            <div ng-message="required">
+                <p class="help-block" ng-show="ctrl.submitted" data-translate="application_pipeline_err_env"></p>
+            </div>
+        </div>
+    </div>
+    <div ng-if="ctrl.commits.length > 0">
+        <h4 data-translate="application_pipeline_commit_title" class="top-space-lg-m20"></h4>
+        <application-pipeline-commits commits="ctrl.commits" urlrepo="{{ctrl.urlRepo}}"></application-pipeline-commits>
+    </div>
+    <button type="button" progress-button="ctrl.submit(form)" class="button-success pull-right top-space-lg-m20 hvr-buzz" pb-random-progress="true" pb-style="fill" >{{ 'application_pipeline_btn_run' | translate }}</button>
+</form>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="password_title">Forgotten password</translation>
+
+    <translation id="password_field_username">User</translation>
+    <translation id="password_field_email">Email</translation>
+
+    <translation id="password_error_email_pattern">Email is not valid.</translation>
+    <translation id="password_error_email_required">Email is required.</translation>
+    <translation id="password_error_username">Username is required.</translation>
+</translations>

@@ -1,0 +1,6 @@
+<div ng-if="ctrl.warning">
+    <div ng-repeat="a in ctrl.warning.variables track by $index" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span data-ng-bind="a.message"></span>
+    </div>
+</div>

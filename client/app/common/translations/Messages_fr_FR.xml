@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="common_btn_ok">OK</translation>
+    <translation id="common_btn_save">Sauvegarder</translation>
+    <translation id="common_btn_cancel">Annuler</translation>
+    <translation id="common_btn_delete">Supprimer</translation>
+    <translation id="common_btn_add">Ajouter</translation>
+    <translation id="common_btn_restore">Restaurer</translation>
+
+    <translation id="common_no">Non</translation>
+    <translation id="common_yes">Oui</translation>
+
+    <translation id="common_msg_overwrite">Un utilisateur vient de modifier ce {{type}}. Vous risquez d'écraser des données.</translation>
+    <translation id="common_msg_overwrite_application">Un utilisateur vient de modifier cette {{type}}. Vous risquez d'écraser des données.</translation>
+    <translation id="common_msg_overwrite_title">Confirmation</translation>
+    <translation id="common_project">projet</translation>
+    <translation id="common_application">application</translation>
+    <translation id="common_pipeline">pipeline</translation>
+
+    <translation id="common_no_change">Aucun changement</translation>
+
+    <translation id="cds_urgent_out_of_date">L'interface vient d'être mise à jour. Merci de cliquer dans cette zone pour rafraichir votre page.</translation>
+
+    <translation id="group_management_permission_read">Lecture</translation>
+    <translation id="group_management_permission_read_execute">Lecture/Exécution</translation>
+    <translation id="group_management_permission_read_write_execute">Lecture/Écriture/Exécution</translation>
+
+    <translation id="pipeline_updated">Le pipeline vient d'être mis à jour par un autre utilisateur.</translation>
+    <translation id="project_updated">Le projet vient d'être mis à jour par un autre utilisateur.</translation>
+    <translation id="application_updated">L'application vient d'être mise à jour par un autre utilisateur.</translation>
+</translations>

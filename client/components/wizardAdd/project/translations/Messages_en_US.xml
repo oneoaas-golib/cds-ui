@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_project_add_field_name">Project name: </translation>
+    <translation id="wizard_project_add_field_key">Project unique key (generated): </translation>
+    <translation id="wizard_project_add_application_empty">Empty project</translation>
+    <translation id="wizard_project_add_application_add">Add an application</translation>
+
+    <translation id="wizard_project_add_error_name_required">Project name is required.</translation>
+    <translation id="wizard_project_add_error_key_required">Project unique key is required.</translation>
+    <translation id="wizard_project_add_error_pattern">Project unique key must be uppercase alphanumeric.</translation>
+
+    <translation id="wizard_project_add_example_ui_url">Your project will be available here: </translation>
+    <translation id="wizard_project_add_example_cli">With the CLI: cds project info </translation>
+
+</translations>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="common_btn_ok">OK</translation>
+    <translation id="common_btn_save">Save</translation>
+    <translation id="common_btn_cancel">Cancel</translation>
+    <translation id="common_btn_delete">Delete</translation>
+    <translation id="common_btn_add">Add</translation>
+    <translation id="common_btn_restore">Restore</translation>
+
+    <translation id="common_no">No</translation>
+    <translation id="common_yes">Yes</translation>
+
+    <translation id="common_msg_overwrite">People have updated this {{type}} just before you. You're gonna probably overwrite data.</translation>
+    <translation id="common_msg_overwrite_application">People have updated this {{type}} just before you. You're gonna probably overwrite data.</translation>
+    <translation id="common_msg_overwrite_title">Confirm action</translation>
+    <translation id="common_project">project</translation>
+    <translation id="common_application">application</translation>
+    <translation id="common_pipeline">pipeline</translation>
+
+    <translation id="common_no_change">No change</translation>
+
+    <translation id="cds_urgent_out_of_date">UI has just been updated. Please click on this zone to refresh your page.</translation>
+
+    <translation id="group_management_permission_read">Read</translation>
+    <translation id="group_management_permission_read_execute">Read/Execution</translation>
+    <translation id="group_management_permission_read_write_execute">Read/Write/Execution</translation>
+
+    <translation id="pipeline_updated">This pipeline has just been updated by another user.</translation>
+    <translation id="project_updated">This project has just been updated by another user.</translation>
+    <translation id="application_updated">This application has just been updated by another user.</translation>
+</translations>

@@ -1,0 +1,30 @@
+<form id="WizardDeploymentAdd" name="form" data-ng-submit="wz.submit(form)" novalidate>
+
+    <switcher ng-model="wz.project.hasDeployment"" false-label="{{ 'wizard_deployment_add_field_has_no_deployment' | translate }}"
+              false-value="false" true-value="true" true-label="{{ 'wizard_deployment_add_field_has_deployment' | translate }}"
+              ng-change="wz.checkDeployTemplate()"></switcher>
+
+
+    <div class="form-group top-space-p20" ng-if="wz.project.hasDeployment">
+        <h3 data-translate="wizard_deployment_add_field_template"></h3>
+        <ui-select ng-model="wz.project.application.deployTemplate" id="template" name="template" required>
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="t in wz.templates | propsFilter: {name: $select.search}">
+                <div ng-bind-html="t.name | highlight: $select.search"></div>
+                <small>
+                    {{t.description}}
+                </small>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.template.$error" class="has-error">
+            <div ng-message="required">
+                <p class="help-block" ng-show="wz.submitted" data-translate="wizard_deployment_add_error_template_required"></p>
+            </div>
+        </div>
+        <div class="form-group top-space-p20" ng-if="wz.project.hasDeployment">
+            <parameter-management run="true" params="wz.project.application.deployTemplate.params"></parameter-management>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary pull-right">{{wz.buttontitle}}</button>
+</form>

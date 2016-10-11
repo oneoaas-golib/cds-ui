@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_show_title_tab_workflow">Workflow</translation>
+    <translation id="application_show_title_tab_pipeline_history">Historique</translation>
+    <translation id="application_show_title_tab_pipeline_parameters">Paramètres des pipelines</translation>
+    <translation id="application_show_title_tab_variable">Variables</translation>
+    <translation id="application_show_title_tab_permission">Permissions</translation>
+    <translation id="application_show_title_tab_notification">Notifications</translation>
+    <translation id="application_show_title_tab_advanced">Administration</translation>
+    <translation id="application_show_title_repo_managers_not_linked">Lier l'application à un dépôt</translation>
+    <translation id="application_show_title_repo_managers_linked">Dépôt lié à l'application</translation>
+    <translation id="application_show_title_version">Versions</translation>
+    <translation id="application_show_title_hook">Hooks</translation>
+    <translation id="application_show_title_polling">Polling</translation>
+
+    <translation id="application_show_msg_loading_repo">Chargement des dépôts en cours...</translation>
+    <translation id="application_show_msg_no_repo_managers">Vous devez d'abord lier votre projet à un gestionnaire de dépôt</translation>
+    <translation id="application_show_msg_repo_linked">L'application est maintenant liée au dépôt.</translation>
+
+    <translation id="application_show_btn_attach">Attacher un pipeline</translation>
+    <translation id="application_show_btn_attach_confirm">Attacher le pipeline</translation>
+    <translation id="application_show_btn_attach_cancel">Annuler</translation>
+    <translation id="application_show_btn_save">Sauvegarder</translation>
+    <translation id="application_show_advanced_btn_rename">Renommer</translation>
+    <translation id="application_show_advanced_btn_link">Lier le dépôt</translation>
+    <translation id="application_show_advanced_btn_remove_link">Supprimer le lien</translation>
+
+    <translation id="application_show_advanced_placeholder_repo">Écrivez le nom de votre dépôt</translation>
+    <translation id="application_show_advanced_placeholder_pipeline">Nom du pipeline à déclencher</translation>
+
+    <translation id="application_show_no_hooks">Aucun hook n'est configuré</translation>
+    <translation id="application_show_hook_btn_create">Créer le hook</translation>
+    <translation id="application_show_hook_btn_delete">Supprimer le hook</translation>
+    <translation id="application_show_hook_err_required">Ce champ est obligatoire</translation>
+    <translation id="application_show_hook_err_pattern">Ce champ doit respecter le pattern:  hôte/projet/repo</translation>
+    <translation id="application_show_hook_msg_updated">Le hook a été mis à jour.</translation>
+    <translation id="application_show_hook_column_pipeline">Pipeline</translation>
+    <translation id="application_show_hook_column_repo">Dépot Git</translation>
+    <translation id="application_show_hook_column_active">Hook actif</translation>
+    <translation id="application_show_hook_column_url">Url</translation>
+    <translation id="application_show_hook_tooltip_active">Le hook est actif</translation>
+    <translation id="application_show_hook_tooltip_non_active">Le hook n'est pas actif</translation>
+
+    <translation id="application_show_poller_btn_create">Créer le poller</translation>
+    <translation id="application_show_poller_forbidden">L'application doit être liée à un dépôt.</translation>
+    <translation id="application_show_no_pollers">Il y a aucun poller de configuré.</translation>
+    <translation id="application_show_poller_column_pipeline">Pipeline</translation>
+    <translation id="application_show_poller_column_active">Poller actif</translation>
+    <translation id="application_show_poller_msg_updated">Le poller a été mis à jour.</translation>
+    <translation id="application_show_poller_btn_delete">Supprimer le poller</translation>
+    <translation id="application_show_poller_msg_deleted">Le poller a été supprimé.</translation>
+
+    <translation id="application_show_version_column_branch_name">Nom de la branche</translation>
+    <translation id="application_show_version_column_last_build">Dernier build de la branche</translation>
+
+    <translation id="application_show_delete_title">Supprimer l'application</translation>
+
+    <translation id="application_show_label_hook_repo">Depuis le dépôt lié</translation>
+    <translation id="application_show_label_hook_external">Depuis le dépôt non lié</translation>
+    <translation id="application_show_label_orientation">Orientation du workflow: </translation>
+    <translation id="application_show_label_branch">Filtrer sur une branch: </translation>
+    <translation id="application_show_label_version">Filtrer sur une version: </translation>
+
+    <translation id="application_show_explain_no_pip_1">Ce projet ne contient aucun pipeline.</translation>
+    <translation id="application_show_explain_no_pip_2">Veuillez cliquer sur le lien suivant pour créer un pipeline et l'attacher à votre application : </translation>
+    <translation id="application_show_explain_no_pip_link">Création d'un pipeline</translation>
+
+    <translation id="application_show_explain_pip_1">Vous pouvez attacher un pipeline existant à cette application en cliquant sur le bouton "Attacher un pipeline" en haut à droite.</translation>
+    <translation id="application_show_explain_pip_2">Vous créer un nouveau pipeline et l'attacher à votre application en cliquant sur le lien suivant : </translation>
+
+    <translation id="parameter_management_audit_current">Version actuelle</translation>
+</translations>

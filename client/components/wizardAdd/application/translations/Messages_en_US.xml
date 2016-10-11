@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_application_add_field_template">Build model</translation>
+    <translation id="wizard_application_add_field_name">Application name</translation>
+    <translation id="wizard_application_add_field_repo_git">Choose a repository</translation>
+    <translation id="wizard_application_add_field_tests">I have unit tests</translation>
+    <translation id="wizard_application_add_field_pipeline_params">Pipeline parameters</translation>
+    <translation id="wizard_application_add_field_template_params">Template parameters</translation>
+    <translation id="wizard_application_add_field_pipeline">Use existing pipeline</translation>
+    <translation id="wizard_application_add_field_application">Application to clone</translation>
+    <translation id="wizard_application_add_field_application_params">Application variables</translation>
+    <translation id="wizard_application_add_field_hook">Add hook</translation>
+
+    <translation id="wizard_application_label_clone_application">Clone an application</translation>
+    <translation id="wizard_application_label_template_application">Use a CDS template</translation>
+    <translation id="wizard_application_label_empty_application">Empty application</translation>
+    <translation id="wizard_application_generated_name">Application name (generated)</translation>
+
+    <translation id="wizard_application_add_error_git_required">GIT URL is required.</translation>
+    <translation id="wizard_application_add_error_appname_required">Application name is required.</translation>
+    <translation id="wizard_application_add_error_appname_pattern">Wrong application name. It must only contains: 0-9, a-z, A-Z, .-_</translation>
+    <translation id="wizard_application_add_error_template_required">Build template is required.</translation>
+    <translation id="wizard_application_add_error_template_param">You must fill template parameters.</translation>
+    <translation id="wizard_application_add_error_pipeline_param">You must fill pipeline parameters.</translation>
+    <translation id="wizard_application_add_error_application_required">You must select an application to clone.</translation>
+    <translation id="wizard_application_add_error_application_param">You must fill application variables.</translation>
+
+    <translation id="wizard_application_add_placeholder_git_url">Git URL of your application</translation>
+    <translation id="wizard_application_add_placeholder_repo">Type your repository name</translation>
+
+</translations>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="env_management_button_add_env">Add an environment</translation>
+    <translation id="env_management_button_add_var">Add an environment variable</translation>
+    <translation id="env_management_button_save">Save</translation>
+
+    <translation id="env_management_label_no_env">No environment</translation>
+
+    <translation id="env_management_placeholder_filter_variable">variable</translation>
+    <translation id="env_management_placeholder_filter_env">environment</translation>
+</translations>

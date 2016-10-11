@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <pre> {{ vm.confirmedData | prettyJSON }} </pre>
+                    <a ng-if="vm.verifyIsOk" ui-sref="app.home" class="btn btn-primary btn-lg btn-login" data-translate="account_button_login"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

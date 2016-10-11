@@ -1,0 +1,43 @@
+<div id="LoginView">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="assets/images/cds.png">
+            </div>
+            <div class="col-md-6 col-md-offset-3 top-space-m40">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span data-translate="login_title"></span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form" name="form" data-ng-submit="vm.login(form)" novalidate>
+
+                            <div class="form-group">
+                                <label for="login" data-translate="login_field_username"></label>
+                                <input type="text" id="login" name="login" class="form-control" data-ng-model="vm.user.username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" data-translate="login_field_password"></label>
+                                <input type="password" id="password" name="password" class="form-control" data-ng-model="vm.user.password" required>
+                            </div>
+
+                            <div class="form-group has-error">
+                                <p class="help-block" data-ng-show="form.login.$error.required && form.password.$error.required && vm.submitted" data-translate="login_error1"></p>
+                                <p class="help-block">{{ vm.errors.other }}</p>
+                            </div>
+
+                            <div class="pull-left">
+                                <button class="btn btn-primary btn-lg btn-login" type="submit" data-translate="account_button_login"></button>
+                            </div>
+                            <div class="pull-right">
+                                <a class="btn btn-info btn-lg btn-register" ui-sref="signup" data-translate="account_button_register"></a>
+                                <a class="btn btn-info btn-lg btn-register" ui-sref="password" data-translate="account_button_password"></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

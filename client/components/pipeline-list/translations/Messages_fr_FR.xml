@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="pipeline_list_btn_add">Ajouter</translation>
+
+    <translation id="pipeline_list_add_success">Pipeline créé.</translation>
+
+    <translation id="pipeline_list_label_pipeline_name">Nom du pipeline</translation>
+    <translation id="pipeline_list_label_pipeline_type">Type de pipeline</translation>
+    <translation id="pipeline_list_label_pipeline_applications">Lier à une ou plusieurs applications</translation>
+
+    <translation id="pipeline_list_err_required">Ce champ est obligatoire.</translation>
+    <translation id="pipeline_list_err_pattern">Ce champ ne respecte pas le pattern alphanumerique + .-_ .</translation>
+
+    <translation id="pipeline_list_explain_line_1">Un même pipeline peut etre utilisé dans plusieurs applications.</translation>
+    <translation id="pipeline_list_explain_line_2">Vous pouvez attacher un pipeline à votre application via la vue workflow de l'application.</translation>
+</translations>

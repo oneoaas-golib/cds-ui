@@ -1,0 +1,132 @@
+@navbarHeight : 50px;
+@navbarColor: #202f3c;
+@navbarSearchColor: #1A253C;
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: @navbarHeight;
+    top:0;
+    background-color: @navbarColor;
+    border-radius: 0px;
+    font-size: 1.2em;
+
+
+    .navbar-brand {
+        padding: 10px 15px;
+        color: #153f6c;
+        width: 120px;
+        text-align: center;
+
+        img {
+            display: inline-block;
+            height: 28px;
+            margin-left: 8px;
+        }
+    }
+
+    .btn-group {
+
+        .btn-transparent {
+            height: @navbarHeight;
+        }
+
+        .btn {
+            font-weight: normal;
+            font-size: inherit;
+        }
+
+        ul.dropdown-menu {
+            max-height: 400px;
+            border-radius: 3px;
+            //border: 1px solid #ABABAB;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            li.menutitle {
+                padding-left: 10px;
+                padding-bottom: 10px;
+                font-size: 1.25em;
+            }
+
+            li {
+                .dropdown {
+                    button {
+                        padding-left: 10px;
+
+                    }
+
+                    .btn {
+                        font-weight: normal;
+                        font-size: inherit;
+                    }
+                }
+
+            }
+        }
+    }
+
+    ul {
+        li {
+
+        }
+    }
+}
+
+.navbar .btn {
+    background-color: transparent;
+}
+
+.navbar .form-group {
+    //padding-top: 11px;
+
+    .search {
+
+        padding-top: 11px;
+
+        .form-control {
+            border-color: #999999;
+            background-color: #202f3c;
+            color: white;
+            -webkit-box-shadow: none;
+            width: 350px
+        }
+
+        .form-control:active {
+            box-shadow: none;
+        }
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .form-control-feedback {
+            padding-top: 18px;
+            color: white;
+        }
+
+        ul.dropdown-menu {
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        ul {
+            li {
+                a {
+                    color: black;
+                    font-weight: normal;
+                }
+            }
+
+            li.active {
+                background-color: #C9C9C9;
+            }
+        }
+    }
+
+    .input-group-addon {
+       // background-color: #202f3c;
+    }
+
+
+}

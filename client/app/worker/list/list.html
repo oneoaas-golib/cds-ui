@@ -1,0 +1,100 @@
+<div id="WorkerList">
+    <h2>
+        <span data-translate="worker_list_title"></span>
+    </h2>
+    <h3 data-translate="worker_list_model_title"></h3>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+            <tr>
+                <th class="col-md-1" ng-if="ctrl.edit">
+                </th>
+                <th class="col-md-2" data-translate="worker_list_model_column_name"></th>
+                <th class="col-md-1" data-translate="worker_list_model_column_type"></th>
+                <th class="col-md-4" data-translate="worker_list_model_column_image"></th>
+                <th class="col-md-3" data-translate="worker_list_model_column_capabilities"></th>
+                <th class="col-md-1" data-translate="worker_list_model_column_worker"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="wm in ctrl.workerModel track by $index" >
+                <td class="center" ng-if="ctrl.edit"><span class="glyphicon glyphicon-remove" aria-hidden="true" data-ng-click="ctrl.removeWorkerModel(wm, $index)"></span></td>
+                <td ><a ui-sref="app.worker-model-edit({'modelName': '{{wm.name}}'})" data-ng-bind="wm.name"></a></td>
+                <td data-ng-bind="wm.type"></td>
+                <td data-ng-bind="wm.image"></td>
+                <td>
+                    <ul>
+                        <li ng-repeat="capa in wm.capabilities" data-ng-bind="capa.name"></li>
+                    </ul>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12" ng-if="wm.nbBuilding > 0">
+                            <pipeline-status status="ctrl.building" msg="Building"></pipeline-status>
+                            <div class="worker pull-left">
+                                {{ 'x' + wm.nbBuilding }}
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="wm.nbWaiting > 0">
+                            <pipeline-status status="ctrl.waiting" msg="Waiting"></pipeline-status>
+                            <div class="worker pull-left">
+                                {{ 'x' + wm.nbWaiting }}
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="wm.nbDisabled > 0">
+                            <pipeline-status status="ctrl.disabled" msg="Disabled"></pipeline-status>
+                            <div class="worker pull-left">
+                                {{ 'x' + wm.nbDisabled }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span data-translate="worker_list_model_msg_no_worker" ng-if="ctrl.workerModel.length === 0"></span>
+    <form role="form" class="row" ng-if="ctrl.edit">
+        <div class="form-group col-md-3">
+            <input class="form-control" ng-model="ctrl.selected.model.name" placeholder="{{'worker_list_model_column_name' | translate}}">
+        </div>
+        <div class="form-group col-md-1">
+            <ui-select ng-model="ctrl.selected.model.type">
+                <ui-select-match>{{$select.selected}}</ui-select-match>
+                <ui-select-choices repeat="t in ctrl.modelType | filter: $select.search">
+                    <div ng-bind-html="t | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="form-group col-md-2">
+            <input class="form-control" ng-model="ctrl.selected.model.image" placeholder="{{'worker_list_model_column_image' | translate}}">
+        </div>
+        <button type="button"
+                progress-button="ctrl.addWorkerModel()"
+                class="button-success col-md-2"
+                pb-random-progress="true" pb-style="fill" >
+            {{'worker_list_btn_add' | translate}}</span>
+        </button>
+    </form>
+
+    <h3 data-translate="worker_list_model_no_title"></h3>
+    <span data-translate="worker_list_model_msg_no_worker" ng-if="ctrl.orphans.length === 0"></span>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-show="ctrl.orphans.length > 0">
+        <thead>
+        <tr>
+            <th class="col-md-9" data-translate="worker_list_model_column_worker"></th>
+            <th class="col-md-2" data-translate="worker_list_no_model_column_owner"></th>
+            <th class="col-md-1" data-translate="worker_list_no_model_column_status"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="w in ctrl.orphans track by $index">
+            <td data-ng-bind="w.name"></td>
+            <td data-ng-bind="w.owner.username"></td>
+            <td>
+                <pipeline-status status="w.status" msg="{{w.status}}"></pipeline-status>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

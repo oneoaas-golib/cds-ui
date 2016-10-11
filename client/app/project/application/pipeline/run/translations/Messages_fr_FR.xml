@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_pipeline_variables_title">Liste des variables</translation>
+    <translation id="application_pipeline_variables_build">Variables de build</translation>
+    <translation id="application_pipeline_variables_git">Variables git</translation>
+    <translation id="application_pipeline_variables_cds">Variables CDS</translation>
+    <translation id="application_pipeline_variables_app">Variables de l'application</translation>
+    <translation id="application_pipeline_variables_pip">Variables du pipeline</translation>
+    <translation id="application_pipeline_variables_proj">Variables du projet</translation>
+    <translation id="application_pipeline_variables_env">Variables de l'environnement</translation>
+    <translation id="application_pipeline_variables_parent">Variables du build parent</translation>
+
+    <translation id="application_pipeline_data_pipeline">Pipeline : </translation>
+    <translation id="application_pipeline_data_version">Version : </translation>
+    <translation id="application_pipeline_data_environment">Environnement : </translation>
+    <translation id="application_pipeline_data_date_start">Date de début : </translation>
+    <translation id="application_pipeline_data_date_done">Date de fin : </translation>
+    <translation id="application_pipeline_data_triggerby">Déclenché par : </translation>
+    <translation id="application_pipeline_data_branch">Branche : </translation>
+
+    <translation id="application_pipeline_txt_action_require">L'action nécessite : </translation>
+
+    <translation id="application_pipeline_table_column_artifact_name">Nom de l'artifact</translation>
+    <translation id="application_pipeline_table_column_download">Télécharger</translation>
+
+    <translation id="application_pipeline_tab_detail">Détail du build</translation>
+    <translation id="application_pipeline_tab_tests_ko">Tests: {{nb}} KO</translation>
+    <translation id="application_pipeline_tab_tests_ok">Tests OK</translation>
+    <translation id="application_pipeline_tab_commits">Changements</translation>
+    <translation id="application_pipeline_tab_commit">Changement</translation>
+    <translation id="application_pipeline_tab_history">Historique</translation>
+
+    <translation id="application_pipeline_label_run_again">Relancer</translation>
+    <translation id="application_pipeline_label_waiting">[En attente]</translation>
+    <translation id="application_pipeline_label_stop">Arrêter le pipeline</translation>
+    <translation id="application_pipeline_label_copy">Copier les logs</translation>
+    <translation id="application_pipeline_label_disabled">[Désactivé]</translation>
+    <translation id="application_pipeline_label_skipped">[Ignoré]</translation>
+    <translation id="application_pipeline_label_children">Pipelines déclenchés</translation>
+    <translation id="application_pipeline_label_child">Pipeline déclenché</translation>
+
+    <translation id="application_pipeline_msg_stop">Le pipeline va bientôt s'arrêter.</translation>
+</translations>

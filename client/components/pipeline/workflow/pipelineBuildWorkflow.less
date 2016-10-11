@@ -1,0 +1,120 @@
+#PipelineBuildWorkflow {
+
+    clear: both;
+
+        .stage {
+            margin-top: 10px;
+        }
+
+        .panel {
+
+            .panel {
+                margin-bottom: 10px;
+            }
+
+            .panel-title {
+
+                a {
+                    outline: none;
+                }
+            }
+
+            .panel-heading {
+
+                a:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .fa-gear {
+                    margin-left: 10px;
+                }
+
+                .input-form {
+                    color : black;
+                }
+
+                button {
+                    margin-top : -2px;
+                }
+
+                .switcher {
+                    margin-top: -2px;
+                }
+            }
+
+            .panel-body {
+                .panel-body {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    min-height: 50px;
+                }
+            }
+        }
+
+    .popover.right > .arrow {
+        border-right-color: black;
+    }
+    .popover {
+        min-width: 400px;
+        border: 1px solid @color-navbar;
+
+        .table {
+            table-layout: fixed;
+
+            .ui-select-choices-row {
+                a:hover {
+                    color: black;
+                }
+            }
+        }
+    }
+
+    .listActions {
+        overflow-y: auto;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        .listActions {
+            max-height: 500px;
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        .listActions {
+            max-height: 600px;
+        }
+    }
+
+    @media (min-width: @screen-lg-min) {
+        .listActions {
+            max-height: 700px;
+        }
+    }
+
+    .StagePopOver {
+        padding: 10px 10px;
+    }
+
+}
+
+@media (min-width: @screen-sm-min) {
+    #PipelineBuildWorkflow .popover {
+        min-width: 550px;
+        border: 1px solid @color-navbar;
+    }
+}
+
+@media (min-width: @screen-md-min) {
+    #PipelineBuildWorkflow .popover {
+        min-width: 650px;
+        border: 1px solid @color-navbar;
+    }
+}
+
+@media (min-width: @screen-lg-min) {
+    #PipelineBuildWorkflow .popover {
+        min-width: 750px;
+        border: 1px solid @color-navbar;
+    }
+}

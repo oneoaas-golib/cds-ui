@@ -1,0 +1,64 @@
+<div id="CapacityManagementDiff" ng-if="ctrl.updated.length > 0 || ctrl.added.length > 0 || ctrl.removed.length > 0">
+    <label data-translate="action_form_label_capacities"></label>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+        <tr>
+            <th class="col-md-3" data-translate="capacity_management_column_type"></th>
+            <th class="col-md-3" data-translate="capacity_management_column_name"></th>
+            <th class="col-md-6" data-translate="capacity_management_column_value"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="capaEqual in ctrl.equal track by $index">
+            <td>
+                <diff-item value="{{capaEqual.type}}" type="string" color=""></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaEqual.name}}" type="string" color=""></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaEqual.value}}" type="string" color=""></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="capaUpdated in ctrl.updated track by $index">
+            <td>
+                <diff-item value="{{capaUpdated.type.actual}}" type="string" color="{{ctrl.getColor(capaUpdated.type)}}"></diff-item>
+                <diff-item ng-if="capaUpdated.type.old" value="{{capaUpdated.type.old}}" type="string" color="removed"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaUpdated.name}}" type="string" color=""></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaUpdated.value.actual}}" type="string" color="{{ctrl.getColor(capaUpdated.value)}}"></diff-item>
+                <diff-item ng-if="capaUpdated.value.old || capaUpdated.value.old === ''" value="{{capaUpdated.value.old}}" type="string" color="removed"></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="capaAdded in ctrl.added track by $index">
+            <td>
+                <diff-item value="{{capaAdded.type}}" type="string" color="added"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaAdded.name}}" type="string" color="added"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaAdded.value}}" type="string" color="added"></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="capaRemoved in ctrl.removed track by $index">
+            <td>
+                <diff-item value="{{capaRemoved.type}}" type="string" color="removed"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaRemoved.name}}" type="string" color="removed"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{capaRemoved.value}}" type="string" color="removed"></diff-item>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pull-right" ng-if="ctrl.canSave() && ctrl.edit === 'true'">
+        <button class="btn btn-primary" data-translate="group_management_btn_save" data-ng-click="ctrl.save()"></button>
+    </div>
+</div>
+

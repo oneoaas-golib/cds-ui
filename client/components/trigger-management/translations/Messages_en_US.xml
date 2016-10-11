@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="trigger_from_title">FROM</translation>
+    <translation id="trigger_to_title">TO</translation>
+    <translation id="trigger_parameter_title">Trigger parameters</translation>
+    <translation id="trigger_prerequisites_title">Run condition</translation>
+    <translation id="trigger_release_title">Manual run</translation>
+
+    <translation id="trigger_placeholder_application">Application</translation>
+    <translation id="trigger_placeholder_pipeline">Pipeline</translation>
+    <translation id="trigger_placeholder_environment">Environment</translation>
+
+    <translation id="trigger_prerequisites_column_name">Parameter name</translation>
+    <translation id="trigger_prerequisites_column_value">Parameter value</translation>
+
+    <translation id="trigger_msg_parameters_explain">There are no parameters on the selected pipeline.</translation>
+
+    <translation id="trigger_btn_save">Save</translation>
+
+    <translation id="trigger_error_required">Mandatory field.</translation>
+    <translation id="trigger_error_env">Cannot trigger yourself.</translation>
+</translations>

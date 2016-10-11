@@ -1,0 +1,88 @@
+<div class="pipelineDiagramItem">
+
+    <div class="pipelineDiagramItemPanelArea">
+        <div style="height: 18px;">
+            <span class="label label-primary pull-right" ng-if="PipelineDiagramItemCtrl.item.pipeline.type !== 'build'">
+                {{ PipelineDiagramItemCtrl.item.environment.name}}
+            </span>
+            <span  class="label label-warning pull-right" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.trigger.vcs_branch && PipelineDiagramItemCtrl.branch === ''">
+                <i class="fa fa-code-fork" aria-hidden="true"></i>
+                {{PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.trigger.vcs_branch}}
+            </span>
+            <span class="label label-info pull-left" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.status &&  PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.status !== 'Never Built'">
+                <i class="fa fa-user"></i>
+                {{ PipelineDiagramItemCtrl.getBy() }}
+                <span ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.done" am-time-ago="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.done"></span>
+            </span>
+
+        </div>
+        <div class="panel {{PipelineDiagramItemCtrl.getStatusClass()}}" ng-class="{'bottom-space-100': PipelineDiagramItemCtrl.orientation === 'vertical', 'bottom-space-m20': PipelineDiagramItemCtrl.orientation === 'horizontal'}">
+            <div class="panel-heading">
+                <div class="jsplumb_anchor"
+                     id="{{ PipelineDiagramItemCtrl.item.top.id }}"
+                     data-jsplumb-endpoint
+                     data-jsplumb-endpoint-enabled="false"
+                     data-jsplumb-endpoint-target-options="PipelineDiagramItemCtrl.item.options.top.target"
+                     data-jsplumb-endpoint-connection-ids="{{ PipelineDiagramItemCtrl.item.top.connections }}">
+                </div>
+                <div class="jsplumb_anchor"
+                     id="{{ PipelineDiagramItemCtrl.item.bottom.id }}"
+                     data-jsplumb-endpoint
+                     data-jsplumb-endpoint-enabled="false"
+                     data-jsplumb-endpoint-source-options="PipelineDiagramItemCtrl.item.options.bottom.source"
+                     data-jsplumb-endpoint-connection-ids="{{ PipelineDiagramItemCtrl.item.bottom.connections }}">
+                    <div class="endpoint" uib-tooltip="{{'pipeline_diagram_item_label_new_trigger' | translate }}"
+                         ui-sref="app.application-trigger-add({'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.appName, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name })"></div>
+                </div>
+                <button class="btn pull-left btn-link btn-link-2x" data-ng-click="PipelineDiagramItemCtrl.runPipeline()" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.status !== 'Building' && PipelineDiagramItemCtrl.canRun()">
+                    <i class="fa fa-play-circle-o fa-2x hvr-buzz-out"></i>
+                </button>
+                <button class="btn pull-left btn-link btn-link-2x" data-ng-click="PipelineDiagramItemCtrl.stopPipeline()" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.status === 'Building' && PipelineDiagramItemCtrl.canRun()">
+                    <i class="fa fa-stop-circle-o fa-2x hvr-buzz-out" aria-hidden="true"></i>
+                </button>
+
+                <a href="#" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build" class="separated pull-right" ui-sref="app.application-pipeline-build(
+                        {'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.item.application.name, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name,
+                        'buildId': PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.build_number, 'env': PipelineDiagramItemCtrl.item.environment.name})" uib-tooltip="{{'pipeline_diagram_item_label_see_run' | translate }}">
+                    <span class="fa fa-newspaper-o btn-link" style="color:black;"></span>
+                </a>
+
+                <div class="text-center">
+                    <strong ng-if="PipelineDiagramItemCtrl.item.application.name !== PipelineDiagramItemCtrl.appName"><span>{{ '[' + PipelineDiagramItemCtrl.item.application.name +']' }}</span></strong>
+                    <strong><span class="badge" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.version > 0"> {{ ' v' + PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.version}}</span></strong>
+                    <span> {{PipelineDiagramItemCtrl.item.pipeline.name}}</span>
+                    <!--strong><span ng-if="PipelineDiagramItemCtrl.item.pipeline.type !== 'build'">{{ ' - ' + PipelineDiagramItemCtrl.item.environment.name}}</span></strong-->
+                    <!--span ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.trigger.vcs_branch">{{PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.trigger.vcs_branch}}</span-->
+                    <!--span ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.done" am-time-ago="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.done"></span-->
+                    <!--span data-ng-bind="PipelineDiagramItemCtrl.getBy()"></span-->
+                </div>
+
+            </div>
+        </div>
+        <div class="btn-group dropDownArea" uib-dropdown keyboard-nav>
+            <button type="button" class="btn btn-link" uib-dropdown-toggle>
+                <span class="caret" style="color:black;"></span>
+            </button>
+            <ul uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build"><a href="#" data-translate="pipeline_diagram_item_label_see_run" ui-sref="app.application-pipeline-build(
+                        {'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.item.application.name, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name,
+                        'buildId': PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.build_number, 'env': PipelineDiagramItemCtrl.item.environment.name})"></a></li>
+                <li class="divider" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build && PipelineDiagramItemCtrl.canRun()"></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build && PipelineDiagramItemCtrl.canRun()"><a data-translate="pipeline_diagram_item_label_run_again" data-ng-click="PipelineDiagramItemCtrl.runAgain()"></a></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.canRun()"><a href="#" ui-sref="app.application-pipeline-launch({'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.item.application.name, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name,
+                        'env': PipelineDiagramItemCtrl.item.environment.id, 'trigger': PipelineDiagramItemCtrl.item.trigger.id})" data-translate="pipeline_diagram_item_label_run_customized" data-ng-click="PipelineDiagramItemCtrl.runCustomized()"></a></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build && PipelineDiagramItemCtrl.canRun() && PipelineDiagramItemCtrl.item.pipeline.type !== 'build'"><a data-translate="pipeline_diagram_item_label_run_rollback" data-ng-click="PipelineDiagramItemCtrl.rollback()"></a></li>
+
+                <li class="divider" ng-if="PipelineDiagramItemCtrl.canEditApplication() && PipelineDiagramItemCtrl.canEditPipeline()"></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.canEditApplication() && PipelineDiagramItemCtrl.canEditPipeline()" class="link"><a data-translate="pipeline_diagram_item_label_detach" data-ng-click="PipelineDiagramItemCtrl.detachPipeline()"></a></li>
+
+                <li class="divider" ng-if="PipelineDiagramItemCtrl.canEditPipeline()">></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.canEditPipeline()"><a href="#" data-translate="pipeline_diagram_item_label_edit_pipeline" ui-sref="app.pipeline-show({'key': PipelineDiagramItemCtrl.projectKey, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name})"></a></li>
+
+                <li class="divider" ng-if="PipelineDiagramItemCtrl.canEditApplication() && PipelineDiagramItemCtrl.canEditPipeline()"></li>
+                <li role="menuitem" ng-if="PipelineDiagramItemCtrl.canEditApplication() && PipelineDiagramItemCtrl.canEditPipeline()"><a href="#" data-translate="pipeline_diagram_item_label_new_trigger" ui-sref="app.application-trigger-add({'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.item.application.name, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name, 'env': PipelineDiagramItemCtrl.item.environment.name })"></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

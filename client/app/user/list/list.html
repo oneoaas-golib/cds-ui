@@ -1,0 +1,17 @@
+<div id="UserList" ng-if="ctrl.admin">
+    <h2 data-translate="user_list_title"></h2>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+            <tr>
+                <th data-translate="user_list_column_username"></th>
+                <th data-translate="user_list_column_fullname"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="u in ctrl.users track by $index" data-ng-click="ctrl.goToUser(u)">
+                <td data-ng-bind="u.username"></td>
+                <td data-ng-bind="u.fullname"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,33 @@
+<form id="WizardProjectAdd" name="form" data-ng-submit="wz.submit(form)" novalidate>
+    <div class="form-group">
+        <label for="projectName" data-translate="wizard_project_add_field_name"></label>
+        <input type="text" id="projectName" name="projectName" class="form-control" data-ng-model="wz.project.name"
+               data-ng-change="wz.generateKey()" required>
+        <div ng-messages="form.projectName.$error" class="has-error" ng-show="wz.submitted" >
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_project_add_error_name_required"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="projectKey" data-translate="wizard_project_add_field_key"></label>
+        <input type="text" id="projectKey" name="projectKey" class="form-control" data-ng-model="wz.project.key" ng-pattern="wz.keyPattern"
+               required>
+        <div ng-messages="form.projectKey.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_project_add_error_key_required"></p>
+            </div>
+            <div ng-message="pattern">
+                <p class="help-block" data-translate="wizard_project_add_error_pattern"></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <switcher ng-model="wz.empty" false-label="{{ 'wizard_project_add_application_add' | translate }}" false-value="false" true-value="true" true-label="{{ 'wizard_project_add_application_empty' | translate }}" ng-change="ctrl.changeEditMode(newValue, oldValue)"></switcher>
+    </div>
+    <div class="well top-space-m20" ng-if="wz.project.key">
+        <p><span data-translate="wizard_project_add_example_ui_url"></span>{{ wz.getUrl() + wz.project.key }}</p>
+        <p><span data-translate="wizard_project_add_example_cli"></span>{{ wz.project.key }}</p>
+    </div>
+    <button type="submit" class="btn btn-primary pull-right">{{wz.buttontitle}}</button>
+</form>

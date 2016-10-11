@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_list_inline_title">Les applications qui utilisent ce pipeline : </translation>
+    <translation id="application_list_inline_no">Aucune application n'utilise ce pipeline</translation>
+</translations>

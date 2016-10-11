@@ -1,0 +1,26 @@
+<div id="VerifyTokenModal">
+    <div class="modal-header">
+        <h4>
+            <span data-translate="project_show_title_verif_token"></span>
+            <span data-ng-bind="ctrl.repoManager"></span>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <p data-translate="project_show_message_get_code"></p>
+        <a ng-href="{{ctrl.url}}" target="_blank" data-ng-bind="ctrl.url"></a>
+        <div class="row top-space-lg-m20" ng-if="ctrl.hasToShowInput()">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ctrl.code" />
+                </div>
+                <div class="form-group">
+                    <button type="button" progress-button="ctrl.verif()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'project_show_advanced_btn_verifcode' | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-outline" type="button" ng-click="ctrl.cancel()" data-translate="common_btn_cancel"></button>
+    </div>
+</div>

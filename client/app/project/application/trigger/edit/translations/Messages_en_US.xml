@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="trigger_edit_msg_trigger_updated">Trigger updated.</translation>
+    <translation id="trigger_edit_msg_trigger_deleted">Trigger deleted.</translation>
+
+    <translation id="trigger_edit_btn_delete"> Delete the trigger</translation>
+</translations>

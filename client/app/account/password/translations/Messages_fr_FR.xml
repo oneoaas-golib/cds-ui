@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="password_title">Mot de passe oublié</translation>
+
+    <translation id="password_field_username">Utilisateur</translation>
+    <translation id="password_field_email">Email</translation>
+
+    <translation id="password_error_email_pattern">L'email ne semble pas valide.</translation>
+    <translation id="password_error_email_required">Une adresse mail est requise.</translation>
+    <translation id="password_error_username">Veuillez saisir votre nom d'utilisateur.</translation>
+</translations>

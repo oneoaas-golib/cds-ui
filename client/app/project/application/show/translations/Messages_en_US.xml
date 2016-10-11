@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_show_title_tab_workflow">Workflow</translation>
+    <translation id="application_show_title_tab_pipeline_history">History</translation>
+    <translation id="application_show_title_tab_pipeline_parameters">Pipeline parameters</translation>
+    <translation id="application_show_title_tab_variable">Variables</translation>
+    <translation id="application_show_title_tab_permission">Permissions</translation>
+    <translation id="application_show_title_tab_notification">Notifications</translation>
+    <translation id="application_show_title_tab_advanced">Advanced</translation>
+    <translation id="application_show_title_repo_managers_not_linked">Link a repository to the application</translation>
+    <translation id="application_show_title_repo_managers_linked">Repository linked to the application</translation>
+    <translation id="application_show_title_version">Versions</translation>
+    <translation id="application_show_title_hook">Hooks</translation>
+    <translation id="application_show_title_polling">Polling</translation>
+
+    <translation id="application_show_msg_loading_repo">Loading repositories...</translation>
+    <translation id="application_show_msg_no_repo_managers">Your project must be linked to a repository manager first</translation>
+    <translation id="application_show_msg_repo_linked">Application linked to repository.</translation>
+
+    <translation id="application_show_btn_attach">Attach pipeline</translation>
+    <translation id="application_show_btn_attach_confirm">Attach pipeline</translation>
+    <translation id="application_show_btn_attach_cancel">Cancel</translation>
+    <translation id="application_show_btn_save">Save</translation>
+    <translation id="application_show_advanced_btn_rename">Rename</translation>
+    <translation id="application_show_advanced_btn_link">Link repository</translation>
+    <translation id="application_show_advanced_btn_remove_link">Remove link</translation>
+
+    <translation id="application_show_advanced_placeholder_repo">Type your repository name</translation>
+    <translation id="application_show_advanced_placeholder_pipeline">Pipeline name to run</translation>
+
+    <translation id="application_show_no_hooks">No hooks</translation>
+    <translation id="application_show_hook_btn_create">Create hook</translation>
+    <translation id="application_show_hook_btn_delete">Delete hook</translation>
+    <translation id="application_show_hook_err_required">Mandatory field</translation>
+    <translation id="application_show_hook_err_pattern">It must respect pattern:  host/project/repo</translation>
+    <translation id="application_show_hook_msg_updated">Hook has been updated.</translation>
+    <translation id="application_show_hook_column_pipeline">Pipeline</translation>
+    <translation id="application_show_hook_column_repo">Git repository</translation>
+    <translation id="application_show_hook_column_active">Active</translation>
+    <translation id="application_show_hook_column_url">Url</translation>
+    <translation id="application_show_hook_tooltip_active">Hook is active</translation>
+    <translation id="application_show_hook_tooltip_non_active">Hook is not active</translation>
+
+    <translation id="application_show_poller_btn_create">Create polling</translation>
+    <translation id="application_show_poller_forbidden">Your application must be link to a repository.</translation>
+    <translation id="application_show_no_pollers">There is no polling on this application.</translation>
+    <translation id="application_show_poller_column_pipeline">Pipeline</translation>
+    <translation id="application_show_poller_column_active">Active</translation>
+    <translation id="application_show_poller_msg_updated">Polling service has been updated.</translation>
+    <translation id="application_show_poller_btn_delete">Delete polling</translation>
+    <translation id="application_show_poller_msg_deleted">Polling service has been deleted.</translation>
+
+    <translation id="application_show_version_column_branch_name">Branch name</translation>
+    <translation id="application_show_version_column_last_build">Last build on branch</translation>
+
+    <translation id="application_show_delete_title">Delete application</translation>
+
+    <translation id="application_show_label_hook_repo">From linked repository</translation>
+    <translation id="application_show_label_hook_external">From external repository</translation>
+    <translation id="application_show_label_orientation">Workflow orientation: </translation>
+    <translation id="application_show_label_branch">Branch filter: </translation>
+    <translation id="application_show_label_version">Version filter: </translation>
+
+
+    <translation id="application_show_explain_no_pip_1">This project do not have any pipeline.</translation>
+    <translation id="application_show_explain_no_pip_2">Please click on the following link to create your first pipeline and attach it to your application: </translation>
+    <translation id="application_show_explain_no_pip_link">Create pipeline</translation>
+
+    <translation id="application_show_explain_pip_1">You can attached an existing pipeline to your application by clicking on the "Attach pipeline" button.</translation>
+    <translation id="application_show_explain_pip_2">Vous can create a new pipeline and attach it to your application by clicking on the following link: </translation>
+
+    <translation id="parameter_management_audit_current">Current version</translation>
+</translations>

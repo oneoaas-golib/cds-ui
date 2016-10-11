@@ -1,0 +1,20 @@
+<div id="ApplicationList" class="top-space-lg-m20">
+    <div class="row">
+        <div class="col-md-12">
+            <a ui-sref="app.application-add({'key': ctrl.key})" class="btn btn-primary pull-right"
+               data-translate="application_list_btn_add" ng-if="ctrl.canWrite()"></a>
+        </div>
+
+        <div class="col-md-4" ng-repeat="app in ctrl.project.applications track by app.name">
+            <h3>
+                <a href="#" ui-sref="app.application-show({'key': ctrl.key, 'appName': app.name})"
+                   class="pull-left">
+                    <i class="fa fa-rocket"></i>{{ app.name}}
+                </a>
+
+            </h3>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="action_form_label_name">Action name: </translation>
+    <translation id="action_form_label_description">Description: </translation>
+    <translation id="action_form_label_parameters">Parameters: </translation>
+    <translation id="action_form_label_steps">Steps: </translation>
+    <translation id="action_form_label_capacities">Action requirements: </translation>
+    <translation id="action_form_label_final">Post step</translation>
+
+    <translation id="action_form_step_column_name">Name</translation>
+    <translation id="action_form_step_column_action">Parameters</translation>
+    <translation id="action_form_step_btn_add">Add a step</translation>
+
+    <translation id="action_form_btn_save">Save</translation>
+    <translation id="action_form_btn_remove"> Delete</translation>
+
+    <translation id="action_err_name_required">An action must have a name.</translation>
+    <translation id="action_info_builtin">This is a 'CDS Builtin' action. You can't update or add steps.</translation>
+    <translation id="action_info_plugin">This is a 'CDS Plugin' action, vous can't update it.</translation>
+
+    <translation id="action_component_tab_action">Action</translation>
+    <translation id="action_component_tab_audit">Audit</translation>
+
+    <translation id="action_audit_column_date">Date</translation>
+    <translation id="action_audit_column_user">User</translation>
+    <translation id="action_audit_column_show">See differences</translation>
+    <translation id="action_audit_no_change">Nothing change</translation>
+
+    <translation id="action_audit_btn_apply">Apply</translation>
+    <translation id="action_audit_confirm_red">Red fileds will be restored.</translation>
+    <translation id="action_audit_confirm_green">Green fileds will be deleted.</translation>
+    <translation id="action_audit_modal_title">Restoration confirmation</translation>
+
+</translations>

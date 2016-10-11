@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="notif_title_add">Add a notification</translation>
+
+    <translation id="notif_label_pipeline">Pipeline</translation>
+    <translation id="notif_label_environment">Environment</translation>
+    <translation id="notif_label_success">On success</translation>
+    <translation id="notif_label_failure">On failure</translation>
+    <translation id="notif_label_start">On start</translation>
+    <translation id="notif_label_send_groups">Send to groups</translation>
+    <translation id="notif_label_send_groups_detail">Send a notification to all group members whiches can access to pipeline/environment.</translation>
+    <translation id="notif_label_send_author">Send to initiator</translation>
+    <translation id="notif_label_send_author_detail">Send a notification to the pipeline initiator.</translation>
+    <translation id="notif_label_recipients_jabber">Send to jabber users</translation>
+    <translation id="notif_label_recipients_email">Mail address</translation>
+    <translation id="notif_label_recipients_topics">TAT topics</translation>
+    <translation id="notif_label_subject">Notification title</translation>
+    <translation id="notif_label_body">Notification body</translation>
+
+    <translation id="notif_column_pipeline">Pipeline</translation>
+    <translation id="notif_column_environment">Environment</translation>
+    <translation id="notif_column_notification">Notification</translation>
+</translations>

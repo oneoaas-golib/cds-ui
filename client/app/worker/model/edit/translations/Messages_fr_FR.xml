@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="model_edit_title">Workers</translation>
+    <translation id="model_edit_title_delete">Supprimer</translation>
+    <translation id="model_edit_title_worker">Ouvriers utilisant ce modèle</translation>
+    <translation id="model_edit_title_capa">Capabilités</translation>
+
+    <translation id="model_edit_msg_no_capability">Aucune capabilité.</translation>
+    <translation id="model_edit_msg_no_worker">Aucun ouvrier.</translation>
+    <translation id="model_edit_msg_mandatory">Ce champ est obligatoire.</translation>
+    <translation id="model_edit_msg_deleted">Modèle supprimé.</translation>
+
+    <translation id="model_edit_column_capability_name">Nom</translation>
+    <translation id="model_edit_column_capability_type">Type</translation>
+    <translation id="model_edit_column_capability_value">Valeur</translation>
+    <translation id="model_edit_column_worker_name">Nom de l'ouvrier</translation>
+    <translation id="model_edit_column_worker_owner">Propriétaire</translation>
+
+    <translation id="model_edit_field_model_name">Nom du modèle</translation>
+    <translation id="model_edit_field_model_type">Type de modèle</translation>
+    <translation id="model_edit_field_model_image">Image docker du modèle</translation>
+
+    <translation id="model_edit_btn_capa_add">Ajouter</translation>
+    <translation id="model_edit_btn_save_model">Sauvegarder le modèle</translation>
+    <translation id="model_edit_btn_delete_model"> Suppression du modèle</translation>
+</translations>

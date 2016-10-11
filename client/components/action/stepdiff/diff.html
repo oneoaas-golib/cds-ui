@@ -1,0 +1,59 @@
+<div id="ActionStepsDiff" ng-if="ctrl.onechange">
+    <label data-translate="action_form_label_steps"></label>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+        <tr>
+            <th class="col-xs-2" data-translate="action_form_step_column_name"></th>
+            <th class="col-xs-10"
+                data-translate="action_form_step_column_action"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="s in ctrl.allStep track by $index">
+            <td>
+                <div ng-switch="s.state">
+                    <label data-translate="Name"></label>
+                    <diff-item value="{{s.name}}" type="text" color="{{s.state}}"></diff-item>
+
+                    <label data-translate="Description"></label>
+                    <diff-item value="{{s.description}}" type="text" color="{{s.state}}"></diff-item>
+
+
+                    <label data-translate="Final"></label>
+                    <diff-item ng-if="!s.final.actual" value="{{s.final}}" type="boolean" color="{{s.state}}"></diff-item>
+                    <diff-item ng-if="s.final.actual" value="{{s.final.actual}}" type="boolean" color="{{ctrl.getColor(s.final)}}"></diff-item>
+                    <diff-item ng-if="s.final.old" value="{{s.final.old}}" type="boolean" color="removed"></diff-item>
+
+                    <label data-translate="Enabled"></label>
+                    <diff-item value="{{s.enabled}}" type="boolean" color=""></diff-item>
+                    <diff-item ng-if="!s.enabled.actual" value="{{s.enabled}}" type="boolean" color="{{s.state}}"></diff-item>
+                    <diff-item ng-if="s.enabled.actual" value="{{s.enabled.actual}}" type="boolean" color="{{ctrl.getColor(s.enabled)}}"></diff-item>
+                    <diff-item ng-if="s.enabled.old" value="{{s.enabled.old}}" type="boolean" color="removed"></diff-item>
+
+                </div>
+            </td>
+            <td>
+                <div ng-switch="s.state">
+                    <div ng-switch-when="equal">
+                        <parameter-management params="s.parameters" run="false" showtype="false" ro="true"
+                                              showdescription="false" edit="false"></parameter-management>
+                    </div>
+                    <div ng-switch-when="updated">
+                        <parameter-management-diff params="s.parameters.old"
+                                                   original="s.parameters.actual" type="false" description="false"></parameter-management-diff>
+                    </div>
+                    <div ng-switch-when="added">
+                        <parameter-management-diff params="ctrl.empty"
+                                                   original="s.parameters" type="false" description="false"></parameter-management-diff>
+                    </div>
+                    <div ng-switch-when="removed">
+                        <parameter-management-diff params="s.parameters"
+                                                   original="ctrl.empty" type="false" description="false"></parameter-management-diff>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,158 @@
+#wrapper {
+    #ApplicationShow {
+        ._jsPlumb_ng_instance{
+            ._jsPlumb_connector{
+                margin-left : 0px;
+                z-index: 0;
+            }
+        }
+    }
+}
+#wrapper.toggled {
+    #ApplicationShow {
+        ._jsPlumb_ng_instance{
+            ._jsPlumb_connector{
+               margin-left : -75px;
+            }
+        }
+    }
+}
+
+.jsplumb_anchor {
+    width: 50px;
+    height: 10px;
+    position:absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.pipelineDiagramItem {
+    float:left;
+    width: 100%;
+
+    .label {
+        padding: .4em .6em .4em;
+        font-size: 0.8em;
+        margin-right: 7px;
+        margin-left: 5px;
+        color: @font-color;
+        background: #f3f3f3;
+        border: none;
+
+        i {
+            margin-right: 0px;
+        }
+    }
+
+
+    .endpoints-container {
+        float:left;
+        width:100%;
+    }
+
+    .pipelineDiagramItemPanelArea {
+        position : relative;
+
+        .dropDownArea {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+
+            .dropdown-toggle {
+                z-index: 20;
+            }
+
+            .dropdown-menu {
+                right: 0;
+                left: initial;
+            }
+        }
+
+        .panel {
+            margin-left: 5px;
+            margin-right: 5px;
+
+            .panel-heading {
+                position: relative;
+                z-index: 10;
+                padding-right : 30px;
+
+                .btn-link {
+                    margin-top : -0.30em;
+                    .fa {
+                        margin-top : -0.20em;
+                        color:black;
+                    }
+                }
+
+                a {
+                    padding: 4px 12px;
+                    .fa {
+                        color:black;
+                    }
+                }
+                a.separated {
+                    /*border-left: solid rgba(0, 0, 0, 0.16) 1px;*/
+                }
+                a:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .panel-success> .panel-heading {
+            background-color: @color-succes;
+        }
+        .panel-danger > .panel-heading {
+            background-color: @color-fail;
+        }
+        .panel-warning > .panel-heading {
+            background-color: @color-warning;
+        }
+        .panel-info > .panel-heading {
+            background-color: @color-building;
+        }
+        .panel-default  > .panel-heading{
+            background-color : @color-none;
+        }
+    }
+
+    .endpoints-container .elt {
+        position : relative;
+    }
+
+
+}
+
+.pipelineDiagramItem:hover {
+    .endpoints-container .elt .endpoint-container {
+
+        .endpoint {
+            width: 16px;
+            height: 16px;
+            border-radius: 10px;
+            background: #ecf0f1;
+            border: 1px solid #7f8c8d;
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            left: 50%;
+            margin-left: -8px;
+            z-index: 10;
+        }
+
+        .endpoint:hover {
+            background-color: #ea6626;
+            border: 2px solid black;
+        }
+
+    }
+}
+
+
+
+
+

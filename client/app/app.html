@@ -1,0 +1,15 @@
+<div class="page">
+    <navbar></navbar>
+    <div ng-if="ctrl.showRefresh" class="urgent link" data-ng-click="ctrl.refresh()">
+        <span data-translate="cds_urgent_out_of_date"></span>
+    </div>
+    <div id="wrapper" ng-class="{'toggled' : !ctrl.sidebarVisible}">
+        <sidebar visible="ctrl.sidebarVisible"></sidebar>
+        <div id="page-content-wrapper">
+            <div class="pull-right switcher" ng-if="!ctrl.hideEditMode">
+                <read-write-switcher></read-write-switcher>
+            </div>
+            <div data-ui-view="" id="app-content-view"></div>
+        </div>
+    </div>
+</div>

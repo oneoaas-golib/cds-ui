@@ -1,0 +1,94 @@
+<form id="GroupShow" name="form" novalidate>
+    <h2>
+        <i class="fa fa-users"></i>
+        <a href="#" ui-sref="app.group-list()" data-translate="group_show_title"></a>
+        <i class="fa fa-angle-right"></i>
+        <span data-ng-bind="ctrl.group.name"></span>
+    </h2>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="groupname" data-translate="group_show_label_groupname"></label>
+            <input type="text" class="form-control" id="groupname" name="groupname" ng-model="ctrl.group.name" ng-readonly="!ctrl.edit" required>
+            <div ng-messages="form.groupname.$error" class="has-error" ng-show="ctrl.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="group_show_error_msg_username"></p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <h3 data-translate="group_show_admin_title"></h3>
+            <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-if="ctrl.group.admins && ctrl.group.admins.length > 0">
+                <thead>
+                    <tr>
+                        <th class="col-md-2"></th>
+                        <th data-translate="group_show_colmun_username"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="admin in ctrl.group.admins | orderBy: '+username' track by $index"  data-ng-mouseenter="admin.delete = true" data-ng-mouseleave="admin.delete = false">
+                        <td>
+                            <button type="button" class="btn btn-danger form-control"
+                                    data-ng-click="ctrl.deleteAdmin(admin)" data-translate="group_show_btn_delete" ng-if="admin.delete && ctrl.edit"></button>
+                        </td>
+                        <td data-ng-bind="admin.username"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p data-translate="group_show_msg_no_admins" ng-if="!ctrl.group.admins || ctrl.group.admins.length === 0"></p>
+        </div>
+        <div class="form-group col-md-10" ng-if="ctrl.edit">
+            <ui-select multiple ng-model="ctrl.newAdmins">
+                <ui-select-match>{{$item.username}}</ui-select-match>
+                <ui-select-choices repeat="u in ctrl.users | filter: { username : $select.search }">
+                    <div ng-bind-html="u.username | highlight: $select.search"></div>
+                    <small data-ng-bind="u.fullname"></small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="form-group col-md-2" ng-if="ctrl.edit">
+            <button type="button" class="btn btn-primary" data-ng-click="ctrl.addAdmins()" data-translate="group_show_btn_add"></button>
+        </div>
+        <div class="form-group col-md-12">
+            <h3 data-translate="group_show_users_title"></h3>
+            <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-if="ctrl.group.users && ctrl.group.users.length > 0">
+                <thead>
+                <tr>
+                    <th class="col-md-2"></th>
+                    <th data-translate="group_show_colmun_username"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in ctrl.group.users | orderBy: '+username' track by $index">
+                    <td data-ng-mouseenter="u.delete = true" data-ng-mouseleave="u.delete = false">
+                        <button type="button" class="btn btn-danger form-control"
+                                data-ng-click="ctrl.deleteMember(u)" data-translate="group_show_btn_delete" ng-if="u.delete && ctrl.edit"></button>
+                    </td>
+                    <td data-ng-bind="u.username"></td>
+                </tr>
+                </tbody>
+            </table>
+            <p data-translate="group_show_msg_no_members" ng-if="!ctrl.group.users || ctrl.group.users.length === 0"></p>
+        </div>
+        <div class="form-group col-md-10" ng-if="ctrl.edit">
+            <ui-select multiple ng-model="ctrl.newMembers">
+                <ui-select-match>{{$item.username}}</ui-select-match>
+                <ui-select-choices repeat="u in ctrl.users | filter: { username : $select.search }">
+                    <div ng-bind-html="u.username | highlight: $select.search"></div>
+                    <small data-ng-bind="u.fullname"></small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="form-group col-md-2" ng-if="ctrl.edit">
+            <button type="button" class="btn btn-primary" data-ng-click="ctrl.addMembers()" data-translate="group_show_btn_add"></button>
+        </div>
+    </div>
+    <delete-button class="pull-left" delete="ctrl.deleteGroup()" ng-if="ctrl.edit" progress="true"></delete-button>
+    <button type="button"
+            progress-button="ctrl.submit(form)"
+            class="button-success pull-right"
+            ng-if="ctrl.edit"
+            pb-random-progress="true" pb-style="fill" >
+        {{'group_show_btn_save' | translate}}</span>
+    </button>
+</form>
+

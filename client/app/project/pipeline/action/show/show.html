@@ -1,0 +1,8 @@
+<div id="PipelineActionShow">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" pipname="{{ctrl.pipelineName}}" actionname="{{ctrl.action.name}}"></breadcrumbs>
+    </nav>
+    <warning-action warning="ctrl.pipelineWarning.jobs" key="{{ctrl.key}}" pipname="{{ctrl.pipelineName}}"></warning-action>
+    <action action="ctrl.action" showparams="false" done="ctrl.savePipelineAction(ACTION)" suggest="ctrl.suggest" warning="ctrl.pipelineWarning.jobs" tab="ctrl.tab" updateurl="ctrl.updateUrl(TAB)" audit="ctrl.audit"></action>
+    <application-list-inline pipeline="ctrl.pipeline"></application-list-inline>
+</div>

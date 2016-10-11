@@ -1,0 +1,58 @@
+<div id="ActionList">
+    <div ng-if="ctrl.edit && ctrl.admin">
+        <h2 data-translate="action_list_add_title"></h2>
+        <form name="addActionForm" novalidate>
+            <div class="group-control">
+                <label for="actionName" data-translate="action_list_label_add"></label>
+                <input id="actionName" name="actionName" class="form-control" data-ng-model="ctrl.newAction.name" required>
+                <div ng-messages="addActionForm.actionName.$error" class="has-error" ng-show="ctrl.submitted" >
+                    <div ng-message="required">
+                        <p class="help-block" data-translate="action_list_err_required"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="group-control">
+                <button type="button"
+                        progress-button="ctrl.submit(addActionForm)"
+                        class="button-success pull-right top-space-lg-m4"
+                        ng-if="ctrl.edit"
+                        pb-random-progress="true" pb-style="fill" >
+                    {{'action_list_btn_add' | translate}}</span>
+                </button>
+            </div>
+        </form>
+        <h2 data-translate="action_list_add_plugin_title"></h2>
+        <div>
+            <div class="group-control">
+                <input type="file" ngf-select ng-model="ctrl.file" name="UploadFile" id="UploadFile"  ngf-max-size="64MB" required>
+            </div>
+            <div class="group-control">
+                <button type="button"
+                        progress-button="ctrl.uploadArtifact(addActionForm)"
+                        class="button-success pull-right top-space-lg-m4"
+                        ng-disabled="!ctrl.file"
+                        ng-if="ctrl.edit"
+                        pb-random-progress="false" pb-style="fill" >
+                    {{'action_list_btn_add_plugin' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <h2 data-translate="action_list_title"></h2>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer top-space-lg-m12">
+        <thead>
+            <tr>
+                <th class="col-md-6" data-translate="action_list_column_name"></th>
+                <th class="col-md-6" data-translate="action_list_column_description"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in ctrl.actions" data-ng-click="ctrl.goToActionShow(a)">
+                <td ng-bind="a.name"></td>
+                <td>
+                    <pre ng-bind="a.description" ng-if="a.description"></pre>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

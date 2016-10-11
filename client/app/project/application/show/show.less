@@ -1,0 +1,96 @@
+#ApplicationShow {
+
+  select {
+    background-color: #f3f3f3;
+  }
+
+  .viewControl {
+    width: 120px;
+    padding-top: 2px;
+    background-color: #f3f3f3;
+    display: inline;
+  }
+
+  .rightArea {
+    text-align: left;
+    margin-bottom: 10px;
+
+    .form-control.branchControl {
+      width: auto;
+      display: inline;
+    }
+    .branchControl {
+      padding-top: 2px;
+      background-color: #f3f3f3;
+    }
+  }
+
+  @media (min-width: @screen-lg-min) {
+    .rightArea {
+      text-align: right;
+    }
+
+  }
+
+  uib-tab-heading {
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .well {
+    a {
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  .workflow {
+    table {
+      table-layout: fixed;
+      background: none;
+      width: 100%;
+    }
+  }
+
+  .hook {
+    table {
+      table-layout: fixed;
+
+      tbody tr > td {
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  #branchHistory {
+    a {
+      color: @font-color;
+      margin-top: 10px;
+    }
+
+    table > tbody > tr > td .row {
+      font-size: 1.25em;
+
+      .badge {
+        font-size: inherit;
+      }
+
+      .badge.Success {
+        background-color: @color-succes;
+      }
+      .badge.Building {
+        background-color: @color-building;
+      }
+      .badge.Fail {
+        background-color: @color-fail;
+      }
+    }
+  }
+
+  .horizontalView {
+    td {
+      padding: 0px 20px;
+    }
+  }
+}

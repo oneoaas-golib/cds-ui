@@ -1,0 +1,70 @@
+<div id="PipelineList">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer top-space-lg-m20">
+        <thead>
+        <tr>
+            <th data-translate="project_show_pipeline_column"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in ctrl.project.pipelines track by $index"
+            ui-sref="app.pipeline-show({'key' : ctrl.key, 'pipName' : p.name})">
+            <td class="link">
+                <span data-ng-bind="p.name"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div ng-if="ctrl.canWrite()">
+        <form name="formCreatePipeline" novalidate>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pipelineName" data-translate="pipeline_list_label_pipeline_name"></label>
+                        <input type="text" id="pipelineName" name="pipelineName" class="form-control" ng-model="ctrl.selected.pipeline.name" placeholder="Pipeline name" ng-pattern="ctrl.pipelineNamePattern" required>
+                        <div ng-messages="formCreatePipeline.pipelineName.$error" class="has-error" ng-show="ctrl.submitted">
+                            <div ng-message="required">
+                                <p class="help-block" data-translate="pipeline_list_err_required"></p>
+                            </div>
+                            <div ng-message="pattern">
+                                <p class="help-block" data-translate="pipeline_list_err_pattern"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pipelineType" data-translate="pipeline_list_label_pipeline_type"></label>
+                        <ui-select ng-model="ctrl.selected.pipeline.type" id="pipelineType">
+                            <ui-select-match>{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="t in ctrl.pipelineTypes">
+                                <div ng-bind-html="t | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="application" data-translate="pipeline_list_label_pipeline_applications"></label>
+                        <ui-select  multiple ng-model="ctrl.selected.pipeline.attached_application" id="application">
+                            <ui-select-match placeholder="">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="a in ctrl.project.applications | filter: { name: $select.search }">
+                                <div ng-bind-html="a.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button type="button" progress-button="ctrl.submit(formCreatePipeline)" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'pipeline_list_btn_add' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="well top-space-lg-m20">
+        <p data-translate="pipeline_list_explain_line_1"></p>
+        <p data-translate="pipeline_list_explain_line_2"></p>
+    </div>
+</div>

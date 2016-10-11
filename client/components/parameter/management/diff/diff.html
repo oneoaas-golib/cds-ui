@@ -1,0 +1,82 @@
+<div id="ParameterManagementDiff" ng-if="ctrl.updated.length > 0 || ctrl.added.length > 0 || ctrl.removed.length > 0">
+    <label data-translate="action_form_label_parameters" ng-if="ctrl.title !== 'false'"></label>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+        <tr>
+            <th class="col-md-4" data-translate="parameter_management_column_name"></th>
+            <th class="col-md-1" data-translate="parameter_management_column_type" ng-if="ctrl.type !== 'false'"></th>
+            <th class="col-md-3" data-translate="parameter_management_column_description"
+                ng-if="ctrl.description !== 'false'"></th>
+            <th class="col-md-4" data-translate="parameter_management_column_value"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="paramEqual in ctrl.equal track by $index">
+            <td>
+                <diff-item value="{{paramEqual.name}}" type="string" color=""></diff-item>
+            </td>
+            <td ng-if="ctrl.type !== 'false'">
+                <diff-item value="{{paramEqual.type}}" type="string" color=""></diff-item>
+            </td>
+            <td ng-if="ctrl.description !== 'false'">
+                <diff-item value="{{paramEqual.description}}" type="text" color=""></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{paramEqual.value}}" type="{{paramEqual.type}}" color=""></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="paramUpdated in ctrl.updated track by $index">
+            <td>
+                <diff-item value="{{paramUpdated.name}}" type="string" color=""></diff-item>
+            </td>
+            <td ng-if="ctrl.type !== 'false'">
+                <diff-item value="{{paramUpdated.type.actual}}" type="string"
+                           color="{{ctrl.getColor(paramUpdated.type)}}"></diff-item>
+                <diff-item ng-if="paramUpdated.type.old" value="{{paramUpdated.type.old}}" type="string"
+                           color="removed"></diff-item>
+            </td>
+            <td ng-if="ctrl.description !== 'false'">
+                <diff-item value="{{paramUpdated.description.actual}}" type="text"
+                           color="{{ctrl.getColor(paramUpdated.description)}}"></diff-item>
+                <diff-item ng-if="paramUpdated.description.old" value="{{paramUpdated.description.old}}" type="string"
+                           color="removed"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{paramUpdated.value.actual}}" type="{{paramUpdated.type.actual}}"
+                           color="{{ctrl.getColor(paramUpdated.value)}}"></diff-item>
+                <diff-item ng-if="paramUpdated.value.old || paramUpdated.value.old === ''" value="{{paramUpdated.value.old}}" type="{{paramUpdated.type.actual}}"
+                           color="removed"></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="paramAdded in ctrl.added track by $index">
+            <td>
+                <diff-item value="{{paramAdded.name}}" type="string" color="added"></diff-item>
+            </td>
+            <td ng-if="ctrl.type !== 'false'">
+                <diff-item value="{{paramAdded.type}}" type="string" color="added"></diff-item>
+            </td>
+            <td ng-if="ctrl.description !== 'false'">
+                <diff-item value="{{paramAdded.description}}" type="text" color="added"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{paramAdded.value}}" type="{{paramAdded.type}}" color="added"></diff-item>
+            </td>
+        </tr>
+        <tr ng-repeat="paramRemoved in ctrl.removed track by $index">
+            <td>
+                <diff-item value="{{paramRemoved.name}}" type="string" color="removed"></diff-item>
+            </td>
+            <td ng-if="ctrl.type !== 'false'">
+                <diff-item value="{{paramRemoved.type}}" type="string" color="removed"></diff-item>
+            </td>
+            <td ng-if="ctrl.description !== 'false'">
+                <diff-item value="{{paramRemoved.description}}" type="text" color="removed"></diff-item>
+            </td>
+            <td>
+                <diff-item value="{{paramRemoved.value}}" type="{{paramRemoved.type}}" color="removed"></diff-item>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

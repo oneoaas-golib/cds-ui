@@ -1,0 +1,73 @@
+#WizardApplicationAdd {
+    padding-top: 10px;
+    font-size: 1.5em;
+
+
+    .has-error .help-block {
+        font-size: 0.75em;
+    }
+
+    .parameter {
+        font-size: 0.75em;
+
+        .has-error .help-block {
+            font-size: 1em;
+        }
+    }
+
+    input[type=text] {
+        height: 30px;
+        font-weight: 600;
+    }
+
+    .ui-select-container {
+        .ui-select-match {
+            .btn {
+                height: 35px;
+                padding-top: 5px;
+            }
+
+            .btn-default {
+                background-color: white;
+                border: 1px solid #D9D9D9;
+            }
+
+            .text-muted {
+                color: #C3C3C3;
+            }
+        }
+    }
+
+    .radiogroup {
+        padding: 10px 30px;
+        border: 1px solid #D9D9D9;
+        color : grey;
+
+        label {
+            font-size: inherit;
+
+            i {
+                margin-left: 20px;
+                margin-top: -10px;
+            }
+        }
+    }
+
+    .radiogroup.selected {
+        border-color: @navbarColor;
+        color : inherit;
+    }
+
+    .form-control-feedback {
+        padding-top: 7px;
+        color: black;
+    }
+
+    ul.dropdown-menu {
+        max-height: 400px;
+        border-radius: 3px;
+        //border: 1px solid #ABABAB;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

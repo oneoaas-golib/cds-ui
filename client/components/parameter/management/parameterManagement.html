@@ -1,0 +1,63 @@
+<div id="ParameterManagement">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-if="ctrl.params.length > 0" ng-class="{ 'hasWarning': ctrl.hasWarning()}">
+        <thead>
+        <tr>
+            <th class="{{ ctrl.getNameColumnClass() }}" data-translate="parameter_management_column_name" ng-if="ctrl.showname !== 'false'"></th>
+            <th class="col-md-1" data-translate="parameter_management_column_type" ng-if="ctrl.showtype  !== 'false'"></th>
+            <th class="col-md-3" data-translate="parameter_management_column_description" ng-if="ctrl.showdescription  !== 'false'"></th>
+            <th class="{{ ctrl.getValueColumnClass() }}" data-translate="parameter_management_column_value" ng-if="ctrl.showvalue  !== 'false'"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in ctrl.params track by $index" data-ng-mouseenter="p.showButton = true" data-ng-mouseleave="p.showButton = false" >
+            <td ng-if="ctrl.showname  !== 'false'">
+                <div class="row">
+                    <div class="col-md-1">
+                        <i class="fa fa-times-circle" ng-if="ctrl.ro !== 'true' && ctrl.run !== 'true' && ctrl.edit && p.showButton" data-ng-click="ctrl.delete(p,$index)"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <span ng-if="ctrl.ro === 'true' || !ctrl.edit || ctrl.run === 'true'" data-ng-bind="p.name"></span>
+                        <input ng-if="ctrl.ro !== 'true' && ctrl.edit && ctrl.run !== 'true'" type="text" class="form-control" ng-model="p.name">
+                    </div>
+                    <div class="col-md-1"
+                         ng-if="ctrl.descriptiontooltip === 'true' && p.showButton && p.description !== ''"
+                         uib-tooltip="{{p.description}}" tooltip-placement="left">
+                        <i class="fa fa-question-circle-o"></i>
+                    </div>
+                </div>
+            </td>
+            <td ng-if="ctrl.showtype  !== 'false'">
+                <span data-ng-bind="p.type"></span>
+            </td>
+            <td ng-if="ctrl.showdescription  !== 'false'">
+                <textarea rows="{{ctrl.getHeight(p.description)}}" type="text" class="form-control" ng-model="p.description" ng-readonly="ctrl.ro === 'true' || !ctrl.edit || ctrl.run === 'true'"></textarea>
+            </td>
+            <td ng-if="ctrl.showvalue  !== 'false'">
+                <parameter-value-field isaction="{{ctrl.isaction}}" param="p" type="p.type" edit="{{ctrl.canEditValue()}}" runlist="{{ctrl.runlist }}" suggest="ctrl.suggest" pipelines="ctrl.pipelines"></parameter-value-field>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div ng-if="ctrl.params.length === 0" data-translate="parameter_management_msg_no_params"></div>
+    <div>
+        <div class="row" ng-if="ctrl.ro !== 'true' && ctrl.edit && ctrl.run !== 'true'">
+            <div class="col-md-1">
+                <ui-select ng-model="ctrl.newType">
+                    <ui-select-match>{{$select.selected}}</ui-select-match>
+                    <ui-select-choices repeat="t in ctrl.types">
+                        <div ng-bind-html="t | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" data-translate="parameter_management_btn_add" data-ng-click="ctrl.add()"></button>
+            </div>
+            <div class="col-md-10">
+                <div class="pull-right" ng-if="ctrl.canSave()">
+                    <button type="button" progress-button="ctrl.save()" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'parameter_management_btn_save' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="worker_list_title">Workers</translation>
+    <translation id="worker_list_model_title">Workers with model</translation>
+    <translation id="worker_list_model_no_title">Workers without model</translation>
+
+    <translation id="worker_list_model_msg_no_worker">No workers</translation>
+    <translation id="worker_list_model_msg_model_deleted">Worker model deleted</translation>
+
+    <translation id="worker_list_model_column_name">Worker model</translation>
+    <translation id="worker_list_model_column_type">Worker type</translation>
+    <translation id="worker_list_model_column_image">Image</translation>
+    <translation id="worker_list_model_column_capabilities">Capacities</translation>
+    <translation id="worker_list_model_column_worker">Workers</translation>
+    <translation id="worker_list_no_model_column_owner">Owner</translation>
+
+    <translation id="worker_list_btn_add">Add a worker model</translation>
+</translations>

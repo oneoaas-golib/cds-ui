@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+   <translation id="navbar_button_logout">Logout</translation>
+    <translation id="navbar_button_actions">Actions</translation>
+    <translation id="navbar_button_download">Downloads</translation>
+    <translation id="navbar_button_users">Users</translation>
+    <translation id="navbar_button_groups">Groups</translation>
+    <translation id="navbar_button_workers">Workers</translation>
+    <translation id="navbar_button_docs">Documentation</translation>
+    <translation id="navbar_button_feedback">Feedback</translation>
+    <translation id="navbar_button_create_project">Create a project</translation>
+
+    <translation id="navbar_button_project_default">Select a project</translation>
+    <translation id="navbar_button_application_dropdown">Applications</translation>
+
+ <translation id="navbar_search_placeholder">Find an application...</translation>
+</translations>

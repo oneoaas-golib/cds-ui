@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="account_button_register">Create an account</translation>
+    <translation id="account_button_login">Login</translation>
+    <translation id="account_button_password">Forgotten password</translation>
+</translations>

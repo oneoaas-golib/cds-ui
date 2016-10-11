@@ -1,0 +1,77 @@
+<div id="PipelineShow">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" pipname="{{ctrl.pipName}}"></breadcrumbs>
+    </nav>
+    <warning-pipeline warning="ctrl.pipelineWarning" key="{{ctrl.key}}" pipname="{{ctrl.pipName}}"></warning-pipeline>
+    <uib-tabset active="ctrl.tab.active">
+        <uib-tab
+            index="0"
+            select="ctrl.selectTab('workflow')">
+            <uib-tab-heading>
+                <i class="fa fa-sitemap"></i><span data-translate="pipeline_show_title_tab_workflow"></span>
+            </uib-tab-heading>
+            <div class="top-space-lg-m20">
+                <pipeline-build-workflow pipeline="ctrl.pipeline" project="ctrl.project" prerequisites="ctrl.prerequisites"></pipeline-build-workflow>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="1"
+            select="ctrl.selectTab('parameter')">
+            <uib-tab-heading>
+                <i class="fa fa-font"></i><span data-translate="pipeline_show_title_tab_parameters"></span>
+            </uib-tab-heading>
+            <div class="top-space-lg-m20">
+                <parameter-management params="ctrl.pipeline.parameters" save="ctrl.saveParameters()"
+                                      showvalue="false"></parameter-management>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="2"
+            select="ctrl.selectTab('group')">
+            <uib-tab-heading>
+                <i class="fa fa-group"></i><span data-translate="pipeline_show_title_tab_permission"></span>
+            </uib-tab-heading>
+            <div class="top-space-lg-m20">
+                <group-management groups="ctrl.groups" save="ctrl.saveGroups()"></group-management>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="3"
+            select="ctrl.selectTab('advanced')"
+            ng-if="ctrl.canEditPipeline">
+            <uib-tab-heading>
+                <i class="fa fa-group"></i><span data-translate="pipeline_show_title_tab_advanced"></span>
+            </uib-tab-heading>
+            <div class="row">
+                <div class="col-md-6 top-space-lg-m20">
+                    <form novalidate name="formAdvanced">
+                        <div class="form-group">
+                            <label for="pipelineName"
+                                   data-translate="pipeline_show_advanced_label_pipeline_name"></label>
+                            <input type="text" class="form-control" id="pipelineName" ng-model="ctrl.pipeline.name" ng-readonly="!ctrl.edit">
+                        </div>
+                        <div class="form-group">
+                            <label for="typePipeline" data-translate="pipeline_show_advanced_label_type"></label>
+                            <ui-select ng-model="ctrl.pipeline.type" id="typePipeline" ng-disabled="!ctrl.edit">
+                                <ui-select-match>{{$select.selected}}</ui-select-match>
+                                <ui-select-choices repeat="t in ctrl.pipelineTypes">
+                                    <div ng-bind-html="t | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-md-12" ng-show="ctrl.edit">
+                            <button type="button" class="button-success pull-right"
+                                    progress-button="ctrl.updatePipeline()"  pb-random-progress="true" pb-style="fill" >{{ 'pipeline_show_advanced_btn_update' | translate }}</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right" ng-show="ctrl.edit">
+                        <delete-button delete="ctrl.deletePipeline()" title="{{ 'pipeline_show_delete_title' | translate }}" progress="true"></delete-button>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+    <application-list-inline pipeline="ctrl.pipeline"></application-list-inline>
+</div>

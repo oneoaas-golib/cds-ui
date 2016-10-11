@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="trigger_from_title">Depuis</translation>
+    <translation id="trigger_to_title">Déclenche</translation>
+    <translation id="trigger_parameter_title">Paramètres du trigger</translation>
+    <translation id="trigger_prerequisites_title">Condition de lancement</translation>
+    <translation id="trigger_release_title">Déclenchement manuel</translation>
+
+    <translation id="trigger_placeholder_application">Application</translation>
+    <translation id="trigger_placeholder_pipeline">Pipeline</translation>
+    <translation id="trigger_placeholder_environment">Environnement</translation>
+
+    <translation id="trigger_prerequisites_column_name">Nom du paramètre</translation>
+    <translation id="trigger_prerequisites_column_value">Valeur du paramètre</translation>
+
+    <translation id="trigger_msg_parameters_explain">Le pipeline selectionné n'a aucun paramètre de lancement.</translation>
+
+    <translation id="trigger_btn_save">Sauvegarder</translation>
+
+    <translation id="trigger_error_required">Champ obligatoire.</translation>
+    <translation id="trigger_error_env">Impossible de se déclencher soi-même.</translation>
+</translations>

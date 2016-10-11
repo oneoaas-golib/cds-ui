@@ -1,0 +1,53 @@
+<div id="CapacityManagement">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-class="{ 'hasWarning': ctrl.hasRequirementError()}">
+        <thead>
+        <tr>
+            <th class="col-md-1">
+                <button type="button" class="btn btn-primary form-control" data-ng-click="ctrl.addCapacity()" ng-if="ctrl.edit === 'true'">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+            </th>
+            <th class="col-md-3" data-translate="capacity_management_column_type"></th>
+            <th class="col-md-3" data-translate="capacity_management_column_name"></th>
+            <th class="col-md-5" data-translate="capacity_management_column_value"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="c in ctrl.capacities track by $index" data-ng-mouseenter="c.showButton = true" data-ng-mouseleave="c.showButton = false">
+            <td>
+                <button type="button" class="btn btn-danger form-control" data-ng-click="ctrl.removeCapacity($index)" ng-if="ctrl.edit === 'true' && c.showButton">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </td>
+            <td>
+                <ui-select ng-model="c.type" ng-disabled="ctrl.edit !== 'true'">
+                    <ui-select-match>{{$select.selected}}</ui-select-match>
+                    <ui-select-choices repeat="c in ctrl.capacityTypes">
+                        <div ng-bind-html="c | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </td>
+            <td><input type="text" class="form-control" ng-model="c.name" ng-readonly="ctrl.edit !== 'true'" ng-change="ctrl.updateFromName(c)" ng-blur="ctrl.isWriting = false"></td>
+            <td>
+                <div ng-switch="c.type">
+                    <div ng-switch-when="model">
+                        <ui-select ng-model="c.value">
+                            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="wm.name as wm in ctrl.workerModels | filter: { 'name': $select.search }">
+                                <div ng-bind-html="wm.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div ng-switch-default>
+                        <input type="text" class="form-control" ng-model="c.value" ng-readonly="ctrl.edit !== 'true'" ng-change="ctrl.updateFromValue(c)" ng-blur="ctrl.isWriting = false">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pull-right" ng-if="ctrl.canSave() && ctrl.edit === 'true'">
+        <button class="btn btn-primary" data-translate="group_management_btn_save" data-ng-click="ctrl.save()"></button>
+    </div>
+</div>
+

@@ -1,0 +1,487 @@
+<div id="ApplicationShow">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" appname="{{ctrl.appName}}"
+                     repomanager="{{ctrl.application.repositories_manager.name}}"
+                     repo="{{ctrl.application.repository_fullname}}" applications="ctrl.project.applications"></breadcrumbs>
+    </nav>
+    <warning-application warning="ctrl.applicationWarning" key="{{ctrl.key}}" appname="{{ctrl.appname}}"></warning-application>
+    <uib-tabset active="ctrl.tab.active">
+        <uib-tab
+            index="0"
+            select="ctrl.selectTab('workflow')">
+            <uib-tab-heading>
+                <i class="fa fa-rocket"></i><span data-translate="application_show_title_tab_workflow"></span>
+            </uib-tab-heading>
+            <div class="top-space-lg-m20">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-primary pull-right" data-translate="application_show_btn_attach"
+                                ng-show="!ctrl.attach && ctrl.canEditApplication" data-ng-click="ctrl.attach = true"></button>
+                    </div>
+                    <div class="col-xs-12" ng-if="ctrl.canEditApplication">
+                        <button type="button" class="btn btn-default pull-right"
+                                data-translate="application_show_btn_attach_cancel" ng-show="ctrl.attach"
+                                data-ng-click="ctrl.attach = false"></button>
+
+                        <button type="button"  ng-show="ctrl.attach" progress-button="ctrl.attachPipeline()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'application_show_btn_attach_confirm' | translate }}</button>
+                        <ui-select ng-model="ctrl.selected.pipeline" ng-show="ctrl.attach" class="col-md-3 pull-right">
+                            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="p in ctrl.project.pipelines | filter: { name : $select.search }">
+                                <div ng-bind-html="p.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-xs-12 col-lg-6 top-space-m8">
+                        <div class="inline"  data-translate="application_show_label_orientation"></div>
+                        <select name="switchView" id="switchView" ng-change="ctrl.changeView()"
+                                class="form-control viewControl"
+                                ng-options="v for v in ctrl.viewsMode track by v"
+                                ng-model="ctrl.jsPlumbOrientation"></select>
+                    </div>
+                    <div class="col-xs-12 col-lg-6 rightArea top-space-m8">
+                        <div class="inline" data-translate="application_show_label_branch"></div>
+                        <select name="branchView" id="branchView" ng-change="ctrl.refreshStatus(true)"
+                                class="form-control branchControl"
+                                ng-options="b.display_id for b in ctrl.branches track by b.display_id"
+                                ng-model="ctrl.choosenBranch"></select>
+                        <div class="inline left-space-m8" data-translate="application_show_label_version"></div>
+                        <select name="versionSwitch" id="versionSwitch" ng-change="ctrl.refreshStatus(false)"
+                                class="form-control branchControl"
+                                ng-options="v for v in ctrl.versions"
+                                ng-model="ctrl.choosenVersion"></select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div data-ng-if="!ctrl.loader.jsplumb" data-jsplumb-instance="ctrl.instanceOptions"
+                 class="top-space-lg-m20 workflow">
+                <div ng-repeat="tree in ctrl.cdTree track by $index" ng-if="ctrl.cdTree.length > 0 && ctrl.jsPlumbOrientation === 'vertical'">
+                    <table>
+                        <tr>
+                            <td valign="top" align="center" colspan="{{tree.subPipelines.length}}">
+                                <pipeline-diagram-item item="tree" orientation="{{ctrl.jsPlumbOrientation}}" branch="{{ctrl.choosenBranch.display_id}}"></pipeline-diagram-item>
+                            </td>
+                        </tr>
+                        <tr pipeline-diagram item="tree.subPipelines" orientation="{{ctrl.jsPlumbOrientation}}" branch="{{ctrl.choosenBranch.display_id}}"></tr>
+                    </table>
+                </div>
+                <div ng-repeat="tree in ctrl.cdTree track by $index" ng-if="ctrl.cdTree.length > 0 && ctrl.jsPlumbOrientation === 'horizontal'">
+                    <table class="horizontalView">
+                        <tr>
+                            <td valign="top" align="center" style="width:500px;">
+                                <pipeline-diagram-item item="tree" orientation="{{ctrl.jsPlumbOrientation}}" branch="{{ctrl.choosenBranch.display_id}}"></pipeline-diagram-item>
+                            </td>
+                            <td pipeline-diagram item="tree.subPipelines" orientation="{{ctrl.jsPlumbOrientation}}" branch="{{ctrl.choosenBranch.display_id}}">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-if="ctrl.cdTree.length === 0" class="well">
+                <div ng-show="!ctrl.project.pipelines || ctrl.project.pipelines.length === 0">
+                    <p data-translate="application_show_explain_no_pip_1"></p>
+                    <p>
+
+                        <a ui-sref="app.project-show({'key': ctrl.project.key, 'tab':'pipeline'})"
+                           data-translate="application_show_explain_no_pip_link"></a>
+                    </p>
+                </div>
+                <div ng-show="ctrl.project.pipelines.length > 0">
+                    <p data-translate="application_show_explain_pip_1"></p>
+                    <p>
+                        <span data-translate="application_show_explain_pip_2"></span>
+                        <a ui-sref="app.project-show({'key': ctrl.project.key, 'tab':'pipeline'})"
+                           data-translate="application_show_explain_no_pip_link"></a>
+                    </p>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="6"
+            select="ctrl.selectTab('version')">
+            <uib-tab-heading>
+                <i class="fa fa-rocket"></i><span data-translate="application_show_title_version"></span>
+            </uib-tab-heading>
+            <div id="branchHistory" ng-if="ctrl.tab.active === 6">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer top-space-lg-m20">
+                    <thead>
+                        <tr>
+                            <th data-translate="application_show_version_column_branch_name"></th>
+                            <th data-translate="application_show_version_column_last_build"></th>
+                            <th ng-repeat="d in ctrl.deployHistory track by $index" data-ng-bind="d.envName"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in ctrl.branchHistory track by $index">
+                            <td>
+                                {{ b.branch }}
+                            </td>
+                            <td>
+                                 <div ng-repeat="p in b.builds track by $index">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                            <span class="badge {{p.status}}">{{' v' + p.version}}</span>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                             <a ui-sref="app.application-pipeline-build({ 'key': ctrl.key, 'appName': ctrl.appName, 'pipName': p.pipeline.name, 'buildId': p.build_number, 'env': p.environment.name})">{{p.pipeline.name}}</a>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </td>
+                            <td ng-repeat="dh in ctrl.deployHistory track by $index">
+                                <div class="row" ng-if="d.trigger.vcs_branch === b.branch" ng-repeat="d in dh.pipelineBuild track by $index" >
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 top-space-m4">
+                                        <span class="badge {{d.status}}">{{' v' + d.version}}</span>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 top-space-m5">
+                                        <a ui-sref="app.application-pipeline-build({ 'key': ctrl.key, 'appName': ctrl.appName, 'pipName': d.pipeline.name, 'buildId': d.build_number, 'env': d.environment.name})">{{d.pipeline.name}}</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="1"
+            select="ctrl.selectTab('history')">
+            <uib-tab-heading>
+                <i class="fa fa-sitemap"></i><span data-translate="application_show_title_tab_pipeline_history"></span>
+            </uib-tab-heading>
+            <div class="top-space-lg-m20" ng-if="ctrl.tab.active === 1">
+                <pipeline-history builds="ctrl.applicationHistory"></pipeline-history>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="2"
+            select="ctrl.selectTab('pipeline')">
+            <uib-tab-heading>
+                <i class="fa fa-sitemap"></i><span
+                data-translate="application_show_title_tab_pipeline_parameters"></span>
+            </uib-tab-heading>
+            <div ng-if="ctrl.tab.active === 2">
+                <div ng-repeat="appPip in ctrl.application.pipelines track by $index">
+                    <h3>
+                        <a href="#" ui-sref="app.pipeline-show({'key': ctrl.key, 'pipName': appPip.pipeline.name})">
+                            <i class="fa fa-sitemap"></i>
+                            <span data-ng-bind="appPip.pipeline.name"></span>
+                        </a>
+                    </h3>
+                    <parameter-management params="appPip.parameters" runlist="false" run="true"
+                                          suggest="ctrl.suggest" showtype="false"
+                                          showdescription="true" pipelines="ctrl.pipelines"></parameter-management>
+                </div>
+                <div class="pull-right">
+                    <button type="button" progress-button="ctrl.saveParams()" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'application_show_btn_save' | translate }}</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="3"
+            select="ctrl.selectTab('parameter')">
+            <uib-tab-heading>
+                <i class="fa fa-font"></i><span data-translate="application_show_title_tab_variable"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20" ng-if="ctrl.tab.active === 3">
+                <div class="col-md-12">
+                    <div class="pull-right bottom-space-m8">
+                        <select class="form-control" ng-change="ctrl.updateSelectedAudit()" ng-options="item as item.value for item in ctrl.auditSelect track by item.id" ng-model="ctrl.selectedAudit" required></select>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="ctrl.selectedAudit.id === 0">
+                    <parameter-management params="ctrl.application.variables"
+                                          suggest="ctrl.suggest"
+                                          save="ctrl.saveVariables()" showdescription="false" variable="true"></parameter-management>
+                </div>
+                <div class="col-md-12" ng-if="ctrl.selectedAudit.id !== 0">
+                    <p data-translate="common_no_change" ng-if="!ctrl.auditsChanges"></p>
+                    <parameter-management-diff params="ctrl.varsAudited"
+                        original="ctrl.application.variables" description="false" title="false" onechange="ctrl.auditsChanges"></parameter-management-diff>
+                    <button type="button" progress-button="ctrl.restoreAudit()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_restore' | translate }}</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="4"
+            select="ctrl.selectTab('group')">
+            <uib-tab-heading>
+                <i class="fa fa-group"></i><span data-translate="application_show_title_tab_permission"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20" ng-if="ctrl.tab.active === 4">
+                <div class="col-md-12">
+                    <group-management groups="ctrl.groups" save="ctrl.saveGroups()"></group-management>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="7"
+            select="ctrl.selectTab('notification')" ng-show="ctrl.canEditApplication">
+            <uib-tab-heading>
+                <i class="fa fa-envelope"></i><span data-translate="application_show_title_tab_notification"></span>
+            </uib-tab-heading>
+            <notification-management key="{{ctrl.project.key}}" application="ctrl.application" edit="{{ctrl.edit}}" suggest="ctrl.suggest"></notification-management>
+        </uib-tab>
+        <uib-tab
+            index="5"
+            select="ctrl.selectTab('advanced')" ng-show="ctrl.canEditApplication">
+            <uib-tab-heading>
+                <i class="fa fa-graduation-cap"></i><span data-translate="application_show_title_tab_advanced"></span>
+            </uib-tab-heading>
+            <div class="row" ng-if="ctrl.tab.active === 5">
+                <div class="col-md-6 top-space-lg-m20 bottom-space-lg-m20">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="ctrl.application.name"
+                                   ng-readonly="!ctrl.edit">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" ng-show="ctrl.edit" progress-button="ctrl.rename()" class="button-success pull-right" pb-style="fill" >{{ 'application_show_advanced_btn_rename' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right" ng-show="ctrl.edit">
+                        <delete-button delete="ctrl.deleteApplication()"
+                                       title="{{ 'application_show_delete_title' | translate }}" progress="true"></delete-button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                </div>
+
+                <!-- REPO MANAGER -->
+                <div class="col-md-6 bottom-space-lg-m20">
+                    <div ng-if="ctrl.application.repositories_manager">
+                        <h3>
+                            <i class="fa fa-plug" aria-hidden="true"></i>
+                            <span data-translate="application_show_title_repo_managers_linked"></span>
+                        </h3>
+                    </div>
+                    <div ng-if="ctrl.application.repositories_manager">
+                        <p style="font-size:1.25em;">
+                            <span data-ng-bind="ctrl.application.repositories_manager.name"></span>
+                            <span>&#10145;</span>
+                            <span data-ng-bind="ctrl.application.repository_fullname"></span>
+                            <delete-button class="pull-right" ng-show="ctrl.edit"
+                                           title="{{ 'application_show_advanced_btn_remove_link' | translate }}"
+                                           delete="ctrl.detachRepoFromApplication()" progress="true"></delete-button>
+                        </p>
+                    </div>
+                    <div ng-if="!ctrl.application.repositories_manager">
+                        <h3>
+                            <i class="fa fa-plug" aria-hidden="true"></i>
+                            <span data-translate="application_show_title_repo_managers_not_linked"></span>
+                        </h3>
+                        <div ng-if="ctrl.noRepoManager">
+                            <p>
+                                <a ng-href="{{ctrl.getProjectAdvancedURL()}}">
+                                    <span data-translate="application_show_msg_no_repo_managers"></span>
+                                </a>
+                            </p>
+                        </div>
+                        <div ng-if="!ctrl.noRepoManager">
+                            <div class="form-group">
+                                <ui-select ng-model="ctrl.selected.repoManager" id="repoManagerName"
+                                           ng-disabled="!ctrl.edit" on-select="ctrl.loadRepoFromRepoManager()">
+                                    <ui-select-match>{{$select.selected.name}}({{$select.selected.url}})
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="r in ctrl.projectRepoManagers | filter:$select.search">
+                                        <div ng-bind-html="r.name | highlight: $select.search"></div>
+                                        <small data-ng-bind="r.url"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="form-group">
+                                <ui-select ng-model="ctrl.selected.repoFullName" id="repoFullName"
+                                           ng-disabled="!ctrl.edit" ng-if="!ctrl.loadingRepos">
+                                    <ui-select-match placeholder="{{ 'application_show_advanced_placeholder_repo' | translate }}">{{$select.selected.fullname}}</ui-select-match>
+                                    <ui-select-choices
+                                        repeat="r.fullname as r in ctrl.listReposTemp | filter:$select.search"
+                                        refresh="ctrl.refreshListRepo($select)" refresh-delay="500">
+                                        <div ng-bind-html="r.name | highlight: $select.search"></div>
+                                        <small data-ng-bind="r.url"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <p ng-if="ctrl.loadingRepos">
+                                    <i class="fa fa-spin fa-spinner" aria-hidden="true"></i>
+                                    <span data-translate="application_show_msg_loading_repo"></span>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <button ng-disabled="!ctrl.selected.repoFullName || ctrl.selected.repoFullName===''" type="button" progress-button="ctrl.addApplicationRepo()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'application_show_advanced_btn_link' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HOOK MANAGEMENT -->
+                <div class="col-md-12 hook" ng-if="ctrl.application.repositories_manager.hooks_supported">
+                    <h3>
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span data-translate="application_show_title_hook"></span>
+                    </h3>
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                           ng-show="ctrl.hooks.length > 0">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1 col-lg-1 col-sm-2 col-xs-2" data-translate="application_show_hook_column_pipeline"></th>
+                            <th class="col-md-3 col-lg-3" data-translate="application_show_hook_column_repo"></th>
+                            <th class="col-md-5" data-translate="application_show_hook_column_url"></th>
+                            <th class="col-md-1" data-translate="application_show_hook_column_active"></th>
+                            <th class="col-md-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="h in ctrl.hooks track by h.id">
+                            <td data-ng-bind="h.pipeline.name"></td>
+                            <td><span data-ng-bind="h.host"></span>/<span data-ng-bind="h.project"></span>/<span
+                                data-ng-bind="h.repository"></span></td>
+                            <td data-ng-bind="h.link"></td>
+                            <td class="link">
+                                <i class="fa fa-link" aria-hidden="true" ng-show="h.enabled"
+                                   uib-tooltip="{{ 'application_show_hook_tooltip_active' | translate }}"
+                                   data-ng-click="ctrl.updateHook(h)"></i>
+                                <i class="fa fa-chain-broken" aria-hidden="true" ng-show="!h.enabled"
+                                   uib-tooltip="{{ 'application_show_hook_tooltip_non_active' | translate }}"
+                                   data-ng-click="ctrl.updateHook(h)"></i>
+                            </td>
+                            <td>
+                                <delete-button delete="ctrl.deleteHook(h, $index)"
+                                               title="{{ 'application_show_hook_btn_delete' | translate}}"
+                                               ng-show="ctrl.edit" progress="true"></delete-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p ng-show="ctrl.hooks.length === 0" data-translate="application_show_no_hooks"></p>
+
+                    <form name="hookForm" data-ng-submit="ctrl.submitAddHook(hookForm)" novalidate ng-show="ctrl.edit">
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12">
+                                <ui-select id="hookType" name="hookType" ng-model="ctrl.selected.hookType" required>
+                                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices
+                                        repeat="h in ctrl.hookType | filter: { name : $select.search } ">
+                                        <div ng-bind-html="h.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12">
+                                <ui-select id="pipeline" name="pipeline" ng-model="ctrl.selected.hook.pipeline"
+                                           required>
+                                    <ui-select-match placeholder="{{ 'application_show_advanced_placeholder_pipeline' | translate }}">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices
+                                        repeat="p in ctrl.pipelines | filter: { name : $select.search } ">
+                                        <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <div ng-messages="hookForm.pipeline.$error" class="has-error"
+                                     ng-show="ctrl.submitted">
+                                    <div ng-message="required">
+                                        <p class="help-block"
+                                           data-translate="application_show_hook_err_required"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12"
+                                 ng-if="ctrl.selected.hookType.value === ctrl.hookExternal">
+                                <input type="text" class="form-control" id="prevalue" name="prevalue"
+                                       ng-model="ctrl.selected.hook.prevalue"
+                                       placeholder="{{ ctrl.hookPlaceholder }}"
+                                       ng-pattern="ctrl.patternHookPrevalue"
+                                       required>
+                                <div ng-messages="hookForm.prevalue.$error" class="has-error"
+                                     ng-show="ctrl.submitted">
+                                    <div ng-message="required">
+                                        <p class="help-block"
+                                           data-translate="application_show_hook_err_required"></p>
+                                    </div>
+                                    <div ng-message="pattern">
+                                        <p class="help-block"
+                                           data-translate="application_show_hook_err_pattern"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12">
+                                <button type="button" progress-button="ctrl.submitAddHook(hookForm)"
+                                        class="button-success pull-right" pb-random-progress="true" pb-style="fill" >
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                    <span data-translate="application_show_hook_btn_create"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- POLLER MANAGEMENT -->
+                <div class="col-md-12 top-space-m8 poller" ng-if="ctrl.application.repositories_manager.polling_supported">
+                    <h3>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span data-translate="application_show_title_polling"></span>
+                    </h3>
+                    <div ng-if="ctrl.application.repositories_manager.name">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               ng-show="ctrl.pollers.length > 0">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-4" data-translate="application_show_poller_column_pipeline"></th>
+                                <th class="col-xs-4" data-translate="application_show_poller_column_active"></th>
+                                <th class="col-xs-4"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="p in ctrl.pollers track by $index">
+                                <td data-ng-bind="p.pipeline.name"></td>
+                                <td class="link">
+                                    <i class="fa fa-link" aria-hidden="true" ng-show="p.enabled"
+                                       uib-tooltip="{{ 'application_show_poller_tooltip_active' | translate }}"
+                                       data-ng-click="ctrl.updatePoller(p)"></i>
+                                    <i class="fa fa-chain-broken" aria-hidden="true" ng-show="!p.enabled"
+                                       uib-tooltip="{{ 'application_show_poller_tooltip_non_active' | translate }}"
+                                       data-ng-click="ctrl.updatePoller(p)"></i>
+                                </td>
+                                <td>
+                                    <delete-button delete="ctrl.deletePoller(p, $index)"
+                                                   title="{{ 'application_show_poller_btn_delete' | translate}}"
+                                                   ng-show="ctrl.edit" progress="true"></delete-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p ng-show="ctrl.pollers.length === 0" data-translate="application_show_no_pollers"></p>
+                        <form name="pollerForm" data-ng-submit="ctrl.submitAddPoller(pollerForm)" novalidate ng-show="ctrl.edit">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12">
+                                    <ui-select id="pipelinePoller" name="pipelinePoller" ng-model="ctrl.selected.poller.pipeline"
+                                               required>
+                                        <ui-select-match placeholder="{{ 'application_show_advanced_placeholder_pipeline' | translate }}">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices
+                                                repeat="p in ctrl.pipelines | filter: { name : $select.search } ">
+                                            <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12">
+                                    <button type="button" progress-button="ctrl.submitAddPoller(pollerForm)"
+                                            class="button-success pull-right" pb-random-progress="true" pb-style="fill" >
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <span data-translate="application_show_poller_btn_create"></span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!ctrl.application.repositories_manager.name">
+                        <p data-translate="application_show_poller_forbidden"></p>
+                    </div>
+
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

@@ -1,0 +1,937 @@
+// UX Interne Dark 3.3.5
+// Bootswatch
+// -----------------------------------------------------
+
+
+// Fontface =====================================================================
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-bold-webfont@include svg#source_sans_probold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-boldit-webfont@include svg#source_sans_probold_italic') format('svg');
+    font-weight: 700;
+    font-style: italic;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-it-webfont@include svg#source_sans_proitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-light-webfont@include svg#source_sans_prolight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-lightit-webfont@include svg#source_sans_prolight_italic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-regular-webfont@include svg#source_sans_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semibold-webfont@include svg#source_sans_prosemibold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+$font-face {
+    font-family: 'source_sans_pro';
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont.eot');
+    src: url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont.woff2') format('woff2'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont.woff') format('woff'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont.ttf') format('truetype'),
+         url('#{$font-path}/SourceSansPro/sourcesanspro-semiboldit-webfont@include svg#source_sans_proSBdIt') format('svg');
+    font-weight: 600;
+    font-style: italic;
+}
+
+
+// Global =====================================================================
+
+body{
+  background-color: $main-background;
+  color: $text-color;
+  font-family: $font-family;
+  font-size: $font-size-base;
+}
+
+// Navbar =====================================================================
+
+.navbar {
+  border: none;
+  background-color: $light-background;
+  border-radius: none;
+
+  &-collapse {
+    border-top-color: $dropdown-divider-bg;
+  }
+
+  .btn {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border: none;
+    background-color: $brand-primary;
+    color: $text-color;
+
+    &-default{
+      &:hover, &:active, &:focus{
+        background-color: darken($brand-primary, 12%);
+      }
+    }
+  }
+
+  li{
+    > a{
+      padding-left: $padding-base-horizontal;
+      padding-right: $padding-base-horizontal;
+    }
+
+    &.active a{
+      font-weight: 700;
+    }
+  }
+
+  &-form {
+    margin-top: 7px;
+    margin-bottom: 5px;
+
+    .form-control {
+      height: auto;
+    }
+  }
+
+  .dropdown {
+    &-menu {
+      border: none;
+
+      > li > a, > li > a:focus {
+        background-color: transparent;
+        &:hover, &:focus, &:active{
+          background-color:$dropdown-link-hover-bg;
+        }
+      }
+    }
+
+    &-header {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &-default {
+    .navbar-brand{
+      color: $navbar-default-brand-color;
+      font-size: $font-size-h4;
+
+      &:hover, &:focus{
+        color: $navbar-default-brand-hover-color;
+        background-color: $navbar-default-brand-hover-bg;
+      }
+    }
+  }
+
+  &-inverse {
+    background-color: $navbar-inverse-bg;
+    color: $navbar-inverse-color;
+
+    .navbar-brand{
+      color: $navbar-inverse-brand-color;
+      font-size: $font-size-h4;
+
+      &:hover, &:focus{
+        color: $navbar-inverse-brand-hover-color;
+        background-color: $navbar-inverse-brand-hover-bg;
+      }
+    }
+  }
+}
+
+// Buttons ====================================================================
+
+.btn {
+  padding: $padding-base-vertical $padding-base-horizontal;
+  color: $text-color;
+  border: none;
+  font-weight: 600;
+
+  &-lg {
+    padding: $padding-large-vertical $padding-large-horizontal;
+    font-size: $font-size-large;
+  }
+
+  &-sm {
+    padding: $padding-small-vertical $padding-small-horizontal;
+  }
+
+  &-xs {
+    padding: $padding-xs-vertical $padding-xs-horizontal;
+    font-size: $font-size-small;
+  }
+
+  &-default{
+    background-color: $gray-light;
+    color: $gray-dark;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($gray-light, 12%);
+	    }
+  }
+  
+  &-primary{
+    background-color: $brand-primary;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($brand-primary, 12%);
+    }
+  }
+  
+  &-success{
+    background-color: $brand-success;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($brand-success, 12%);
+    }
+  }
+  
+  &-info{
+    background-color: $brand-info;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($brand-info, 12%);
+    }
+  }
+  
+  &-warning{
+    background-color: $brand-warning;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($brand-warning, 12%);
+    }
+  }
+  
+  &-danger{
+    background-color: $brand-danger;
+
+    &:hover, &:focus, &:active{
+      background-color: darken($brand-danger, 12%);
+    }
+  }
+
+  &-link{
+    background-color: transparent;
+
+    &:hover, &:focus, &:active{
+      color: $text-color;
+    }
+  }
+
+  &.dropdown-toggle{
+    border-left: solid rgba(0,0,0,.16) 1px;
+  }
+}
+
+.btn-group {
+  .dropdown-menu {
+    background-color: $gray-light;
+    border-radius: 0;
+
+	  >li >a{
+    	color: $gray-dark;
+
+    	&:hover, &:focus, &:active{
+    		color: $gray-dark;
+    		background-color: $dropdown-link-hover-bg;
+    	}
+    }    
+  }
+
+  &.dropup .dropdown-menu {
+    border-bottom-width: 0;
+    margin-bottom: 0;
+  }
+}
+
+// Typography =================================================================
+
+h1, h2, h3{
+  font-weight: 300;
+}
+
+h4, h5, h6{
+  font-weight: normal;
+}
+
+h1{
+  font-size: $font-size-h1;
+}
+
+h2{
+  font-size: $font-size-h2;
+}
+
+h3{
+  font-size: $font-size-h3;
+}
+
+h4{
+  font-size: $font-size-h4;
+}
+
+h5{
+  font-size: $font-size-h5;
+}
+
+h6{
+  font-size: $font-size-h6;
+}
+
+.lead {
+  color: $brand-primary;
+  font-size: $font-size-h4;
+}
+
+a{
+  color: $brand-primary;
+
+  &:hover, &:focus, &:active{
+    color: $brand-primary;
+  }
+}
+
+.text-muted{
+  color: darken($gray, 12%);
+}
+
+.text-primary{
+  color: $brand-primary, 8%;
+}
+
+.text-warning{
+  color: $brand-warning;
+}
+
+.text-danger{
+  color: $brand-danger;
+}
+
+.text-success{
+  color: $brand-success;
+}
+
+.text-info{
+  color: $brand-info;
+}
+
+blockquote{
+  font-size: $font-size-h5;
+  border-left: solid $gray-light 4px;
+
+  small{
+    font-size: ceil(($font-size-base * 0.75));
+    color: $gray;
+  }
+}
+
+// Tables =====================================================================
+
+.table{
+  background-color: $table-bg;
+
+  >thead{
+    >tr{
+      >th{
+        color: $text-color;
+        background-color: $light-background;
+        border-bottom: solid $main-background 1px;
+        padding: $padding-large-vertical $padding-base-horizontal;
+      }
+    }    
+  }
+
+  >tbody{
+    tr{
+      >td{
+        color: $gray-dark;
+        border-top: solid $gray 1px;
+        padding: $padding-large-vertical $padding-base-horizontal;
+      }
+
+      &.active{
+        >td{
+          color: $brand-primary;
+        }
+      }
+
+    }
+  }
+
+}
+
+.table-hover{
+  >tbody{
+    tr{
+      &.active{
+        &:hover{
+          >td{
+            background-color: lighten($brand-primary, 40%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin intern-table($type, $brand-type){
+
+  .table {
+    tbody {
+      tr {
+        &.#{$type} {
+          &, & > td {
+            background-color: lighten($brand-type, 20%);
+          }
+        }
+
+        > td.#{$type} {
+          background-color: lighten($brand-type, 20%);
+        }
+
+      }
+    }
+  }
+
+  .table-hover {
+    tbody {
+      tr {
+        &.#{$type} {
+          &:hover, &:hover > td {
+            background-color: lighten($brand-type, 8%);
+          }
+        }
+
+        > td.#{$type}:hover {
+          background-color: lighten($brand-type, 8%);
+        }
+
+      }
+    }
+  }
+
+}
+
+@include intern-table(info, $brand-info);
+@include intern-table(success, $brand-success);
+@include intern-table(warning, $brand-warning);
+@include intern-table(danger, $brand-danger);
+
+// Forms ======================================================================
+
+.well{
+	background-color: $light-background;
+	border-radius: 0;
+	border: none;
+	box-shadow: none;
+}
+
+label {
+  font-weight: normal;
+  font-size: $font-size-h6;
+}
+
+.form-control{
+  box-shadow: none;
+
+  &:focus{
+    border: solid 1px $brand-primary;
+    box-shadow: inset 3px 0 0 $brand-primary;
+  }
+}
+
+.input-group{
+  .input-group-addon{
+    border: none;
+    font-weight: 700;
+  }
+}
+
+.has-warning {
+  .help-block, .control-label,
+  &.radio label, &.checkbox label, &.radio-inline label, &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-warning;
+  }
+
+  .form-control{
+    border: 1px solid $brand-warning;
+
+    &:focus{
+      border: solid 1px $brand-warning;
+      box-shadow: inset 3px 0 0 $brand-warning;
+    }
+  }
+
+  .input-group-addon {
+    color: $brand-warning;
+  }
+}
+
+.has-error {
+  .help-block, .control-label,
+  &.radio label, &.checkbox label, &.radio-inline label, &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-danger;
+  }
+
+  .form-control{
+    border: 1px solid $brand-danger;
+
+    &:focus{
+      border: solid 1px $brand-danger;
+      box-shadow: inset 3px 0 0 $brand-danger;
+    }
+  }
+
+  .input-group-addon {
+    color: $brand-success;
+  }
+}
+
+.has-success {
+  .help-block, .control-label,
+  &.radio label, &.checkbox label, &.radio-inline label, &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-success;
+  }
+
+  .form-control{
+    border: solid 1px $brand-success;
+
+    &:focus{
+      border: solid 1px $brand-success;
+      box-shadow: inset 3px 0 0 $brand-success;
+    }
+  }
+
+  .input-group-addon {
+    color: $brand-success;
+  }
+}
+
+// Navs =======================================================================
+
+.nav-tabs {
+  > li > a{
+  	padding: $padding-base-horizontal;
+    margin-right: 0;
+    background-color: transparent;
+    border: none;
+    color: $navbar-default-link-color;
+    @include box-shadow(inset 0 -1px 0 $nav-tabs-border-color);
+    @include transition(all 0.2s);
+
+    &:hover, &:focus {
+      background-color: transparent;
+      @include box-shadow(inset 0 -2px 0 $nav-tabs-border-color);
+      color: $text-color;
+    }
+  }
+
+  & > li.active > a{
+  	background-color: $nav-tabs-active-link-hover-bg;
+    border: none;
+    @include box-shadow(inset 0 -2px 0 $nav-tabs-active-link-hover-border-color);
+    color: $nav-tabs-active-link-hover-color;
+    font-weight: 700;
+
+    &:hover, &:focus{
+  	  background-color: $nav-tabs-active-link-hover-bg;
+      border: none;
+      color: $nav-tabs-active-link-hover-border-color;
+    }
+  }
+
+  & > li.disabled > a {
+    @include box-shadow(inset 0 -1px 0 $gray);
+  }
+
+  &.nav-justified {
+    & > li > a, & > li > a:hover, & > li > a:focus,
+    & > .active > a, & > .active > a:hover, & > .active > a:focus {
+      border: none;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+  }
+}
+
+.nav-pills{
+	> li{
+		> a{
+			padding: $padding-base-horizontal;
+			color: $text-color;
+
+			&:hover, &:focus, &:active{
+				background-color: $light-background;
+				text-decoration: $link-hover-decoration;
+
+        .badge{
+          background-color: $text-color;
+          color: $gray-dark;
+        }
+			}
+		}
+
+		&.active a{
+			background-color: $brand-primary;
+			font-weight: 700;
+			color: $nav-pills-active-link-hover-color;
+
+			&:hover, &:focus, &:active{
+				background-color: $nav-pills-active-link-hover-bg;
+				color: $nav-pills-active-link-hover-color;
+			}
+		}
+	}
+}
+
+.pagination{
+	> li{
+    &, &:first-child, &:last-child{
+      >a{
+        border: none;
+        border-radius: $border-radius-base;
+      }
+    }
+
+		&.active{
+			> a{
+				font-weight: 700;
+			}
+		}
+	}
+}
+
+.pager{
+	li{
+		>a{
+			border: none;
+		}
+	}
+}
+
+.dropdown-menu {
+  margin-top: 0;
+  border: none;
+}
+
+// Indicators =================================================================
+
+.alert {
+  border: none;
+  color: $text-color;
+
+  &-success {
+    background-color: darken($alert-success-bg, 8%);
+  }
+
+  &-info {
+    background-color: darken($alert-info-bg, 8%);
+  }
+
+  &-warning {
+    background-color: darken($alert-warning-bg, 12%);
+  }
+
+  &-danger {
+    background-color: darken($alert-danger-bg, 8%);
+  }
+
+  a:not(.close), .alert-link {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .close {
+    color: #fff;
+  }
+}
+
+.label-default{
+	color: $gray-dark;
+}
+
+.badge {
+  padding: 3px 6px 5px;
+}
+
+// Progress bars ==============================================================
+
+.progress {
+  position: relative;
+  z-index: 1;
+  height: 6px;
+  border-radius: 3px;
+
+  &-bar {
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+
+    &:last-child {
+      &:before {
+        display: block;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-color: $light-background;
+      }
+    }
+  }
+}
+
+// Containers =================================================================
+
+.close {
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 24px;
+  opacity: 0.6;
+  @include transition(all 0.2s);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.jumbotron{
+  padding: $jumbotron-padding;
+}
+
+.list-group {
+  &-item {
+    padding: 15px;
+    color: $gray-dark;
+  }
+}
+
+.well {
+  border-radius: 0;
+}
+
+.panel {
+  border: none;
+  color: $gray-dark;
+
+  &-heading {
+    border-bottom: none;
+    color: $text-color;
+  }
+
+  &-footer {
+    border-top: none;
+  }
+
+  &-default{
+    .panel-heading{
+      background-color: $panel-default-heading-bg;
+      color: $text-color;
+    }
+  }
+
+  &-primary, &-danger, &-success, &-warning, &-info{
+    .panel-heading{
+      color: $text-color;
+
+      h1,h2,h3{
+        font-weight: 400;
+      }
+    }
+  }
+
+  .btn-default{
+    background-color: $gray;
+  }
+
+  .pagination{
+    > li{
+      &, &:first-child, &:last-child{
+        >a{
+          color: $gray-dark;
+
+          &:hover, &:focus{
+            background-color: $gray;
+          }
+        }
+      }
+
+      &.disabled{
+        >a{
+          color: $gray;
+
+          &:hover, &:focus, &:active{
+            background-color: $pagination-disabled-bg;
+          }
+        }
+      }
+
+      &.active{
+        >a{
+          color: $pagination-active-color;
+
+          &:hover, &:focus{
+            background-color: $pagination-active-bg;
+          }
+        }
+      }
+    }
+  }
+
+  .pager{
+    li{
+      >a{
+        &:hover, &:focus{
+          background-color: $text-color;
+        }
+      }
+    }
+  }
+
+  .form-horizontal{
+    legend{
+      border-color: $gray;
+    }
+
+    label, {
+      color: $gray-dark;
+    }
+
+    textarea, textarea.form-control,
+    input.form-control, input[type=text], input[type=password], input[type=email], input[type=number],
+    [type=text].form-control,
+    [type=password].form-control,
+    [type=email].form-control,
+    [type=tel].form-control,
+    [contenteditable].form-control{
+      color: $gray-dark;
+      @include box-shadow(inset 0 -1px 0 $gray-dark);
+
+      &:focus {
+        @include box-shadow(inset 0 -2px 0 $gray-dark);
+      }
+    }
+
+    select, select.form-control{
+      color: $gray-dark;
+      @include box-shadow(inset 0 -1px 0 $gray-dark);
+
+      &:focus {
+        @include box-shadow(inset 0 -2px 0 $gray-dark);
+      }
+    }
+
+    .help-block{
+      color: $gray-dark;
+    }
+
+    input[type="radio"],
+    .radio input[type="radio"],
+    .radio-inline input[type="radio"],
+    input[type="checkbox"],
+    .checkbox input[type="checkbox"], 
+    .checkbox-inline input[type="checkbox"]{
+      &:after {
+        border: 2px solid $text-color;
+      }
+    }
+  }
+}
+
+.modal{    
+  .modal-title{
+    color: $brand-primary;
+  }
+  
+  .modal-body{
+    color: $gray-dark;
+  }
+
+  .modal-footer{
+    .btn-default{
+      background-color: $gray;
+    }
+  }
+  
+}
+
+.popover {
+  color: $gray-dark;
+}
+
+.carousel {
+  &-caption {
+    h1, h2, h3, h4, h5, h6 {
+      color: inherit;
+    }
+  }
+}

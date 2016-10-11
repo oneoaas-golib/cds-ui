@@ -1,0 +1,91 @@
+<div id="EnvPermission">
+    <div class="row" ng-if="ctrl.edit">
+        <div class="col-md-3">
+            <ui-select multiple ng-model="ctrl.selected.envs">
+                <ui-select-match placeholder="{{ 'env_management_permission_placeholder_env' | translate }}">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="e.name as e in ctrl.envs| filter: { name : $select.search }">
+                    <div ng-bind-html="e.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-md-3">
+            <ui-select multiple ng-model="ctrl.selected.groups">
+                <ui-select-match placeholder="{{ 'env_management_permission_placeholder_groupe' | translate }}">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="g.name as g in ctrl.existingGroups | filter: { name : $select.search }">
+                    <div ng-bind-html="g.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-md-3">
+            <ui-select ng-model="ctrl.selected.permission">
+                <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="p.value as p in ctrl.permissions | filter: { name : $select.search }">
+                    <div ng-bind-html="p.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-info pull-right validate" type="button" data-translate="env_management_permission_btn_add" data-ng-click="ctrl.addGroups()"></button>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+            <tr>
+                <th class="col-md-1" data-translate="env_management_permission_column_env_name"></th>
+                <th class="col-md-5" data-translate="env_management_permission_column_group_name"></th>
+                <th class="col-md-6" data-translate="env_management_permission_column_permission"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="env in ctrl.envs track by $index">
+                <td>{{env.name}}</td>
+                <td>
+                    <div class="row" ng-repeat="g in env.groups track by $index" data-ng-mouseenter="g.showButton = true" data-ng-mouseleave="g.showButton = false">
+                        <div class="col-md-8">
+                            <div ng-switch="ctrl.edit">
+                                <div ng-switch-when="true">
+                                    <ui-select ng-model="g.group.name">
+                                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="g.name as g in ctrl.existingGroups | filter: { name : $select.search }">
+                                            <div ng-bind-html="g.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div ng-switch-default>
+                                    {{g.group.name}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-danger form-control" data-ng-click="ctrl.removeGroup(env, $index)" ng-if="g.showButton && ctrl.edit">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12" ng-repeat="g in env.groups track by $index" data-ng-mouseenter="g.showButton = true" data-ng-mouseleave="g.showButton = false">
+                            <div ng-switch="ctrl.edit">
+                                <div ng-switch-when="true">
+                                    <ui-select ng-model="g.permission">
+                                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="p.value as p in ctrl.permissions | filter: { name : $select.search }">
+                                            <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div ng-switch-default>
+                                    {{ctrl.getPermissionName(g.permission)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pull-right" ng-if="ctrl.edit">
+        <button type="button" progress-button="ctrl.save()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'group_management_btn_save' | translate }}</button>
+    </div>
+</div>

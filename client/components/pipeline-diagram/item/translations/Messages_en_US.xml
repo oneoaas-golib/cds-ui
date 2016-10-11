@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="pipeline_diagram_item_label_new_trigger">New Trigger</translation>
+    <translation id="pipeline_diagram_item_label_see_run">See build detail</translation>
+    <translation id="pipeline_diagram_item_label_edit_app">Edit application</translation>
+    <translation id="pipeline_diagram_item_label_edit_pipeline">Edit pipeline</translation>
+    <translation id="pipeline_diagram_item_label_run_again">Run this build again</translation>
+    <translation id="pipeline_diagram_item_label_run_customized">Run with parameters</translation>
+    <translation id="pipeline_diagram_item_label_detach">Detach pipeline from application</translation>
+    <translation id="pipeline_diagram_item_label_run_rollback">Rollback current version</translation>
+
+    <translation id="pipeline_diagram_item_msg_pipeline_detached">Pipeline detached from application</translation>
+    <translation id="pipeline_diagram_item_msg_trigger_manual">Edit manual trigger</translation>
+    <translation id="pipeline_diagram_item_msg_trigger_auto">Edit automatic trigger</translation>
+    <translation id="pipeline_diagram_item_msg_stop">Pipeline will stop soon.</translation>
+
+    <translation id="pipeline_diagram_item_title_detach">Detach pipeline: </translation>
+    <translation id="pipeline_diagram_item_explain_detach_triggers">Be careful, it will delete all these triggers: </translation>
+    <translation id="pipeline_diagram_item_explain_detach_trigger">Be careful, it will delete this trigger: </translation>
+    <translation id="pipeline_diagram_item_explain_detach_no_trigger">There is no trigger linked to this pipeline.</translation>
+
+</translations>

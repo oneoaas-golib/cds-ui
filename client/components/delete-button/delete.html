@@ -1,0 +1,18 @@
+<button type="button" class="btn btn-danger" data-ng-click="ctrl.confirm = true" ng-show="!ctrl.confirm">
+    <i class="fa fa-trash"></i><span data-ng-bind="ctrl.title"></span>
+</button>
+
+<div ng-switch="ctrl.small" ng-show="ctrl.confirm">
+    <div ng-switch-when="true">
+        <button type="button" class="btn btn-danger btn-xs" data-ng-click="ctrl.delete();ctrl.confirm = false"><i class="fa fa-check"></i></button>
+        <button type="button" class="btn btn-info btn-xs"  data-ng-click="ctrl.confirm = false"><i class="fa fa-ban"></i></button>
+    </div>
+    <div ng-switch-default>
+        <button type="button" class="btn btn-danger" data-translate="delete_button_btn_delete_confirm" data-ng-click="ctrl.delete()" ng-if="ctrl.progress !== 'true'" ></button>
+        <button type="button" class="button-danger" progress-button="ctrl.delete()" ng-if="ctrl.progress === 'true'" pb-random-progress="true" pb-style="fill">
+            {{ 'delete_button_btn_delete_confirm' | translate }}
+        </button>
+        <button type="button" class="btn btn-info" data-translate="delete_button_btn_delete_cancel" data-ng-click="ctrl.confirm = false"></button>
+    </div>
+</div>
+

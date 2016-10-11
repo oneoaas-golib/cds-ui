@@ -1,0 +1,237 @@
+<div id="BuildRun">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}" appname="{{ctrl.appName}}" pipname="{{ctrl.pipName}}"></breadcrumbs>
+    </nav>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>
+                    <span data-translate="application_pipeline_data_pipeline"></span>
+                    <span data-ng-bind="ctrl.currentBuild.pipeline.name"></span>
+                </h4>
+                <h4 ng-if="ctrl.currentBuild.environment.name !== 'NoEnv'">
+                    <span data-translate="application_pipeline_data_environment"></span>
+                    <span data-ng-bind="ctrl.currentBuild.environment.name"></span>
+                </h4>
+                <h4>
+                    <span data-translate="application_pipeline_data_date_start"></span>
+                    <span>{{ ctrl.currentBuild.start | amDateFormat: 'YYYY-DD-MM HH:mm:ss' }}</span>
+                </h4>
+                <h4 ng-if="ctrl.currentBuild.status === 'Success' || ctrl.currentBuild.status === 'Fail'">
+                    <span data-translate="application_pipeline_data_date_done"></span>
+                    <span>{{ ctrl.currentBuild.done | amDateFormat: 'YYYY-DD-MM HH:mm:ss' }}</span>
+                </h4>
+            </div>
+            <div class="col-md-6">
+                <h4>
+                    <span data-translate="application_pipeline_data_version"></span>
+                    <span data-ng-bind="ctrl.currentBuild.version"></span>
+                </h4>
+                <h4>
+                    <span data-translate="application_pipeline_data_branch"></span>
+                    <span data-ng-bind="ctrl.currentBuild.trigger.vcs_branch"></span>
+                </h4>
+                <h4>
+                    <span data-translate="application_pipeline_data_triggerby"></span>
+                    <span data-ng-bind="ctrl.getTriggerBy()"></span>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <uib-tabset active="ctrl.tab.active">
+        <uib-tab
+            index="0"
+            select="ctrl.selectTab('detail')">
+            <uib-tab-heading>
+                <span data-translate="application_pipeline_tab_detail"></span>
+            </uib-tab-heading>
+                <div class="row">
+                    <div ng-if="!ctrl.simultaneousBuild">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button ng-if="ctrl.currentBuild.status === 'Success' || ctrl.currentBuild.status === 'Fail'"
+                                        type="button"
+                                        progress-button="ctrl.runAgain()" class="button-success" pb-random-progress="true" pb-style="fill" ><i class="fa fa-undo"></i><span data-translate="application_pipeline_label_run_again"></span></button>
+                                <button ng-if="ctrl.currentBuild.status === 'Waiting' || ctrl.currentBuild.status === 'Building'"
+                                        type="button"
+                                        progress-button="ctrl.stop()" class="button-success" pb-random-progress="true" pb-style="fill" ><i class="fa fa-stop-circle-o"></i><span data-translate="application_pipeline_label_stop"></span></button>
+                            </div>
+                        </div>
+                        <div ng-class="{'col-md-8': ctrl.artifacts.length > 0, 'col-md-12' : ctrl.artifacts.length === 0}" class="top-space-lg-m20">
+                            <div class="panel {{ctrl.getStagePanelClass(s)}}"  ng-repeat="s in ctrl.currentBuild.stages track by $index">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <strong><span data-translate="application_pipeline_label_skipped" ng-if="ctrl.getStagePanelClass(s) === 'panel-skipped'"></span></strong>
+                                            <strong><span data-translate="application_pipeline_label_disabled" ng-if="ctrl.getStagePanelClass(s) === 'panel-disabled'"></span></strong>
+                                            <span data-ng-bind="s.name"></span>
+                                            <div ng-if="ctrl.isStageFinished(s)" style="display: inline">
+                                                {{ ' ('}}
+                                                {{ ctrl.getStageTime(s) | duration:'mm\'min\' ss\'s\''}}
+                                                {{ ')' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="b in s.builds track by $index">
+                                            <div class="panel {{ctrl.getPanelClassByStatus(s, b.status)}}">
+                                                <div class="panel-heading">
+                                                    <div ng-switch="b.status">
+                                                        <div  ng-switch-when="Building">
+                                                            <uib-progressbar class="progress-striped active" value="ctrl.currentActionPercent[b.pipeline_action_id]" type="info">
+                                                            <span>
+                                                                {{ b.action_name}}
+                                                                {{ ctrl.currentActionTimeLeft[b.pipeline_action_id] | duration:'mm\'min\' ss\'s\'' }}
+                                                            </span>
+                                                            </uib-progressbar>
+                                                        </div>
+                                                        <div  ng-switch-when="Waiting">
+                                                            <uib-progressbar class="progress-striped active" value="100" type="warning">
+                                                            <span>
+                                                                <strong>{{ 'application_pipeline_label_waiting' | translate }}</strong>
+                                                                {{ b.action_name }}
+                                                            </span>
+                                                            </uib-progressbar>
+                                                        </div>
+                                                        <div ng-switch-when="Success">
+                                                            {{b.action_name}}
+                                                            <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
+                                                        </div>
+                                                        <div ng-switch-when="Fail">
+                                                            {{b.action_name}}
+                                                            <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
+                                                        </div>
+                                                        <div ng-switch-when="Disabled">
+                                                            <strong>{{ 'application_pipeline_label_disabled' | translate }}</strong>
+                                                            {{b.action_name}}
+                                                        </div>
+                                                        <div ng-switch-when="Skipped">
+                                                            {{b.action_name}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div ng-switch="b.status">
+                                                        <div ng-switch-when="Waiting">
+                                                            <span data-translate="application_pipeline_txt_action_require"></span>
+                                                            <span ng-repeat="r in b.requirements track by $index">
+                                                            {{ r.value + ' ('}}
+                                                            <i class="fa fa-desktop" ng-if="r.type === 'hostname'" uib-tooltip="{{r.type}}"></i>
+                                                            <i class="fa fa-wifi" ng-if="r.type === 'network'"  uib-tooltip="{{r.type}}"></i>
+                                                            <i class="fa fa-bold" ng-if="r.type === 'binary'"  uib-tooltip="{{r.type}}"></i>
+                                                             <i class="fa fa-image" ng-if="r.type === 'model'"  uib-tooltip="{{r.type}}"></i>
+                                                            {{ ') /'}}
+                                                        </span>
+                                                        </div>
+                                                        <div ng-switch-default>
+                                                            <a class="pull-left link" data-translate="logs" data-ng-click="ctrl.openLogs(b)"></a>
+                                                            <a class="pull-right link" data-translate="variables" data-ng-click="ctrl.openVariables(b)"></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" ng-if="!s.builds" ng-repeat="a in ctrl.pipeline.stages[$index].actions">
+                                            <div class="panel" ng-class="{ 'panel-disabled' : !s.enabled || !a.enabled, 'panel-default': s.enabled && a.enabled }">
+                                                <div class="panel-heading">
+                                                    <div data-ng-bind="a.name"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- End of stage repeat -->
+                            <div class="children">
+                                <h3 data-translate="application_pipeline_label_child" ng-if="ctrl.buildChildren.length === 1"></h3>
+                                <h3 data-translate="application_pipeline_label_children"  ng-if="ctrl.buildChildren.length > 1"></h3>
+                                <ul class="list-unstyled">
+                                    <li ng-repeat="c in ctrl.buildChildren track by $index">
+                                        <pipeline-status status="c.status"></pipeline-status>
+                                        <a ui-sref="app.application-pipeline-build({ 'key': ctrl.key, 'appName': c.application.name, 'pipName': c.pipeline.name, 'buildId': c.build_number, 'env': c.environment.name})"> {{ c.application.name }}-{{ c.pipeline.name }}-{{ c.environment.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> <!-- End of stage area -->
+                        <div class="col-md-4 top-space-lg-m20" ng-if="ctrl.artifacts.length > 0">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-10" data-translate="application_pipeline_table_column_artifact_name"></th>
+                                    <th class="col-md-2" data-translate="application_pipeline_table_column_download"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="a in ctrl.artifacts track by $index">
+                                    <td>
+                                        <span ng-show="a.size"> {{ a.name + ' ('+ ctrl.humanFileSize(a.size) + ')'}}</span>
+                                        <span ng-show="!a.size"> {{ a.name }}</span>
+                                    </td>
+                                    <td><downloader artifact="a"></downloader></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="ctrl.simultaneousBuild">
+                        <div class="alert alert-info top-space-m20">
+                            <a href="#" ui-sref="app.application-pipeline-build({ 'key': ctrl.key, 'appName': ctrl.appName, 'pipName': ctrl.pipName, 'buildId': ctrl.simultaneousBuild.build_number, 'env':ctrl.simultaneousBuild.environment.name})">A pipeline is already running on this branch: #{{ctrl.simultaneousBuild.build_number}}</a>
+                        </div>
+                    </div>
+                </div>
+        </uib-tab>
+        <uib-tab
+            index="1"
+            ng-if="ctrl.testsResult.total > 0"
+            select="ctrl.selectTab('tests')">
+            <uib-tab-heading>
+                <span ng-if="ctrl.testsResult.ko === 0" data-translate="application_pipeline_tab_tests_ok"></span>
+                <span ng-if="ctrl.testsResult.ko > 0" data-translate="application_pipeline_tab_tests_ko" translate-values="{ nb: ctrl.testsResult.ko }" class="error"></span>
+            </uib-tab-heading>
+            <uib-accordion close-others="true">
+                <uib-accordion-group ng-repeat="tc in ctrl.testsResult.test_suites track by $index" heading="{{tc.name}}" panel-class="{{ctrl.getPanelClass(tc)}}">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="te in tc.tests | orderBy:'error':true track by $index" class="link">
+                                <div ng-click="te.show = !te.show" ng-if="te.error !== '' || te.failure !== ''">
+                                    <i class="fa fa-caret-right" ng-show="!te.show"></i>
+                                    <i class="fa fa-caret-down" ng-show="te.show"></i>
+                                    <span data-ng-bind="te.name" class="error"></span>
+                                </div>
+                                <div ng-if="te.error === '' && te.failure === ''">
+                                    <strong><span class="skip" data-translate="application_pipeline_label_skipped" ng-if="te.skipped !== null"></span></strong>
+                                    <span data-ng-bind="te.name" ng-class="{ 'skip': te.skipped !== null, 'success': te.skipped === null}"></span>
+                                </div>
+                                <div class="well" ng-if="te.show">
+                                    <div ng-bind-html="ctrl.getError(te)"></div>
+                                </div>
+                            </li>
+                        </ul>
+                </uib-accordion-group>
+            </uib-accordion>
+        </uib-tab>
+        <uib-tab
+            index="2"
+            ng-if="ctrl.commits"
+            select="ctrl.selectTab('commits')">
+            <uib-tab-heading>
+                <span data-ng-bind="ctrl.commits.length"></span>
+                <span ng-if="ctrl.commits.length > 1" data-translate="application_pipeline_tab_commits"></span>
+                <span ng-if="ctrl.commits.length < 2" data-translate="application_pipeline_tab_commit"></span>
+            </uib-tab-heading>
+            <application-pipeline-commits commits="ctrl.commits" urlrepo="{{ctrl.urlRepo}}"></application-pipeline-commits>
+        </uib-tab>
+        <uib-tab
+            index="3"
+            ng-if="ctrl.fullHistory.length > 1"
+            select="ctrl.selectTab('history')">
+            <uib-tab-heading>
+                <span data-translate="application_pipeline_tab_history"></span>
+            </uib-tab-heading>
+            <div class="top-space-m12">
+                <pipeline-history builds="ctrl.fullHistory" environment="{{ctrl.currentBuild.environment.name !== 'NoEnv'}}" buildnumber="{{ctrl.currentBuild.build_number}}"></pipeline-history>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

@@ -1,0 +1,7 @@
+<div ng-if="ctrl.warning" clas="PipelineWarning">
+    <warning-action warning="ctrl.warning.jobs" key="{{ctrl.key}}"></warning-action>
+    <div ng-repeat="a in ctrl.warning.parameters track by $index" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span data-ng-bind="a.message"></span>
+    </div>
+</div>

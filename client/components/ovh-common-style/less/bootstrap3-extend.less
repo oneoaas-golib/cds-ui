@@ -1,0 +1,70 @@
+.dropdown-menu {
+
+    // ------ link ------
+
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        opacity: 0.5;
+      }
+    }
+
+    // ------ button ------
+
+    > li > button {
+        border: none;
+        background: transparent;
+
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: @line-height-base;
+        color: @dropdown-link-color;
+        white-space: nowrap;
+        text-align: left;
+        min-width: 100%;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: @dropdown-link-hover-color;
+            background-color: @dropdown-link-hover-bg;
+        }
+    }
+
+    // Active state
+    > .active > button {
+      &,
+      &:hover,
+      &:focus {
+        color: @dropdown-link-active-color;
+        text-decoration: none;
+        outline: 0;
+        background-color: @dropdown-link-active-bg;
+      }
+    }
+
+    // Disabled state
+    //
+    // Gray out text and ensure the hover/focus state remains gray
+
+    > .disabled > button, button:disabled {
+      &,
+      &:hover,
+      &:focus {
+        opacity: 0.5;
+      }
+
+      // Nuke hover/focus effects
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        background-color: transparent;
+        background-image: none; // Remove CSS gradient
+        .reset-filter();
+        cursor: @cursor-disabled;
+      }
+    }
+}

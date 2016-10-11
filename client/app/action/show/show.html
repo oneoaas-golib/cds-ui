@@ -1,0 +1,29 @@
+<div id="ActionShow">
+    <h2>
+        <i class="fa fa-cubes"></i>
+        <a ui-sref="app.action-list()" data-translate="Actions"></a>
+        <i class="fa fa-angle-right"></i>
+        <i class="fa fa-cube"></i>
+        <span data-ng-bind="ctrl.action.name"></span>
+    </h2>
+    <div class="row" ng-show="ctrl.admin && ctrl.edit">
+        <div class="col-md-12">
+            <div ng-switch="ctrl.action.type">
+                <delete-button ng-switch-when="Plugin" class="pull-right" title="{{ 'action_show_btn_delete_plugin' | translate }}" delete="ctrl.deletePlugin()"></delete-button>
+                <delete-button ng-switch-default class="pull-right" title="{{ 'action_show_btn_delete' | translate }}" delete="ctrl.deleteAction()"></delete-button>
+            </div>
+        </div>
+    </div>
+    <action action="ctrl.action" done="ctrl.saveAction(ACTION)" tab="ctrl.tab" updateurl="ctrl.updateUrl(TAB)" audit="ctrl.audit"></action>
+
+    <div ng-if="ctrl.admin">
+        <h3 translate="action_show_title_using"
+             translate-values="{ nb: ctrl.pipelines.length }"></h3>
+        <div class="link" ng-repeat="p in ctrl.pipelines track by $index" data-ng-click="ctrl.goToPipelineAction(p)">
+            <span ng-show="p.project_name">{{ p.project_name + ' - '}}</span>
+            <span ng-show="p.application_name">{{ p.application_name + ' - '}}</span>
+            <span ng-show="p.pipeline_name">{{ p.pipeline_name + ' - '}}</span>
+            <span>{{ p.action_name}}</span>
+        </div>
+    </div>
+</div>

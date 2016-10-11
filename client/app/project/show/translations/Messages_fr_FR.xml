@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="project_show_title_tab_application">Applications</translation>
+    <translation id="project_show_title_tab_pipeline">Pipelines</translation>
+    <translation id="project_show_title_tab_environment">Environnements</translation>
+    <translation id="project_show_title_tab_variable">Variables</translation>
+    <translation id="project_show_title_tab_permission">Permissions</translation>
+    <translation id="project_show_title_tab_advanced">Administration</translation>
+    <translation id="project_show_title_switch_write">Écriture</translation>
+    <translation id="project_show_title_switch_read">Lecture</translation>
+    <translation id="project_show_title_verif_token">Autorisation auprès du gestionnaire de dépôt: </translation>
+    <translation id="project_show_repo_manager">Gestionnaire de dépôt</translation>
+    <translation id="project_show_title_group_management">Gestion des accès au projet</translation>
+    <translation id="project_show_title_env_permission">Gestion des accès aux environnements</translation>
+
+    <translation id="project_show_button_edit">Éditer le projet</translation>
+
+    <translation id="project_show_pipeline_column">Pipelines</translation>
+
+    <translation id="project_show_message_group_saved">Groupes sauvegardés</translation>
+    <translation id="project_show_message_variables_saved">Variables sauvegardées</translation>
+    <translation id="project_show_message_env_saved">Environnements sauvegardés</translation>
+    <translation id="project_show_message_get_code">Cliquez sur le lien ci-dessous afin de récuperer le code de vérification: </translation>
+    <translation id="project_show_message_get_linked">Le gestionnaire de dépôt est désormais lié à votre projet CDS.</translation>
+
+    <translation id="project_show_advanced_btn_rename">Renommer le projet</translation>
+    <translation id="project_show_advanced_btn_repo">Ajouter un gestionnaire de dépôt</translation>
+    <translation id="project_show_advanced_btn_verifcode">Valider</translation>
+
+    <translation id="project_show_delete_title">Supprimer le projet</translation>
+
+    <translation id="project_show_label_no_repo_manager">Aucun gestionnaire de dépôt n'est configuré.</translation>
+
+    <translation id="project_show_column_repo_manager_name">Nom du gestionnaire</translation>
+    <translation id="project_show_column_repo_manager_url">URL du gestionnaire</translation>
+
+    <translation id="project_show_env_filter_placeholder">Filtrer sur un environnement</translation>
+</translations>

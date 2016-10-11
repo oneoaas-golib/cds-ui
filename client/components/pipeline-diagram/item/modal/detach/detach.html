@@ -1,0 +1,39 @@
+<div id="DetachPipelineModal">
+    <div class="modal-header">
+        <h4>
+            <span data-translate="pipeline_diagram_item_title_detach"></span>
+            <span data-ng-bind="ctrl.pipeline.name"></span>
+        </h4>
+    </div>
+    <div class="modal-body pipelineLog">
+        <strong>
+            <p data-translate="pipeline_diagram_item_explain_detach_triggers" ng-if="ctrl.listTrigger.length > 1"></p>
+            <p data-translate="pipeline_diagram_item_explain_detach_trigger" ng-if="ctrl.listTrigger.length === 1"></p>
+            <p data-translate="pipeline_diagram_item_explain_detach_no_trigger" ng-if="ctrl.listTrigger.length === 0"></p>
+        </strong>
+        <ul ng-if="ctrl.listTrigger && ctrl.listTrigger.length > 0">
+            <li ng-repeat="t in ctrl.listTrigger track by $index">
+                <span data-ng-bind="t.trigger.src_project.name"></span>
+                /
+                <span data-ng-bind="t.trigger.src_application.name"></span>
+                /
+                <span data-ng-bind="t.trigger.src_pipeline.name"></span>
+                /
+                <span data-ng-bind="t.trigger.src_environment.name"></span>
+
+                <strong>-></strong>
+                <span data-ng-bind="t.trigger.dest_project.name"></span>
+                /
+                <span data-ng-bind="t.trigger.dest_application.name"></span>
+                /
+                <span data-ng-bind="t.trigger.dest_pipeline.name"></span>
+                /
+                <span data-ng-bind="t.trigger.dest_environment.name"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ctrl.ok()" data-translate="pipeline_diagram_item_label_detach"></button>
+        <button class="btn btn-default" type="button" ng-click="ctrl.cancel()" data-translate="common_btn_cancel"></button>
+    </div>
+</div>

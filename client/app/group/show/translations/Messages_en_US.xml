@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="group_show_title">Groups</translation>
+    <translation id="group_show_label_groupname">Group name</translation>
+    <translation id="group_show_admin_title">Administrators</translation>
+    <translation id="group_show_users_title">Members</translation>
+
+    <translation id="group_show_colmun_username">Username</translation>
+
+    <translation id="group_show_msg_no_members">No members</translation>
+    <translation id="group_show_msg_no_admins">No administrators</translation>
+
+    <translation id="group_show_msg_group_deleted">Group deleted</translation>
+
+    <translation id="group_show_btn_add">Add</translation>
+    <translation id="group_show_btn_save">Save</translation>
+    <translation id="group_show_btn_delete">Remove</translation>
+</translations>

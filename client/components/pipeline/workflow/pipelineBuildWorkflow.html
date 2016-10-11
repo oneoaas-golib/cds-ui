@@ -1,0 +1,63 @@
+<div id="PipelineBuildWorkflow" class="top-space-m20">
+
+    <button type="button" ng-show="ctrl.edit" progress-button="ctrl.addStage()" class="button-success bottom-space-m12" pb-random-progress="true" pb-style="fill" >{{ 'pipeline_build_workflow_add_stage' | translate }}</button>
+
+    <div class="panel panel-default" ng-repeat="s in ctrl.pipeline.stages">
+        <div class="panel-heading">
+            <span data-ng-bind="s.name"></span>
+            <i class="fa fa-gear link" data-ng-click="ctrl.stagePopover.open(s)" uib-popover-template="ctrl.stagePopover.templateUrl" popover-placement="right" popover-trigger="click" popover-is-open="s.popover" ></i>
+            <div class="pull-right">
+                <strong>
+                    <span data-translate="pipeline_build_workflow_label_enable" ng-if="s.enabled"></span>
+                    <span data-translate="pipeline_build_workflow_label_disable" ng-if="!s.enabled"></span>
+                </strong>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <button type="button" ng-if="ctrl.edit"
+                            progress-button="ctrl.addEmptyAction(s)" class="button-success right-space-lg-m12 pull-right" pb-random-progress="true" pb-style="fill" >{{ 'pipeline_build_workflow_label_new_action' | translate }}</button>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ng-repeat="a in s.actions track by $index">
+                    <div class="panel" ng-class=" { 'panel-default': !ctrl.hasWarning(a), 'panel-danger': ctrl.hasWarning(a) }"
+                         data-ng-mouseenter="a.showButton = true" data-ng-mouseleave="a.showButton = false">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <span data-ng-bind="a.name"></span>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="pull-right">
+                                        <switcher class="switcher" ng-model="a.enabled" ng-if="ctrl.edit" ng-change="ctrl.updatePipelineAction(s, a, newValue)">
+                                        </switcher>
+                                        <strong>
+                                            <span data-translate="pipeline_build_workflow_label_enable" ng-if="!ctrl.edit && a.enabled"></span>
+                                            <span data-translate="pipeline_build_workflow_label_disable" ng-if="!ctrl.edit && !a.enabled"></span>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body action">
+                            <div class="pull-left">
+                                <a href="#"
+                                   ui-sref="app.pipeline-action-show({'key': ctrl.key, 'pipName':ctrl.pipeline.name, 'stageId': s.id, 'actionId': a.id, 'tab': 'action' })"
+                                   data-translate="pipeline_build_workflow_label_edit"></a>
+                            </div>
+                            <div class="pull-right">
+                                <delete-button ng-if="a.showButton  && ctrl.edit" delete="ctrl.deleteAction(s, a, $index)" title="{{ 'common_btn_delete' | translate }}" progress="true"></delete-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="well" ng-if="!ctrl.pipeline.stages || ctrl.pipeline.stages.length === 0">
+        <p
+           data-translate="pipeline_build_workflow_label_no_stage"></p>
+    </div>
+
+</div>

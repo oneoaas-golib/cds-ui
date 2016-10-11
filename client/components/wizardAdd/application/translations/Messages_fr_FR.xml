@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_application_add_field_template">Modèle de build</translation>
+    <translation id="wizard_application_add_field_name">Nom de l'application</translation>
+    <translation id="wizard_application_add_field_repo_git">Choisissez un dépôt GIT</translation>
+    <translation id="wizard_application_add_field_tests">J'ai des tests unitaires</translation>
+    <translation id="wizard_application_add_field_pipeline_params">Paramètres du pipeline</translation>
+    <translation id="wizard_application_add_field_template_params">Paramètres du modèle</translation>
+    <translation id="wizard_application_add_field_pipeline">Pipeline existant à utiliser</translation>
+    <translation id="wizard_application_add_field_application">Application à cloner</translation>
+    <translation id="wizard_application_add_field_application_params">Variables de l'application</translation>
+    <translation id="wizard_application_add_field_hook">Créer un hook</translation>
+
+    <translation id="wizard_application_label_clone_application">Cloner une application</translation>
+    <translation id="wizard_application_label_template_application">Utiliser un template CDS</translation>
+    <translation id="wizard_application_label_empty_application">Application vide</translation>
+    <translation id="wizard_application_generated_name">Nom de l'application (auto généré)</translation>
+
+    <translation id="wizard_application_add_error_git_required">L'URL du dépôt GIT est requise.</translation>
+    <translation id="wizard_application_add_error_appname_required">Le nom de l'application est requis.</translation>
+    <translation id="wizard_application_add_error_appname_pattern">Le nom de l'application est incorrecte. Elle doit contenir uniquement: 0-9, a-z, A-Z, .-_</translation>
+    <translation id="wizard_application_add_error_template_required">Un modèle de build est requis.</translation>
+    <translation id="wizard_application_add_error_template_param">Veuillez saisir une valeur pour chaque paramètre du modèle.</translation>
+    <translation id="wizard_application_add_error_pipeline_param">Veuillez saisir une valeur pour chaque paramètre du pipeline.</translation>
+    <translation id="wizard_application_add_error_application_required">Vous devez choisir l'application à cloner.</translation>
+    <translation id="wizard_application_add_error_application_param">Veuillez saisir une valeur pour chaque variable de l'application.</translation>
+
+    <translation id="wizard_application_add_placeholder_git_url">Adresse GIT de votre application</translation>
+    <translation id="wizard_application_add_placeholder_repo">Saisissez le nom de votre dépôt GIT</translation>
+</translations>

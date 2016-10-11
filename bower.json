@@ -1,0 +1,95 @@
+{
+  "name": "cds",
+  "version": "0.0.0",
+  "author": "OVH SAS",
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-animate": "1.4.8",
+    "angular-base64": "2.0.5",
+    "angular-bootstrap": "~1.2.2",
+    "angular-bootstrap-switch": "~0.5.0",
+    "angular-component": "https://github.com/toddmotto/angular-component.git",
+    "angular-duration-format": "1.0.0",
+    "angular-dynamic-locale": "~0.1.27",
+    "angular-filter": "0.5.8",
+    "angular-i18n": "~1.4.7",
+    "angular-mass-autocomplete": "0.2.3",
+    "angular-messages": "~1.4.7",
+    "angular-moment": "~0.10.3",
+    "angular-progress-button-styles": "0.1.0",
+    "angular-resource": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-scroll": "^1.0.0",
+    "angular-scroll-glue": "2.0.6",
+    "angular-switcher": "0.2.6",
+    "angular-touch": "~1.4.7",
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-partial": "~2.8.1",
+    "angular-ui-codemirror": "0.3.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-ui-router-title": "~0.0.4",
+    "angular-ui-select": "~0.13.2",
+    "angular-ui-sortable": "~0.13.4",
+    "angular-ui-validate": "~1.2.2",
+    "angular-wizard": "^0.9.0",
+    "angular-hotkeys": "https://github.com/chieffancypants/angular-hotkeys.git#~1.7.0",
+    "ansi_up": "~1.3.0",
+    "bootstrap": "~3.3.6",
+    "favicon-progress": "^1.1.2",
+    "font-awesome": ">=4.5.0",
+    "hover": "2.0.2",
+    "jquery": "2.1.x",
+    "jquery.scrollTo": "~1.4.14",
+    "jsplumb": "1.7.4",
+    "lodash": "~3.3.0",
+    "messenger": "~1.4.1",
+    "moment": "~2.11.1",
+    "ngclipboard": "1.1.1",
+    "ng-file-upload": "12.2.5",
+    "ng-focus-if": "1.0.7",
+    "ngstorage": "0.3.0",
+    "urijs": "~1.17.0",
+    "validator-js": "~4.5.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.0"
+  },
+  "overrides": {
+    "messenger": {
+      "main": [
+        "build/js/messenger.js",
+        "build/js/messenger-theme-future.js",
+        "build/js/messenger-theme-flat.js",
+        "build/css/messenger.css",
+        "build/css/messenger-theme-future.css",
+        "build/css/messenger-theme-flat.css",
+        "build/css/messenger-theme-block.css"
+      ]
+    },
+    "moment": {
+      "main": "min/moment-with-locales.js"
+    },
+    "codemirror": {
+      "main": [
+        "lib/codemirror.css",
+        "lib/codemirror.js",
+        "mode/shell/shell.js",
+        "addon/mode/simple.js",
+        "mode/dockerfile/dockerfile.js",
+        "mode/javascript/javascript.js",
+        "mode/perl/perl.js",
+        "mode/htmlmixed/htmlmixed.js",
+        "mode/clike/clike.js",
+        "mode/css/css.js"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "~1.4.7",
+    "angular-sanitize": "~1.4.10",
+    "angular-bootstrap": "~1.2.2",
+    "lodash": "~3.3.0",
+    "moment": "~2.11.1",
+    "jquery": "2.1.x"
+  }
+}

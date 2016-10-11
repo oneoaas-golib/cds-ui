@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="env_management_permission_column_env_name">Environnement</translation>
+    <translation id="env_management_permission_column_group_name">Groupe</translation>
+    <translation id="env_management_permission_column_permission">Permission</translation>
+
+    <translation id="env_management_permission_btn_add">Ajouter une permission</translation>
+
+    <translation id="env_management_permission_placeholder_env">Nom des environnements</translation>
+    <translation id="env_management_permission_placeholder_groupe">Nom des groupes à ajouter</translation>
+</translations>

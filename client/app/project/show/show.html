@@ -1,0 +1,167 @@
+<div id="ProjectShow">
+    <nav class="breadcrumbs">
+        <breadcrumbs key="{{ctrl.key}}" projectname="{{ctrl.project.name}}"></breadcrumbs>
+    </nav>
+    <warning-project warning="ctrl.projectWarning" key="{{ctrl.key}}"></warning-project>
+    <uib-tabset active="ctrl.tab.active">
+        <uib-tab
+            index="0"
+            select="ctrl.selectTab('application')">
+            <uib-tab-heading>
+                <i class="fa fa-rocket"></i><span data-translate="project_show_title_tab_application"></span>
+            </uib-tab-heading>
+            <application-list project="ctrl.project"></application-list>
+        </uib-tab>
+        <uib-tab
+            index="1"
+            select="ctrl.selectTab('pipeline')">
+            <uib-tab-heading>
+                <i class="fa fa-sitemap"></i><span data-translate="project_show_title_tab_pipeline"></span>
+            </uib-tab-heading>
+            <pipeline-list project="ctrl.project"></pipeline-list>
+        </uib-tab>
+        <uib-tab
+            index="2"
+            select="ctrl.selectTab('environment')">
+            <uib-tab-heading>
+                <i class="fa fa-tree"></i><span data-translate="project_show_title_tab_environment"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-md-offset-6">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <ui-select class="inline" ng-model="ctrl.selectedEnvAudit" on-select="ctrl.updateListeOfAudit()">
+                                        <ui-select-match placeholder="{{ 'project_show_env_filter_placeholder' | translate }}">
+                                            {{$select.selected.name}}
+                                            <i class="fa fa-ban clearFilter pull-right" data-ng-click="$event.stopPropagation(); ctrl.clearEnvFilter()"></i>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="p in ctrl.environments | filter: { name : $select.search }">
+                                            <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                                <div class="col-xs-11 col-md-6">
+                                    <select class="form-control inline" ng-disabled="!ctrl.selectedEnvAudit" ng-change="ctrl.updateSelectedEnvAudit()" ng-options="item as item.value for item in ctrl.listAuditForEnv track by item.id" ng-model="ctrl.selectedAuditVersion" required></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="!ctrl.selectedAuditVersion.id || ctrl.selectedAuditVersion.id === 0">
+                    <environment-management project="ctrl.project" projectwrite="{{ctrl.canEditProject}}" groups="ctrl.project.groups" envs="ctrl.environments" save="ctrl.saveEnvironments()" delete="ctrl.deleteEnvironment(ENV,INDEX)" variables="ctrl.variables" filter="{{ctrl.envFilter}}"></environment-management>
+                </div>
+                <div class="col-md-12 top-space-m8" ng-if="ctrl.selectedAuditVersion.id && ctrl.selectedAuditVersion.id !== 0">
+                    <p data-translate="common_no_change" ng-if="!ctrl.auditsEnvChanges"></p>
+                    <parameter-management-diff params="ctrl.selectedAuditVersion.variables"
+                                               original="ctrl.envVarsOrigin" description="false" title="false"
+                                               onechange="ctrl.auditsEnvChanges" ></parameter-management-diff>
+                    <button type="button" progress-button="ctrl.restoreEnvAudit()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_restore' | translate }}</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="3"
+            select="ctrl.selectTab('parameter')">
+            <uib-tab-heading>
+                <i class="fa fa-font"></i><span data-translate="project_show_title_tab_variable"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20">
+                <div class="col-md-12">
+                    <div class="pull-right bottom-space-m8">
+                        <select class="form-control" ng-change="ctrl.updateSelectedAudit()" ng-options="item as item.value for item in ctrl.auditSelect track by item.id" ng-model="ctrl.selectedAudit" required></select>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="ctrl.selectedAudit.id === 0">
+                    <parameter-management params="ctrl.project.variables" showdescription="false" save="ctrl.saveVariables()" variable="true" suggest="ctrl.suggest"></parameter-management>
+                </div>
+                <div class="col-md-12" ng-if="ctrl.selectedAudit.id !== 0">
+                    <p data-translate="common_no_change" ng-if="!ctrl.auditsChanges"></p>
+                    <parameter-management-diff params="ctrl.varsAudited"
+                                               original="ctrl.project.variables" description="false" title="false"
+                                               onechange="ctrl.auditsChanges" ></parameter-management-diff>
+                    <button type="button" progress-button="ctrl.restoreAudit()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_restore' | translate }}</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="4"
+            select="ctrl.selectTab('group')">
+            <uib-tab-heading>
+                <i class="fa fa-group"></i><span data-translate="project_show_title_tab_permission"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20">
+                <div class="col-md-12">
+                    <h2 data-translate="project_show_title_group_management"></h2>
+                    <group-management groups="ctrl.groups" save="ctrl.saveGroups()"></group-management>
+                </div>
+                <div class="col-md-12 bottom-space-m20">
+                    <h2 data-translate="project_show_title_env_permission"></h2>
+                    <environment-management-permission envs="ctrl.environments" project="ctrl.project"></environment-management-permission>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+            index="5"
+            select="ctrl.selectTab('advanced')" ng-show="ctrl.canEditProject">
+            <uib-tab-heading>
+                <i class="fa fa-graduation-cap"></i><span data-translate="project_show_title_tab_advanced"></span>
+            </uib-tab-heading>
+            <div class="row">
+                <div class="col-md-6 top-space-lg-m20">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="ctrl.project.name" ng-readonly="!ctrl.edit">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" ng-show="ctrl.edit"progress-button="ctrl.rename()" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'project_show_advanced_btn_rename' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right" ng-show="ctrl.edit">
+                        <delete-button delete="ctrl.deleteProject()" title="{{ 'project_show_delete_title' | translate }}" progress="true"></delete-button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3 data-translate="project_show_repo_manager"></h3>
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                           ng-show="ctrl.projectRepoManagers.length > 0">
+                        <thead>
+                        <tr>
+                            <th data-translate="project_show_column_repo_manager_name"></th>
+                            <th data-translate="project_show_column_repo_manager_url"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="rm in ctrl.projectRepoManagers track by $index">
+                            <td data-ng-bind="rm.name"></td>
+                            <td data-ng-bind="rm.url"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p data-translate="project_show_label_no_repo_manager" ng-show="ctrl.projectRepoManagers.length === 0"></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                            <div class="col-md-8">
+                                    <ui-select ng-model="ctrl.newRepoManager" id="repoName" ng-disabled="!ctrl.edit">
+                                        <ui-select-match>{{$select.selected.name}}({{$select.selected.url}})</ui-select-match>
+                                        <ui-select-choices repeat="r in ctrl.repoManagers | filter:$select.search">
+                                            <div ng-bind-html="r.name | highlight: $select.search"></div>
+                                            <small data-ng-bind="r.url"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" ng-show="ctrl.edit" progress-button="ctrl.addRepoManager()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'project_show_advanced_btn_repo' | translate }}</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

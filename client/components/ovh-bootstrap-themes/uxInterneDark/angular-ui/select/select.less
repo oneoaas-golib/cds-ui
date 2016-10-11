@@ -1,0 +1,56 @@
+.ui-select-bootstrap {
+	.btn-default{
+		background-color: @input-bg;
+		font-weight: 400;
+
+		&:hover, &:focus{
+			background-color: @gray-light;
+		}
+
+		&-focus{
+			box-shadow: none;
+			background-color: @input-bg;
+			border-radius: @border-radius-base;
+		}
+	}
+
+	.ui-select-choices{
+		background-color: @input-bg;
+
+		.ui-select-choices-row{
+			.ui-select-choices-row-inner{
+				&:hover,&:focus{
+					background-color: @gray-light;
+				}
+			}
+
+			&.active{
+				.ui-select-choices-row-inner{
+					background-color: @brand-primary;
+				}
+			}
+		}
+	}
+
+	&.ui-select-multiple{
+		.ui-select-match{
+			.ui-select-match-item{
+				background-color: @brand-primary;
+				color: @text-color;
+
+				.close{
+					float: none;
+					font-size: @font-size-base;
+					color: @text-color;
+					font-weight: 700;
+					text-shadow: none;
+
+					&:hover, &:focus{
+						color: @text-color;
+						text-shadow: none;
+					}
+				}
+			}
+		}
+	}
+}

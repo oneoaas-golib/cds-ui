@@ -1,0 +1,11 @@
+<div ng-if="ctrl.warning" id="CDSWarning">
+    <div ng-repeat="(key, value) in ctrl.warning.applications">
+        <warning-application warning="value" key="{{ctrl.key}}" appname="{{key}}" showaction="false"></warning-application>
+    </div>
+    <div ng-repeat="(key, value) in ctrl.warning.pipelines">
+        <warning-pipeline warning="value" key="{{ctrl.key}}" pipname="{{key}}"></warning-pipeline>
+    </div>
+    <div ng-repeat="(key, value) in ctrl.warning.environments">
+        <warning-environment warning="value" key="{{ctrl.key}}" envname="{{key}}"></warning-environment>
+    </div>
+</div>

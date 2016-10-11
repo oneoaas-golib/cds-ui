@@ -1,0 +1,68 @@
+<div id="GroupManagement">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+        <thead>
+        <tr>
+            <th class="col-md-1">
+                <button type="button" class="btn btn-primary form-control" data-ng-click="ctrl.addGroup()" ng-if="ctrl.edit">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+            </th>
+            <th class="col-md-5" data-translate="group_management_column_name"></th>
+            <th class="col-md-6" data-translate="group_management_column_role"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="g in ctrl.groups track by g.group.name" data-ng-mouseenter="g.showButton = true" data-ng-mouseleave="g.showButton = false">
+                <td>
+                    <button type="button" class="btn btn-danger form-control" data-ng-click="ctrl.removeGroup($index)" ng-if="g.showButton && ctrl.edit">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div ng-switch="ctrl.edit">
+                                <div ng-switch-when="true">
+                                    <ui-select ng-model="g.group.name">
+                                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="g.name as g in ctrl.existingGroups | filter: { name : $select.search }" refresh="ctrl.refreshResults($select)" refresh-delay="0">
+                                            <div ng-bind-html="g.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div ng-switch-default>
+                                    {{g.group.name}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-1" ng-if="g.group.id">
+                            <a ui-sref="app.group-show({ groupName: g.group.name })" target="_blank">
+                                <i class="fa fa-external-link top-space-m8" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div ng-switch="ctrl.edit">
+                        <div ng-switch-when="true">
+                            <ui-select ng-model="g.permission">
+                                <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="p.value as p in ctrl.permissions | filter: { name : $select.search }">
+                                    <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div ng-switch-default>
+                            {{ctrl.getPermissionName(g.permission)}}
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pull-right" ng-if="ctrl.canSave() && ctrl.edit">
+        <button type="button" progress-button="ctrl.save()" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'group_management_btn_save' | translate }}</button>
+    </div>
+</div>
+

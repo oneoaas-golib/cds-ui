@@ -1,0 +1,30 @@
+<h3 ng-bind="ctrl.type"></h3>
+<div class="row">
+    <div class="col-md-4 col-lg-4">
+        <label for="success">{{ 'notif_label_success' | translate }}</label>
+        <ui-select ng-model="ctrl.content.on_success" id="success">
+            <ui-select-match>{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="s in ctrl.states | filter: $select.search">
+                <div ng-bind-html="s | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <label for="fail">{{ 'notif_label_failure' | translate }}</label>
+        <ui-select ng-model="ctrl.content.on_failure" id="fail">
+            <ui-select-match>{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="s in ctrl.states | filter: $select.search">
+                <div ng-bind-html="s | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <label for="start">{{ 'notif_label_start' | translate }}</label>
+        <div>
+            <switcher id="start" ng-model="ctrl.content.on_start" false-label="{{ 'common_no' | translate }}" true-label="{{ 'common_yes' | translate}}" ></switcher>
+        </div>
+    </div>
+</div>
+<notification-item-jabber content="ctrl.content" edit="{{ctrl.edit}}" suggest="ctrl.suggest" ng-if="ctrl.type === 'jabber'"></notification-item-jabber>
+<notification-item-email content="ctrl.content" edit="{{ctrl.edit}}" suggest="ctrl.suggest" ng-if="ctrl.type === 'email'"></notification-item-email>
+<notification-item-tat content="ctrl.content" edit="{{ctrl.edit}}" suggest="ctrl.suggest" ng-if="ctrl.type === 'tat'"> </notification-item-tat>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="user_show_title">Utilisateurs</translation>
+
+    <translation id="user_show_label_username">Utilisateur</translation>
+    <translation id="user_show_label_fullname">Nom complet</translation>
+    <translation id="user_show_label_email">Email</translation>
+    <translation id="user_show_label_admin">Admin : </translation>
+
+    <translation id="user_show_msg_deleted">utilisateur supprimé</translation>
+
+    <translation id="user_show_error_msg_username">Le champs utilisateur est obligatoire.</translation>
+    <translation id="user_show_error_msg_fullname">Le champs nom complet est obligatoire.</translation>
+    <translation id="user_show_error_msg_email">Le champs email est obligatoire.</translation>
+    <translation id="user_show_error_msg_email_invalid">Le champ email n'est pas valide.</translation>
+</translations>

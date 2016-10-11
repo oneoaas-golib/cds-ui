@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="user_show_title">Users</translation>
+
+    <translation id="user_show_label_username">Username</translation>
+    <translation id="user_show_label_fullname">Fullname</translation>
+    <translation id="user_show_label_email">Email</translation>
+    <translation id="user_show_label_admin">Admin : </translation>
+
+    <translation id="user_show_msg_deleted">User deleted</translation>
+
+    <translation id="user_show_error_msg_username">Username field is required.</translation>
+    <translation id="user_show_error_msg_fullname">Fullname field is required.</translation>
+    <translation id="user_show_error_msg_email">Email field is required.</translation>
+    <translation id="user_show_error_msg_email_invalid">Email field is not valid.</translation>
+</translations>

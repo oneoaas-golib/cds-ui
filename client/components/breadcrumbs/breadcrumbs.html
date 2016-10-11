@@ -1,0 +1,47 @@
+<ol id="Breadcrumbs" class="list-unstyled">
+    <li>
+        <i class="glyphicon glyphicon-list-alt right-space-m10"></i>
+        <a href="#" ui-sref="app.project-show({'key': ctrl.key})">
+            <span data-ng-bind="ctrl.projectname"></span>
+        </a>
+    </li>
+    <li ng-if="!!ctrl.appname">
+        <i class="fa fa-angle-right right-space-m10"></i>
+        <i class="fa fa-rocket right-space-m10"></i>
+        <a href="#"
+           ui-sref="app.application-show({'key': ctrl.key, 'appName': ctrl.appname})">
+            <span data-ng-bind="ctrl.appname"></span>
+        </a>
+        <div class="btn-group dropdown" uib-dropdown keyboard-nav ng-if="ctrl.applications">
+            <button type="button" id="simple-btn-keyboard-nav" class="btn btn-transparent" uib-dropdown-toggle>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu uib-dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                <li role="menuitem" ng-repeat="a in ctrl.applications track by $index">
+                    <a href="#" ui-sref="app.application-show({ key: ctrl.key, appName: a.name})" data-ng-bind="a.name"></a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li ng-if="!!ctrl.pipname">
+        <i class="fa fa-angle-right right-space-m10" ></i>
+        <i class="fa fa-sitemap right-space-m10"></i>
+        <a href="#"
+           ui-sref="app.pipeline-show({'key': ctrl.key, 'pipName': ctrl.pipname})">
+            <span data-ng-bind="ctrl.pipname"></span>
+        </a>
+    </li>
+
+    <li ng-if="!!ctrl.actionname">
+        <i class="fa fa-angle-right right-space-m10" ></i>
+        <i class="fa fa-cube"></i>
+        <span data-ng-bind="ctrl.actionname"></span>
+    </li>
+
+    <li ng-if="ctrl.trigger === 'true'">
+        <i class="fa fa-angle-right right-space-m10" ></i>
+        <span>Trigger</span>
+    </li>
+</ol>
+
+<a class="subtitle pull-right" ng-href="{{ctrl.subtitle}}" data-ng-bind="ctrl.subtitle" target="_blank"></a>

@@ -1,0 +1,52 @@
+<div id="VariableModal">
+    <div class="modal-header">
+        <h4 data-translate="application_pipeline_variables_title"></h4>
+    </div>
+    <div class="modal-body showVariables">
+        <div class="row">
+            <div ng-if="ctrl.variables.build.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_build"></h4>
+                <parameter-management params="ctrl.variables.build" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.git.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_git"></h4>
+                <parameter-management params="ctrl.variables.git" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.cds.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_cds"></h4>
+                <parameter-management params="ctrl.variables.cds" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.app.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_app"></h4>
+                <parameter-management params="ctrl.variables.app" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.pipeline.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_pip"></h4>
+                <parameter-management params="ctrl.variables.pipeline" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.project.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_proj"></h4>
+                <parameter-management params="ctrl.variables.project" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.env.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_env"></h4>
+                <parameter-management params="ctrl.variables.env" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+            <div ng-if="ctrl.variables.parent.length > 0" class="col-md-12">
+                <h4 data-translate="application_pipeline_variables_parent"></h4>
+                <parameter-management params="ctrl.variables.parent" showtype="false" ro="true"
+                                      showdescription="false"></parameter-management>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary btn-outline" type="button" ng-click="ctrl.ok()">OK</button>
+    </div>
+</div>

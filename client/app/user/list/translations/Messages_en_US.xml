@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="user_list_title">Users list</translation>
+    <translation id="user_list_column_username">Username</translation>
+    <translation id="user_list_column_fullname">Fullname</translation>
+</translations>

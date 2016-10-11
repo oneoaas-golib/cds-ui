@@ -1,0 +1,47 @@
+<form id="UserShow" name="form" ng-if="ctrl.admin" novalidate>
+    <h2>
+        <i class="fa fa-user"></i>
+        <a href="#" ui-sref="app.user-list()" data-translate="user_show_title"></a>
+        <i class="fa fa-angle-right"></i>
+        <span data-ng-bind="ctrl.user.fullname"></span>
+    </h2>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="username" data-translate="user_show_label_username"></label>
+            <input type="text" class="form-control" id="username" name="username" ng-model="ctrl.user.username" ng-readonly="!ctrl.edit" required>
+            <div ng-messages="form.username.$error" class="has-error" ng-show="ctrl.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="user_show_error_msg_username"></p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="fullname" data-translate="user_show_label_fullname"></label>
+            <input type="text" class="form-control" id="fullname" name="fullname" ng-model="ctrl.user.fullname" ng-readonly="!ctrl.edit" required>
+            <div ng-messages="form.fullname.$error" class="has-error" ng-show="ctrl.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="user_show_error_msg_fullname"></p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email" data-translate="user_show_label_email"></label>
+            <input type="email" class="form-control" id="email" name="email" ng-model="ctrl.user.email" ng-readonly="!ctrl.edit" required>
+            <div ng-messages="form.email.$error" class="has-error" ng-show="ctrl.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="user_show_error_msg_email"></p>
+                </div>
+                <div ng-message="email">
+                    <p class="help-block" data-translate="user_show_error_msg_email_invalid"></p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="admin" data-translate="user_show_label_admin"></label>
+            <input type="checkbox" id="admin" ng-model="ctrl.user.admin" ng-disabled="!ctrl.edit">
+        </div>
+    </div>
+    <delete-button class="pull-left" delete="ctrl.deleteUser()" ng-if="ctrl.edit" progress="true"></delete-button>
+    <button ng-if="ctrl.edit" type="button" progress-button="ctrl.submit(form)" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_save' | translate }}</button>
+</form>
+

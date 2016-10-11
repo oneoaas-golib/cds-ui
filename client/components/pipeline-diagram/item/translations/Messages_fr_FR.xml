@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="pipeline_diagram_item_label_new_trigger">Nouveau Trigger</translation>
+    <translation id="pipeline_diagram_item_label_see_run">Voir le détail</translation>
+    <translation id="pipeline_diagram_item_label_edit_app">Éditer l'application</translation>
+    <translation id="pipeline_diagram_item_label_edit_pipeline">Éditer le pipeline</translation>
+    <translation id="pipeline_diagram_item_label_run_again">Relancer ce build</translation>
+    <translation id="pipeline_diagram_item_label_run_customized">Lancement avec des paramètres</translation>
+    <translation id="pipeline_diagram_item_label_detach">Détacher le pipeline de l'application</translation>
+    <translation id="pipeline_diagram_item_label_run_rollback">Déclencher un rollback de la version</translation>
+
+    <translation id="pipeline_diagram_item_msg_pipeline_detached">Pipeline détaché de l'application</translation>
+    <translation id="pipeline_diagram_item_msg_trigger_manual">Édition du trigger manuel</translation>
+    <translation id="pipeline_diagram_item_msg_trigger_auto">Édition du trigger automatique</translation>
+    <translation id="pipeline_diagram_item_msg_stop">Le pipeline va bientôt s'arrêter.</translation>
+
+    <translation id="pipeline_diagram_item_title_detach">Détachement du pipeline : </translation>
+    <translation id="pipeline_diagram_item_explain_detach_triggers">Attention, le détachement de ce pipeline va supprimer les triggers suivants : </translation>
+    <translation id="pipeline_diagram_item_explain_detach_trigger">Attention, le détachement de ce pipeline va supprimer le trigger suivant : </translation>
+    <translation id="pipeline_diagram_item_explain_detach_no_trigger">Il n'y a aucun trigger lié à ce pipeline.</translation>
+
+</translations>

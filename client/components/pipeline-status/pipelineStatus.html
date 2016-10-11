@@ -1,0 +1,9 @@
+<span ng-switch="ctrl.status" class="PipelineStatus" uib-tooltip="{{ctrl.msg}}" data-ng-click="ctrl.click()">
+    <span ng-switch-when="Success"><span class="fa fa-check-circle fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Fail"><span class="fa fa-times-circle fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Building"><span class="fa fa-spin fa-spinner fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Never Built"><span class="fa fa-ban fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Warning"><span class="fa fa-question-circle fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Waiting"><span class="fa fa-clock-o fa-2x" aria-hidden="true"></span></span>
+    <span ng-switch-when="Disabled"><span class="fa fa-ban fa-2x" aria-hidden="true"></span></span>
+</span>

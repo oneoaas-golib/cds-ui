@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="login_title">Connection to CDS</translation>
+
+    <translation id="login_field_username">User</translation>
+    <translation id="login_field_password">Password</translation>
+
+    <translation id="login_error1">Username is required.</translation>
+</translations>

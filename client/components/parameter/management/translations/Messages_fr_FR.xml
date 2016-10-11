@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="parameter_management_column_name">Nom</translation>
+    <translation id="parameter_management_column_type">Type</translation>
+    <translation id="parameter_management_column_value">Valeur</translation>
+    <translation id="parameter_management_column_description">Description</translation>
+
+    <translation id="parameter_management_btn_save">Sauvegarder</translation>
+    <translation id="parameter_management_btn_add">Ajouter</translation>
+    <translation id="parameter_management_btn_delete">Supprimer</translation>
+
+    <translation id="parameter_management_msg_no_params">Aucun paramètre.</translation>
+</translations>

@@ -1,0 +1,117 @@
+.spinner-spinning-bubbles > svg {
+    vertical-align: middle;
+}
+
+
+@colorCode  : "222", "fff", "5293D4";
+@defaultColor: e(extract(@colorCode, 1));
+@size   	: 16, 32, 48, 64, 128;
+
+div.floatingCirclesG{
+	margin:auto;
+	display: inline-block !important;
+	vertical-align: middle;
+	
+	.loop-size(@loop-array, @i: length(@loop-array)) when (@i > 0) {
+	    @loop-value : e(extract(@loop-array, @i));
+
+	    @width    : `parseInt('@{loop-value}')`;
+	    @width45  : round(@width*45/110);
+	    @width20  : round(@width*20/110);
+	    @width13  : round(@width*13/110);
+	    @width10  : round(@width*10/110);
+	    &.width@{loop-value} {
+	        position:relative;
+			width:~"@{width}px";
+			height:~"@{width}px";
+
+			div.frotateG_01{
+				left:0;
+				top:~"@{width45}px";
+				animation-delay:0.24s;
+			}
+
+			div.frotateG_02{
+				left:~"@{width13}px";
+				top:~"@{width13}px";
+				animation-delay:0.32s;
+			}
+
+			div.frotateG_03{
+				left:~"@{width45}px";
+				top:0;
+				animation-delay:0.4s;
+			}
+
+			div.frotateG_04{
+				right:~"@{width13}px";
+				top:~"@{width13}px";
+				animation-delay:0.48s;
+			}
+
+			div.frotateG_05{
+				right:0;
+				top:~"@{width45}px";
+				animation-delay:0.56s;
+			}
+
+			div.frotateG_06{
+				right:~"@{width13}px";
+				bottom:~"@{width13}px";
+				animation-delay:0.64s;
+			}
+
+			div.frotateG_07{
+				left:~"@{width45}px";
+				bottom:0;
+				animation-delay:0.72s;
+			}
+
+			div.frotateG_08{
+				left:~"@{width13}px";
+				bottom:~"@{width13}px";
+				animation-delay:0.8s;
+			}
+
+			.f_circleG{
+				position:absolute;
+				background-color:#FFF0;
+				height:~"@{width20}px";
+				width:~"@{width20}px";
+				border-radius:~"@{width10}px";
+              animation-name:e("f_fade_@{defaultColor}");
+				animation-duration:0.64s;
+				animation-iteration-count:infinite;
+				animation-direction:normal;
+
+				.declare-new-color(@colorCode);
+			}
+	    }
+
+	    .loop-size(@loop-array, @i - 1);
+	}
+	.loop-size(@size);
+
+}
+		
+.declare-new-color(@loop-color-array, @ii: length(@loop-color-array)) when (@ii > 0){
+  	@loop-color : e(extract(@loop-color-array, @ii));
+    &.color_@{loop-color}{ animation-name:e("f_fade_@{loop-color}"); }
+	.declare-new-color(@loop-color-array, @ii - 1);
+}
+
+.define-color-anim-fn(@colorName, @colorCode){ 
+  .mixi-frames () {
+    0% {background-color: e("@{colorCode}");}
+	  100% {background-color: #FFF0;}
+	}
+  @keyframes e(@colorName) {.mixi-frames;}
+}
+
+.declare-new-fade(@loop-array, @i: length(@loop-array)) when (@i > 0){
+  	@loop-value : e(extract(@loop-array, @i));
+  .define-color-anim-fn(e("f_fade_@{loop-value}"), e("#@{loop-value}")) ;
+  .declare-new-fade(@loop-array, @i - 1);
+}
+.declare-new-fade( @colorCode);
+

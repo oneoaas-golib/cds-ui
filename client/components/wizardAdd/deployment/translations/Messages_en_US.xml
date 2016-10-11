@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_deployment_add_field_has_deployment">I want to deploy my application</translation>
+    <translation id="wizard_deployment_add_field_has_no_deployment">No deployment</translation>
+    <translation id="wizard_deployment_add_field_template">Deployment template</translation>
+
+    <translation id="wizard_deployment_add_error_template_required">Deployment template is required.</translation>
+</translations>

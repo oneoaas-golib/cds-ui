@@ -1,0 +1,53 @@
+<div class="StagePopOver">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <delete-button class="pull-right" ng-if="ctrl.edit" delete="ctrl.deleteStage(s, $index)" title="{{ 'common_btn_delete' | translate }}" progress="true"></delete-button>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input class="form-control" type="text" ng-model="s.name" ng-if="ctrl.edit">
+            <span data-ng-bind="s.name" ng-if="!ctrl.edit"></span>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <switcher class="switcher" ng-model="s.enabled" ng-if="ctrl.edit"></switcher>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h4 data-translate="pipeline_build_workflow_label_prerequisite"></h4>
+            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th class="col-md-2 col-sm-2 col-xs-2">
+                            <button class="btn btn-primary" type="button" data-ng-click="ctrl.addPrerequisite(s)" data-translate="pipeline_build_workflow_btn_add"></button>
+                        </th>
+                        <th class="col-md-5 col-sm-5 col-xs-5" data-translate="pipeline_build_workflow_column_param_name"></th>
+                        <th class="col-md-5 col-sm-5 col-xs-5" data-translate="pipeline_build_workflow_column_param_value"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in s.prerequisites track by $index">
+                        <td>
+                            <button class="btn btn-danger" data-ng-click="ctrl.deletePrerequisite(s, $index)" data-translate="common_btn_delete"></button>
+                        </td>
+                        <td>
+                            <ui-select ng-model="p.parameter">
+                                <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices
+                                    repeat="e.name as e in ctrl.prerequisites | filter: { name : $select.search }">
+                                    <div ng-bind-html="e.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="p.expected_value">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" data-translate="common_btn_cancel" data-ng-click="ctrl.stagePopover.close(s);"></button>
+                <button type="button" progress-button="ctrl.updateStage(s)" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_save' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="application_pipeline_column_author">Author</translation>
+    <translation id="application_pipeline_column_commit">Commit ID</translation>
+    <translation id="application_pipeline_column_msg">Message</translation>
+    <translation id="application_pipeline_column_date">Date</translation>
+</translations>

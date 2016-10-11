@@ -1,0 +1,6 @@
+<delete-button class="pull-right" delete="ctrl.deleteNotification(n, key)" title="{{ 'common_btn_delete' | translate }}" progress="true"></delete-button>
+<notification-item type="key" content="value" edit="{{ctrl.edit}}" suggest="ctrl.suggest" states="ctrl.states" class="top-space-m8"></notification-item>
+<div class="pull-right top-space-m8 bottom-space-m8">
+    <button type="button" class="btn btn-default" data-translate="common_btn_cancel" data-ng-click="ctrl.notifPopover.close(value);"></button>
+    <button type="button" progress-button="ctrl.updateNotification(n, key, value)" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_save' | translate }}</button>
+</div>

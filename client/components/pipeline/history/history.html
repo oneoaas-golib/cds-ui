@@ -1,0 +1,49 @@
+<div id="PipelineHistory">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" ng-if="ctrl.builds.length > 0">
+        <thead>
+        <tr>
+            <th class="col-xs-1" data-translate="pipeline_history_column_version"></th>
+            <th class="col-xs-2" data-translate="pipeline_history_column_branch"></th>
+            <th class="col-xs-1" data-translate="pipeline_history_column_pipeline"></th>
+            <th class="col-xs-1" data-translate="pipeline_history_column_environment" ng-if="ctrl.environment !== 'false'"></th>
+            <th class="col-xs-2" data-translate="pipeline_history_column_date"></th>
+            <th class="col-xs-2" data-translate="pipeline_history_column_last"></th>
+            <th class="col-xs-1" data-translate="pipeline_history_column_triggered_by"></th>
+            <th class="col-xs-1" data-translate="pipeline_history_column_status"></th>
+            <th class="col-xs-1" data-translate="pipeline_history_column_delete"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="b in ctrl.builds track by $index" ng-class="{ 'selected': b.build_number == ctrl.buildnumber }">
+            <td data-ng-bind="b.version" data-ng-click="ctrl.goToPipelineBuild(b)"></td>
+            <td data-ng-bind="b.trigger.vcs_branch" data-ng-click="ctrl.goToPipelineBuild(b)">r</td>
+            <td data-ng-bind="b.pipeline.name" data-ng-click="ctrl.goToPipelineBuild(b)"></td>
+            <td data-ng-click="ctrl.goToPipelineBuild(b)" ng-if="ctrl.environment !== 'false'">
+                <span ng-if="b.environment.name !== 'NoEnv'" data-ng-bind="b.environment.name"></span>
+            </td>
+            <td data-ng-click="ctrl.goToPipelineBuild(b)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>{{b.start | amDateFormat:'YYYY-Do-MM HH:mm:ss'}}</span>
+                    </div>
+                    <div class="col-md-12">
+                        <span data-translate="pipeline_history_text_to"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <span>{{b.done | amDateFormat:'YYYY-Do-MM HH:mm:ss'}}</span>
+                    </div>
+                </div>
+            </td>
+            <td data-ng-bind="ctrl.getBuildLast(b)" data-ng-click="ctrl.goToPipelineBuild(b)"></td>
+            <td data-ng-bind="ctrl.getTriggeredBy(b)" data-ng-click="ctrl.goToPipelineBuild(b)"></td>
+            <td>
+                <a ui-sref="app.application-pipeline-build({ 'key': ctrl.key, 'appName': ctrl.appName, 'pipName': b.pipeline.name, 'buildId': b.build_number, 'env': b.environment.name})">
+                    <pipeline-status status="b.status"></pipeline-status>
+                </a>
+            </td>
+            <td><delete-button delete="ctrl.deleteBuild(b, $index)" small="true"></delete-button></td>
+        </tr>
+        </tbody>
+    </table>
+    <span ng-if="ctrl.builds.length === 0" data-translate="pipeline_history_msg_aucun"></span>
+</div>

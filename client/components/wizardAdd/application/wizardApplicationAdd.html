@@ -1,0 +1,268 @@
+<form id="WizardApplicationAdd" name="form" data-ng-submit="wz.submit(form)" novalidate du-scroll-container>
+    <h3> 1. <span data-translate="wizard_application_add_field_repo_git"></span></h3>
+    <div class="radio radiogroup" ng-repeat="t in wz.typeRepo track by $index" ng-class="{ 'selected': wz.selected.repositories_manager === t }">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" ng-value="t" ng-model="wz.selected.repositories_manager" data-ng-change="wz.loadRepoFromRepoManager()">
+            <span>
+                <i class="fa fa-github" aria-hidden="true" ng-if="t.type === 'GITHUB'"></i>
+                <i class="fa fa-bitbucket" aria-hidden="true" ng-if="t.type === 'BITBUCKET' || t.type === 'STASH'"></i>
+                <i class="fa fa-git-square" aria-hidden="true" ng-if="t.type === 'GIT'"></i>
+                {{ t.name }}
+            </span>
+        </label>
+    </div>
+
+    <div ng-switch="wz.selected.repositories_manager.id">
+        <div ng-switch-when="0">
+            <input type="text" id="repoGit" name="repoGit" class="form-control top-space-m8" placeholder="{{ 'wizard_application_add_placeholder_git_url' | translate }}"
+                   data-ng-model="wz.application.repoGit" data-ng-change="wz.getApplicationName()" required >
+            <div ng-messages="form.repoGit.$error" class="has-error" ng-show="wz.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="wizard_application_add_error_git_required"></p>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-default>
+            <div class="form-group has-feedback search">
+                <input type="text" class="form-control" data-ng-model="self.selected.repoFromManager" placeholder="{{ 'navbar_search_placeholder' | translate }}"
+                       typeahead-min-length="3" typeahead-loading="wz.loadingRepos" uib-typeahead="repo as repo.fullname for repo in wz.listRepos | filter: {fullname: $viewValue}" typeahead-on-select="wz.setRepoValue($item, $model)"/>
+
+                <i class="fa fa-search form-control-feedback"></i>
+            </div>
+        </div>
+        <label for="applicationName" data-translate="wizard_application_generated_name"></label>
+        <input id="applicationName" name="applicationName" type="text" class="form-control" data-ng-model="wz.application.name" required/>
+        <div ng-messages="form.applicationName.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_appname_required"></p>
+            </div>
+            <div ng-message="pattern">
+                <p class="help-block" data-translate="wizard_application_add_error_appname_pattern"></p>
+            </div>
+        </div>
+    </div>
+
+    <h3> 2. <span data-translate="Templating" class="top-space-p20"></span></h3>
+    <div class="radio radiogroup" ng-class="{ 'selected': wz.pipelineCreation === 'empty' }">
+        <label>
+            <input type="radio" value="empty" ng-model="wz.pipelineCreation">
+            <span data-translate="wizard_application_label_empty_application"></span>
+        </label>
+    </div>
+    <div class="radio radiogroup" ng-class="{ 'selected': wz.pipelineCreation === 'clone' }" ng-if="wz.applications.length > 0">
+        <label>
+            <input type="radio" value="clone" ng-model="wz.pipelineCreation">
+            <span data-translate="wizard_application_label_clone_application"></span>
+        </label>
+    </div>
+    <div class="radio radiogroup" ng-class="{ 'selected': wz.pipelineCreation === 'template' }">
+        <label>
+            <input type="radio" value="template" ng-model="wz.pipelineCreation">
+            <span data-translate="wizard_application_label_template_application"></span>
+        </label>
+    </div>
+
+    <div ng-switch="wz.pipelineCreation">
+        <div ng-switch-when="template">
+            <ui-select ng-model="wz.application.buildTemplate" id="template" name="template" required on-select="wz.goToParameters()">
+                <ui-select-match  placeholder="{{ 'wizard_application_add_field_template' | translate }}">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="t in wz.templates | propsFilter: {name: $select.search}">
+                    <div>
+                        <b> <div ng-bind-html="t.name | highlight: $select.search"></div></b>
+                    </div>
+                    <small>
+                        {{t.description}}
+                    </small>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.template.$error" class="has-error" ng-show="wz.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="wizard_application_add_error_template_required"></p>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="clone">
+            <ui-select ng-model="wz.application.cloneApplication" id="clone" name="clone" required on-select="wz.loadApplicationVariables($item)">
+                <ui-select-match placeholder="{{ 'wizard_application_add_field_application' | translate }}">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="a in wz.applications | propsFilter: {name: $select.search}">
+                    <div ng-bind-html="a.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.clone.$error" class="has-error" ng-show="wz.submitted">
+                <div ng-message="required">
+                    <p class="help-block" data-translate="wizard_application_add_error_application_required"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 id="WizardParameter" class="top-space-p20">
+        <div ng-show="(wz.application.buildTemplate.params.length > 0 && wz.pipelineCreation === 'template') || (wz.application.variables  && wz.pipelineCreation === 'clone')">
+        3.
+        <span ng-if="wz.application.buildTemplate.params && wz.pipelineCreation === 'template'" data-translate="wizard_application_add_field_template_params" class="top-space-p20"></span>
+        <span ng-if="wz.application.variables  && wz.pipelineCreation === 'clone'" data-translate="wizard_application_add_field_application_params" class="top-space-p20"></span>
+        </div>
+    </h3>
+    <div  class="parameter">
+        <div class="form-group" ng-if="wz.application.buildTemplate.params.length > 0 && wz.pipelineCreation === 'template'">
+            <parameter-management params="wz.application.buildTemplate.params" showname="false" showtype="false"
+                                  editbutton="false" run="true"></parameter-management>
+            <div class="has-error" ng-show="wz.notFilled(wz.application.buildTemplate.params) && wz.submitted">
+                <p class="help-block" data-translate="wizard_application_add_error_template_param"></p>
+            </div>
+        </div>
+        <div class="form-group" ng-if="wz.application.variables  && wz.pipelineCreation === 'clone'">
+            <parameter-management params="wz.application.variables" showname="true" showtype="false" showdescription="true"
+                                  editbutton="false" run="true"></parameter-management>
+            <div class="has-error" ng-show="wz.notFilled(wz.application.variables) && wz.submitted">
+                <p class="help-block" data-translate="wizard_application_add_error_application_param"></p>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary pull-right">{{wz.buttontitle}}</button>
+</form>
+
+<!--
+<form id="WizardApplicationAdd" class="top-space-m20" name="form" data-ng-submit="wz.submit(form)" novalidate>
+    <div class="form-group">
+        <label for="repoGit" data-translate="wizard_application_add_field_repo_git"></label>
+        <ui-select ng-model="wz.application.repositories_manager" required on-select="wz.loadRepoFromRepoManager()">
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="t in wz.typeRepo">
+                <div ng-bind-html="t.name | highlight: $select.search"></div>
+                <small data-ng-bind="t.url"></small>
+            </ui-select-choices>
+        </ui-select>
+        <input type="text" id="repoGit" name="repoGit" class="form-control top-space-m8" placeholder="{{ 'wizard_application_add_placeholder_git_url' | translate }}"
+               data-ng-model="wz.application.repoGit" data-ng-change="wz.getApplicationName()" required ng-if="wz.application.repositories_manager.id === 0">
+
+        <ui-select ng-model="wz.application.repoFromManager" id="repoFullName" ng-if="wz.application.repositories_manager.id !== 0" class="top-space-m8" on-select="wz.setRepoValue()">
+            <ui-select-match placeholder="{{ 'wizard_application_add_placeholder_repo' | translate }}">{{$select.selected.fullname}}</ui-select-match>
+            <ui-select-choices
+                    repeat="r in wz.listReposTemp | filter:$select.search"
+                    refresh="wz.refreshListRepo($select)" refresh-delay="500">
+                <div ng-bind-html="r.name | highlight: $select.search"></div>
+                <small data-ng-bind="r.ssh_url"></small>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.repoGit.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_git_required"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="applicationName" data-translate="wizard_application_add_field_name"></label>
+        <input type="text" id="applicationName" name="applicationName" class="form-control" ng-pattern="wz.namePattern"
+               data-ng-model="wz.application.name" required>
+        <div ng-messages="form.applicationName.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_appname_required"></p>
+            </div>
+            <div ng-message="pattern">
+                <p class="help-block" data-translate="wizard_application_add_error_appname_pattern"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="radio" ng-if="wz.pipelines">
+            <label>
+                <input type="radio" ng-model="wz.pipelineCreation" value="existing" ng-checked="false">
+                Existing pipelines
+            </label>
+        </div>
+        <div class="radio" ng-if="wz.applications.length > 0">
+            <label>
+                <input type="radio" ng-model="wz.pipelineCreation" value="clone" ng-checked="false">
+                {{ 'wizard_application_label_clone_application' | translate }}
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="wz.pipelineCreation" value="template" ng-checked="true">
+                Template
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="wz.pipelineCreation === 'template'">
+        <label for="template" data-translate="wizard_application_add_field_template"></label>
+        <ui-select ng-model="wz.application.buildTemplate" id="template" name="template" required>
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="t in wz.templates | propsFilter: {name: $select.search}">
+                <div ng-bind-html="t.name | highlight: $select.search"></div>
+                <small>
+                    {{t.description}}
+                </small>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.template.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_template_required"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="wz.application.buildTemplate.params && wz.pipelineCreation === 'template'">
+        <label data-translate="wizard_application_add_field_template_params"></label>
+        <parameter-management params="wz.application.buildTemplate.params" showname="false" showtype="false"
+                              editbutton="false" run="true"></parameter-management>
+        <div class="has-error" ng-show="wz.notFilled(wz.application.buildTemplate.params) && wz.submitted">
+            <p class="help-block" data-translate="wizard_application_add_error_template_param"></p>
+        </div>
+    </div>
+    <div class="form-group" ng-if="wz.application.repositories_manager.id !== 0 && wz.pipelineCreation === 'template'">
+        <input type="checkbox" class="input-form" ng-model="wz.application.buildTemplate.hook" id="hook">
+        <label for="hook" data-translate="wizard_application_add_field_hook"></label>
+    </div>
+
+
+    <div class="form-group" ng-if="wz.pipelineCreation === 'clone'">
+        <label data-translate="wizard_application_add_field_application"></label>
+        <ui-select ng-model="wz.application.cloneApplication" id="clone" name="clone" required on-select="wz.loadApplicationVariables($item)">
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="a in wz.applications | propsFilter: {name: $select.search}">
+                <div ng-bind-html="a.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.clone.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_application_required"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="wz.application.variables  && wz.pipelineCreation === 'clone'">
+        <label data-translate="wizard_application_add_field_application_params"></label>
+        <parameter-management params="wz.application.variables" showname="true" showtype="false" showdescription="true"
+                              editbutton="false" run="true"></parameter-management>
+        <div class="has-error" ng-show="wz.notFilled(wz.application.variables) && wz.submitted">
+            <p class="help-block" data-translate="wizard_application_add_error_application_param"></p>
+        </div>
+    </div>
+
+
+    <div class="form-group" ng-if="wz.pipelineCreation === 'existing'">
+        <label for="template" data-translate="wizard_application_add_field_pipeline"></label>
+        <ui-select ng-model="wz.application.buildPipeline" id="pipeline" name="pipeline" required>
+            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="p in wz.pipelines | propsFilter: {name: $select.search}">
+                <div ng-bind-html="p.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <div ng-messages="form.template.$error" class="has-error" ng-show="wz.submitted">
+            <div ng-message="required">
+                <p class="help-block" data-translate="wizard_application_add_error_template_required"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="wz.application.buildPipeline.parameters  && wz.pipelineCreation === 'existing'">
+        <label data-translate="wizard_application_add_field_pipeline_params"></label>
+        <parameter-management params="wz.application.buildPipeline.parameters" showname="true" showtype="false" showdescription="false"
+                              editbutton="false" run="true"></parameter-management>
+        <div class="has-error" ng-show="wz.notFilled(wz.application.buildPipeline.parameters) && wz.submitted">
+            <p class="help-block" data-translate="wizard_application_add_error_pipeline_param"></p>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary pull-right">{{wz.buttontitle}}</button>
+</form>
+-->

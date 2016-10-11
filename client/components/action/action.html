@@ -1,0 +1,239 @@
+<div id="Action">
+    <uib-tabset active="ctrl.activeTab" class="bottom-space-m20">
+        <uib-tab
+                index="0"
+                select="ctrl.selectTab('action')">
+            <uib-tab-heading>
+                <i class="fa fa-cube right-space-m4"></i><span data-translate="action_component_tab_action"></span>
+            </uib-tab-heading>
+            <form class="top-space-m20" name="form" novalidate>
+                <div class="alert alert-info" role="alert" ng-if="ctrl.action.type === 'Plugin' && ctrl.edit">
+                    <p data-translate="action_info_plugin"></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 top-space-lg-m20">
+                        <div class="form-group">
+                            <label for="name" data-translate="action_form_label_name"></label>
+                            <input id="name" name="name" type="text" ng-model="ctrl.action.name" class="form-control"
+                                   ng-readonly="!ctrl.edit || ctrl.action.type === 'Plugin'" required>
+                            <div ng-messages="form.name.$error" class="has-error" ng-show="ctrl.submitted">
+                                <div ng-message="required">
+                                    <p class="help-block" data-translate="action_err_name_required"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" data-translate="action_form_label_description"></label>
+                            <textarea id="description" type="text" ng-model="ctrl.action.description"
+                                      class="form-control" ng-readonly="!ctrl.edit || ctrl.action.type === 'Plugin'"
+                                      rows="{{ctrl.getHeight(ctrl.action.description)}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <a ng-href="{{ctrl.linkRequirements}}" target="_blank"><i class="fa fa-question-circle-o"
+                                                                                  aria-hidden="true"></i></a>
+                        <label for="capacities" data-translate="action_form_label_capacities"></label>
+                        <capacity-management capacities="ctrl.action.requirements"
+                                             edit="{{ctrl.edit && ctrl.action.type !== 'Plugin'}}" id="capacities"
+                                             warning="ctrl.warning"></capacity-management>
+                    </div>
+                    <!-- action parameters -->
+                    <div class="col-md-12 top-space-lg-m20" ng-if="ctrl.showparams !== 'false'">
+                        <label data-translate="action_form_label_parameters"></label>
+                        <parameter-management params="ctrl.action.parameters"
+                                              ro="{{ctrl.action.type === 'Plugin'}}"></parameter-management>
+                    </div>
+
+                    <!-- action steps -->
+                    <div class="col-md-12 top-space-lg-m20 alert alert-info" ng-if="ctrl.action.type == 'Builtin'"
+                         data-translate="action_info_builtin">
+                    </div>
+
+                    <div class="col-md-12 top-space-lg-m20"
+                         ng-if="ctrl.action.type != 'Builtin' && ctrl.action.type != 'Plugin'">
+                        <label data-translate="action_form_label_steps"></label>
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-1">
+                                    <button ng-if="ctrl.edit && ctrl.action.type !== 'Plugin'"
+                                            class="btn btn-primary form-control" type="button"
+                                            data-ng-click="ctrl.addAction()"><i class="fa fa-plus-circle"></i></button>
+                                </th>
+                                <th class="col-xs-2" data-translate="action_form_step_column_name"></th>
+                                <th class="col-xs-8" data-translate="action_form_step_column_action"></th>
+                                <th class="col-xs-1"></th>
+                            </tr>
+                            </thead>
+                            <tbody ui-sortable="ctrl.sortableOptions" ng-model="ctrl.action.actions">
+                            <tr ng-repeat="a in ctrl.action.actions | filter:{ final: false} track by $index "
+                                data-ng-mouseenter="a.showButton = true" data-ng-mouseleave="a.showButton = false">
+                                <td>
+                                    <delete-button ng-if="a.showButton && ctrl.edit && ctrl.action.type !== 'Plugin'"
+                                                   delete="ctrl.removeStep(a)"
+                                                   title="{{ 'action_form_btn_remove' | translate }}"></delete-button>
+                                </td>
+                                <td>
+                                    <ui-select ng-if="ctrl.edit" ng-model="a.name"
+                                               on-select="ctrl.onSelectAction($item, $index, false)">
+                                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices
+                                                repeat="a.name as a in ctrl.coreActions | filter: { name : $select.search }">
+                                            <div ng-bind-html="a.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span ng-if="!ctrl.edit" data-ng-bind="a.name"></span>
+                                    <div class="description" ng-bind-html="ctrl.getDescription(a.description)"></div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" ng-model="a.final" ng-disabled="!ctrl.edit">
+                                                    <span
+                                                            data-translate="action_form_label_final"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6">
+                                            <switcher class="switcher" ng-model="a.enabled"></switcher>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <parameter-management warning="ctrl.warning" isaction="true" suggest="ctrl.suggest"
+                                                          ng-if="a.parameters && a.parameters.length > 0"
+                                                          params="a.parameters" run="{{ctrl.edit}}" showtype="false"
+                                                          showdescription="false"
+                                                          descriptiontooltip="true"></parameter-management>
+                                </td>
+                                <td ng-class="{myHandle: ctrl.edit}">
+                                    <i class="fa fa-arrows-v fa-2x" ng-if="ctrl.edit"></i>
+                                </td>
+                            </tr>
+                            <tr class="separation"
+                                ng-repeat="a in ctrl.action.actions | filter:{ final: true} track by $index "
+                                data-ng-mouseenter="a.showButton = true" data-ng-mouseleave="a.showButton = false">
+                                <td>
+                                    <button ng-if="a.showButton && ctrl.edit  && ctrl.action.type !== 'Plugin'"
+                                            class="btn btn-danger form-control" type="button"
+                                            data-ng-click="ctrl.removeStep(a)"><i class="fa fa-times-circle"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <ui-select ng-if="ctrl.edit" ng-model="a.name"
+                                               on-select="ctrl.onSelectAction($item, $index, true)">
+                                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices
+                                                repeat="a.name as a in ctrl.coreActions | filter: { name : $select.search }">
+                                            <div ng-bind-html="a.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span ng-if="!ctrl.edit" data-ng-bind="a.name"></span>
+                                    <div class="description" ng-bind-html="ctrl.getDescription(a.description)"></div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="a.final"> <span
+                                                data-translate="action_form_label_final"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <parameter-management suggest="ctrl.suggest"
+                                                          ng-if="a.parameters && a.parameters.length > 0"
+                                                          params="a.parameters" run="{{ctrl.edit}}" showtype="false"
+                                                          showdescription="false"
+                                                          descriptiontooltip="true"></parameter-management>
+                                </td>
+                                <td ng-class="{myHandle: ctrl.edit}">
+                                    <i class="fa fa-arrows-v fa-2x" ng-if="ctrl.edit"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group pull-right" ng-if="ctrl.edit && ctrl.action.type !== 'Plugin'">
+                    <button type="button" progress-button="ctrl.submit(form)" class="button-success"
+                            pb-random-progress="true" pb-style="fill">{{ 'action_form_btn_save' | translate }}
+                    </button>
+                </div>
+            </form>
+        </uib-tab>
+        <uib-tab
+                index="1"
+                select="ctrl.selectTab('audit')"
+                ng-if="ctrl.withaudit !== 'false'">
+            <uib-tab-heading>
+                <i class="fa fa-eye right-space-lg-m4"></i><span data-translate="action_component_tab_audit"></span>
+            </uib-tab-heading>
+
+            <div class="row top-space-m8">
+                <div class="col-xs-12">
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                        <thead>
+                        <tr>
+                            <th data-translate="action_audit_column_date" class="col-md-4"></th>
+                            <th data-translate="action_audit_column_user" class="col-md-4"></th>
+                            <th data-translate="action_audit_column_show" class="col-md-4"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat-start="at in ctrl.audit track by $index">
+                            <td><span am-time-ago="at.versionned"></span></td>
+                            <td ng-bind="at.user.username"></td>
+                            <td><a data-ng-click="at.show = !at.show"><i class="fa fa-eye"></i></a></td>
+                        </tr>
+                        <tr ng-repeat-end ng-show="at.show" class="fadein fadeout">
+                            <td colspan="3">
+                                <div ng-if="at.show">
+                                    <div class="row">
+                                        <!-- name + description -->
+                                        <div class="col-md-6">
+                                            <div class="form-group top-space-lg-m20" ng-if="at.action.name!== ctrl.action.name">
+                                                <label data-translate="action_form_label_name"></label>
+                                                <diff-item value="{{ctrl.action.name}}" type="string" color="added"></diff-item>
+                                                <diff-item value="{{at.action.name}}" type="string" color="removed"></diff-item>
+                                            </div>
+                                            <div class="form-group"
+                                                 ng-if="at.action.description!== ctrl.action.description">
+                                                <label data-translate="action_form_label_description"></label>
+                                                <diff-item value="{{ctrl.action.description}}" type="text" color="added"></diff-item>
+                                                <diff-item value="{{at.action.description}}" type="text" color="removed"></diff-item>
+                                            </div>
+                                        </div>
+                                        <!-- requirements -->
+                                        <div class="col-md-6">
+                                            <capacity-management-diff class="top-space-lg-m20"
+                                                    capacities="at.action.requirements"
+                                                    original="ctrl.action.requirements"
+                                                    onechange="at.capaUpdated"></capacity-management-diff>
+                                        </div>
+                                        <!-- action parameters -->
+                                        <div class="col-md-12 top-space-lg-m20">
+                                            <parameter-management-diff params="at.action.parameters"
+                                                                       original="ctrl.action.parameters"
+                                                                       onechange="at.paramUpdated"></parameter-management-diff>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" ng-if="ctrl.action.type != 'Builtin' && ctrl.action.type != 'Plugin'">
+                                        <action-step-diff class="top-space-lg-m20" onechange="at.stepUpdated" steps="at.action.actions" original="ctrl.action.actions"></action-step-diff>
+                                    </div>
+                                    <div ng-if="!ctrl.hasBeenUpdated(at)">
+                                        <p data-translate="action_audit_no_change"></p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button class="btn btn-primary" type="button"
+                                                data-translate="action_audit_btn_apply"
+                                                data-ng-click="ctrl.openConfirmationAuditModal(at.action)"></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_deployment_add_field_has_deployment">Je souhaite déployer sur un environment</translation>
+    <translation id="wizard_deployment_add_field_has_no_deployment">Pas de déploiement</translation>
+
+    <translation id="wizard_deployment_add_field_template">Modèle de déploiement</translation>
+
+    <translation id="wizard_deployment_add_error_template_required">Le template de déploiement est requis.</translation>
+</translations>

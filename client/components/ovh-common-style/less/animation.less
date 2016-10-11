@@ -1,0 +1,162 @@
+/*----------- opacity 1 to n and n to 1 -----------*/
+
+@animate-opacity-enter-speed : 500ms;
+@animate-opacity-leave-speed : 500ms;
+
+.animate-opacity-fn(@arguments: 0) when (@arguments >= 0) {
+
+  @keyframes ~"animate-opacity@{arguments}-enter" {
+    0% {opacity: @arguments / 10;}
+    100% {opacity: 1;}
+  }
+
+  .opacity@{arguments}-enter {
+    animation: ~"animate-opacity@{arguments}-enter" @animate-opacity-enter-speed;
+    opacity: 1;
+  }
+
+  .animate-opacity@{arguments}-enter {
+    &.ng-enter, &.ng-hide-remove {
+      animation: ~"animate-opacity@{arguments}-enter" @animate-opacity-enter-speed;
+      opacity: 1;
+    }
+  }
+
+  @keyframes ~"animate-opacity@{arguments}-leave" {
+    0% {opacity: 1;}
+    100% {opacity: @arguments / 10;}
+  }
+
+  .opacity@{arguments}-leave {
+    animation: ~"animate-opacity@{arguments}-leave" @animate-opacity-leave-speed;
+    opacity : @arguments / 10;
+  }
+
+  .animate-opacity@{arguments}-leave {
+    &.ng-leave, &.ng-hide-add {
+      animation: ~"animate-opacity@{arguments}-leave" @animate-opacity-leave-speed;
+      opacity : @arguments / 10;
+    }
+  }
+
+  .animate-opacity-fn(@arguments - 1);
+}
+
+.animate-opacity-fn(9);
+
+/*----------- shake-light -----------*/
+
+@keyframes shake-light {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 70% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  40%, 100% {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
+.shake-light {
+  animation-name: shake-light;
+}
+
+@animate-shake-light-enter-speed : 200ms;
+
+.animate-shake-light-enter {
+    &.ng-enter, &.ng-hide-remove {
+      animation: shake-light @animate-shake-light-enter-speed;
+    }
+}
+
+@animate-shake-light-leave-speed : 200ms;
+
+.animate-shake-light-leave {
+    &.ng-leave, &.ng-hide-add {
+      animation: shake-light @animate-shake-light-leave-speed;
+    }
+}
+
+/*----------- inputs -----------*/
+
+@error-animate-shake-speed : 200ms;
+@error-animate-shake-light-speed : 200ms;
+
+input, textarea {
+  &.ng-invalid.ng-dirty {
+
+    &.error-animate-shake-light {
+      animation: shake-light @error-animate-shake-light-speed;
+    }
+
+    &.error-animate-shake {
+      animation: shake @error-animate-shake-speed;
+    }
+  }
+}
+
+
+/* Generate animation css class for angular :
+  bounce: .animate-bounce-enter (ng-enter, ng-hide-remove)
+          .animate-bounce-leave (ng-leave, ng-hide-add)
+ */
+@animatecss: bounce, flash, pulse, rubberBand, shake, swing, tada, wobble, bounceIn, bounceInDown, bounceInLeft, bounceInRight, bounceInUp, bounceOut, bounceOutDown, bounceOutLeft, bounceOutRight, bounceOutUp, fadeIn, fadeInDown, fadeInDownBig, fadeInLeft, fadeInLeftBig, fadeInRight, fadeInRightBig, fadeInUp, fadeInUpBig, fadeOut, fadeOutDown, fadeOutDownBig, fadeOutLeft, fadeOutLeftBig, fadeOutRight, fadeOutRightBig, fadeOutUp, fadeOutUpBig, flip, flipInX, flipInY, flipOutX, flipOutY, lightSpeedIn, lightSpeedOut, rotateIn, rotateInDownLeft, rotateInDownRight, rotateInUpLeft, rotateInUpRight, rotateOut, rotateOutDownLeft, rotateOutDownRight, rotateOutUpLeft, rotateOutUpRight, hinge, rollIn, rollOut, zoomIn, zoomInDown, zoomInLeft, zoomInRight, zoomInUp, zoomOut, zoomOutDown, zoomOutLeft, zoomOutRight, zoomOutUp, slideInUp, slideInDown, slideInLeft, slideInRight, slideOutUp, slideOutDown, slideOutLeft, slideOutRight ;
+@animatecssSpeed : '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms', '500ms';
+
+
+
+
+
+
+.animate-css-fn(@i: length(@animatecss)) when (@i > 0) {
+  @animatecssValue : e(extract(@animatecss, @i));
+  @animatecssSpeedValue : e(extract(@animatecssSpeed, @i));
+
+  .animate-@{animatecssValue}-enter {
+      &.ng-enter, &.ng-hide-remove {
+        animation: @animatecssValue @animatecssSpeedValue;
+      }
+  }
+
+  .animate-@{animatecssValue}-leave {
+      &.ng-leave, &.ng-hide-add {
+        animation: @animatecssValue @animatecssSpeedValue;
+      }
+  }
+
+  .animate-css-fn(@i - 1);
+}
+.animate-css-fn();
+
+
+/*----------- Rotations -----------*/
+
+.rotate {
+    transition : transform 500ms;
+
+    &.rotate180 {
+        transform : rotate(180deg);
+    }
+
+    &.rotate90 {
+        transform : rotate(90deg);
+    }
+
+    &.rotate-90 {
+        transform : rotate(-90deg);
+    }
+}
+
+/*----------- Override animate css -----------*/
+
+.animated-300 {
+  animation-duration  : 300ms;
+  animation-fill-mode : both;
+}
+
+.animated-infinite {
+  animation-iteration-count : infinite;
+}

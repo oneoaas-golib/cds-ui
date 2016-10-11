@@ -1,0 +1,52 @@
+@datepicker-ui-pretty-btn-active-bkcolor : #65afa0;
+@datepicker-ui-pretty-btn-active-color : #ffffff;
+@datepicker-ui-pretty-btn-active-bkhovercolor : #84E0CE;
+@datepicker-ui-pretty-btn-active-hovercolor : #000000;
+
+.datepicker-ui-pretty ~ .dropdown-menu{
+    li:last-child {
+        text-align: center;
+        &>span.pull-left {
+            float:none !important;
+
+            .btn-danger {
+                display: none;
+            }
+        }
+        &>button{
+            display: none;
+        }
+    }
+
+    .btn.btn-default {
+        border: none;
+
+        &.active {
+            box-shadow: none;
+            border-radius: 2px;
+            background-color: @datepicker-ui-pretty-btn-active-bkcolor;
+
+            span {
+                color: @datepicker-ui-pretty-btn-active-color;
+                font-weight: bold;
+            }
+        }
+        &:hover {
+            border-radius: 2px;
+            background-color: @datepicker-ui-pretty-btn-active-bkhovercolor;
+
+            span {
+                color: @datepicker-ui-pretty-btn-active-hovercolor;
+            }
+
+        }
+    }
+
+    table {
+        outline: none;
+
+        thead tr:first-child>th {
+            padding-bottom: 10px;
+        }
+    }
+}

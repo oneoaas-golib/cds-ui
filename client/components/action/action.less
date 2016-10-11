@@ -1,0 +1,48 @@
+#Action {
+  a {
+    color: @font-color;
+  }
+  .fa-question-circle-o {
+    font-size: 1.5em;
+    margin-right: 5px;
+  }
+
+  table > tbody > tr > td {
+    .description {
+      margin-top: 10px;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+      border-radius: 4px;
+      padding: 5px 5px;
+    }
+
+  }
+
+  .fadein,
+  .fadeout {
+    transition:all linear 0.33s;
+  }
+
+  .fadein.ng-hide-remove,
+  .fadeout.ng-hide-add.ng-hide-add-active {
+      opacity: 0;
+  }
+
+  .fadeout.ng-hide-add,
+  .fadein.ng-hide-remove.ng-hide-remove-active {
+      opacity: 1;
+  }
+
+  table > tbody > tr.separation {
+    border-top: 10px double black;
+  }
+
+  table > tbody > tr.separation ~ .separation {
+    border: none;
+  }
+
+  .switcher {
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+}

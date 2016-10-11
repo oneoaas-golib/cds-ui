@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="wizard_add_tab_create_project">Project definition</translation>
+    <translation id="wizard_add_tab_create_application">Application definition</translation>
+    <translation id="wizard_add_tab_create_deployment">Deployment definition</translation>
+    <translation id="wizard_add_tab_create_permission">Permissions definition</translation>
+
+    <translation id="wizard_add_permission_explanation">To create a group, just click on the + button and type his name.</translation>
+
+    <translation id="wizard_add_button_next">Next</translation>
+    <translation id="wizard_add_button_create">Create</translation>
+</translations>

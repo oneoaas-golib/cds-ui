@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="delete_button_btn_delete">Supprimer</translation>
+    <translation id="delete_button_btn_delete_cancel">Annuler</translation>
+    <translation id="delete_button_btn_delete_confirm">Confirmer</translation>
+</translations>

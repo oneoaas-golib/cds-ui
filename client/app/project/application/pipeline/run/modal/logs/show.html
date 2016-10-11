@@ -1,0 +1,14 @@
+<div id="LogModal">
+    <div class="modal-header">
+        <h4>{{ctrl.build.action_name}}</h4>
+    </div>
+    <div class="modal-body pipelineLog">
+        <pre scroll-glue>
+            <div id="buildLogs" data-ng-bind-html="ctrl.trustAsHtml(ctrl.logs)" scroll-glue></div>
+        </pre>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary btn-outline pull-left" type="button" ngclipboard data-clipboard-target="#buildLogs">{{'application_pipeline_label_copy' | translate}}</button>
+        <button class="btn btn-primary btn-outline" type="button" ng-click="ctrl.ok()">OK</button>
+    </div>
+</div>

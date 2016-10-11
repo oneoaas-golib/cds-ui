@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="action_form_label_name">Nom de l'action : </translation>
+    <translation id="action_form_label_description">Description de l'action : </translation>
+    <translation id="action_form_label_parameters">Paramètres de l'action : </translation>
+    <translation id="action_form_label_steps">Étapes de l'action : </translation>
+    <translation id="action_form_label_capacities">Prérequis: </translation>
+    <translation id="action_form_label_final">Étape finale</translation>
+
+    <translation id="action_form_step_column_name">Nom de l'action</translation>
+    <translation id="action_form_step_column_action">Paramètres de l'action</translation>
+    <translation id="action_form_step_btn_add">Ajouter une étape</translation>
+
+    <translation id="action_form_btn_save">Sauvegarder</translation>
+    <translation id="action_form_btn_remove"> Supprimer</translation>
+
+    <translation id="action_err_name_required">Une action doit avoir un nom.</translation>
+    <translation id="action_info_builtin">C'est une action de type 'CDS Builtin', vous ne pouvez pas modifier ou rajouter des étapes.</translation>
+    <translation id="action_info_plugin">C'est une action de type 'CDS Plugin', vous ne pouvez pas la modifier.</translation>
+
+    <translation id="action_component_tab_action">Action</translation>
+    <translation id="action_component_tab_audit">Audit</translation>
+
+    <translation id="action_audit_column_date">Date</translation>
+    <translation id="action_audit_column_user">Utilisateur</translation>
+    <translation id="action_audit_column_show">Voir la différence</translation>
+    <translation id="action_audit_no_change">Aucun changement</translation>
+
+    <translation id="action_audit_btn_apply">Appliquer</translation>
+    <translation id="action_audit_confirm_red">Les champs en rouge seront restaurés.</translation>
+    <translation id="action_audit_confirm_green">Les champs en vert seront supprimés.</translation>
+    <translation id="action_audit_modal_title">Confirmer la restauration de l'action</translation>
+</translations>

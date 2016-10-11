@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="navbar_button_logout">Déconnexion</translation>
+    <translation id="navbar_button_actions">Actions</translation>
+    <translation id="navbar_button_download">Téléchargements</translation>
+    <translation id="navbar_button_users">Utilisateurs</translation>
+    <translation id="navbar_button_groups">Groupes</translation>
+    <translation id="navbar_button_workers">Agents</translation>
+    <translation id="navbar_button_docs">Documentation</translation>
+    <translation id="navbar_button_feedback">Feedback</translation>
+    <translation id="navbar_button_create_project">Créer un projet</translation>
+
+    <translation id="navbar_button_project_default">Selectionner un projet</translation>
+    <translation id="navbar_button_application_dropdown">Applications</translation>
+
+    <translation id="navbar_search_placeholder">Trouver une application...</translation>
+</translations>

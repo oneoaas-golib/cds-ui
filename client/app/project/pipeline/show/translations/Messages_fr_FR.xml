@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="pipeline_show_title_tab_workflow">Workflow</translation>
+    <translation id="pipeline_show_title_tab_parameters">Paramètres</translation>
+    <translation id="pipeline_show_title_tab_permission">Permissions</translation>
+    <translation id="pipeline_show_title_tab_advanced">Administration</translation>
+
+    <translation id="pipeline_show_title_switch_write">Écriture</translation>
+    <translation id="pipeline_show_title_switch_read">Lecture</translation>
+
+    <translation id="pipeline_show_msg_pipeline_deleted">Pipeline supprimé</translation>
+
+    <translation id="pipeline_show_advanced_label_type">Type de pipeline</translation>
+    <translation id="pipeline_show_advanced_label_pipeline_name">Nom du pipeline</translation>
+    <translation id="pipeline_show_advanced_btn_update">Mise à jour du pipeline</translation>
+
+    <translation id="pipeline_show_delete_title">Supprimer le pipeline</translation>
+</translations>

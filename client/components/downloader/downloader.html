@@ -1,0 +1,2 @@
+<a ng-href="{{ctrl.getUrl()}}" ng-if="ctrl.artifact.download_hash !== ''" class="btn btn-primary" download="ctrl.artifact.name"><i class="fa fa-download" aria-hidden="true"></i></a>
+<a ng-if="ctrl.artifact.download_hash === ''" id="artifact_{{ctrl.artifact.id}}" href="" class="btn btn-primary" ng-click="ctrl.download()" ng-disabled="ctrl.disabled"><i class="fa fa-download" aria-hidden="true"></i></a>

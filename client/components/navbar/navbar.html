@@ -1,0 +1,138 @@
+<nav class="navbar navbar-default navbar-static-top bottom-space-m0">
+    <div class="navbar-brand">
+        <div class="pull-left">
+            <img src="assets/images/cds.png" class="brand">
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="navbar-collapse collapse" id="navbar-main" data-uib-collapse="navbar.isCollapsed">
+            <ul class="nav navbar-nav search pull-left">
+                <li>
+                    <div class="btn-group" uib-dropdown keyboard-nav is-open="navbar.focusProject">
+                        <button type="button" id="simple-btn-keyboard-nav" class="btn btn-transparent" uib-dropdown-toggle>
+                            {{ navbar.getProjectName()}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu uib-dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" ng-repeat="p in navbar.projects track by $index">
+                                <a href="#" ui-sref="app.project-show({ key: p.key})" data-ng-bind="p.name"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group" uib-dropdown keyboard-nav is-open="navbar.focusRecent">
+                        <button type="button" class="btn btn-transparent" uib-dropdown-toggle>
+                            {{ navbar.getApplicationName()}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li class="menutitle"><span>RECENTLY VIEWED</span></li>
+                            <li role="menuitem" ng-repeat="a in navbar.applications track by $index">
+                                <a href="#" ui-sref="app.application-show({ key: a.key, appName: a.name })" class="link">{{ a.key + " / " + a.name }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-transparent" uib-dropdown-toggle>
+                            <i class="fa fa-question-circle-o"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li>
+                                <a href="#" data-ng-href="{{:: navbar.feedback }}" target="_blank">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-comments"></i>
+                                        <span class="title" data-translate="navbar_button_feedback"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <!--li>
+                                <a href="#" ui-sref="app.download">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-download"></i>
+                                        <span class="title" data-translate="navbar_button_download"></span>
+                                    </div>
+                                </a>
+                            </li-->
+                            <li>
+                                <a href="#" data-ng-href="{{:: navbar.docs }}" target="_blank">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-book"></i>
+                                        <span class="title" data-translate="navbar_button_docs"></span></div></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a data-ng-click="navbar.logout()">
+                        <div class="toggleClass">
+                            <i class="fa fa-sign-out fa" title="{{ 'navbar_button_logout' | translate }}"></i>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-transparent" uib-dropdown-toggle>
+                            <i class="fa fa-gears"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li>
+                                <a href="#" ui-sref="app.action-list">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-cubes"></i>
+                                        <span class="title" data-translate="navbar_button_actions"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ui-sref="app.user-list">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-user"></i>
+                                        <span class="title" data-translate="navbar_button_users"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ui-sref="app.group-list">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title" data-translate="navbar_button_groups"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ui-sref="app.worker-list">
+                                    <div class="toggleClass">
+                                        <i class="fa fa-wrench"></i>
+                                        <span class="title" data-translate="navbar_button_workers"></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#" ui-sref="app.project-add">
+                        <div class="toggleClass">
+                            <i class="fa fa-plus-circle"></i>
+                            <span class="title" data-translate="navbar_button_create_project"></span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-nav form-group pull-right">
+                <div class="form-group has-feedback search">
+                    <input focus-if="navbar.focusSearch" type="text" class="form-control" data-ng-model="navbar.search" placeholder="{{ 'navbar_search_placeholder' | translate }}"
+                           uib-typeahead="application as application.filteredName for application in navbar.fuzzyApp | filter:navbar.appFilter($viewValue)" typeahead-on-select="navbar.onAppSearch($item, $model, $label)"/>
+                    <i class="fa fa-search form-control-feedback"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+

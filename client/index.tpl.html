@@ -1,0 +1,41 @@
+<!doctype html>
+<html data-ng-app="cdsApp" >
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <base href="/">
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="assets/images/favicon-16x16.png" sizes="16x16" />
+        <title ng-bind="($title || 'CDS')"></title>
+        <meta name="description" content="OVH - CDS">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- build:css(client) app/vendor.css -->
+          <!-- bower:css -->
+          <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css({.tmp,client}) app/app.css -->
+          <link rel="stylesheet" href="app/app.css">
+          <!-- injector:css -->
+          <!-- endinjector -->
+        <!-- endbuild -->
+      </head>
+      <body data-ng-cloak class="ng-cloak">
+        <!-- Add your site or application content here -->
+        <div data-ui-view="" style="height: 100%"></div>
+
+        <!-- build:js({client,node_modules}) app/vendor.js -->
+          <!-- bower:js -->
+          <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:js({.tmp,client}) app/app.js -->
+          <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <!-- endinjector -->
+        <!-- endbuild -->
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="action_list_title">Actions list</translation>
+    <translation id="action_list_add_title">Create action</translation>
+    <translation id="action_list_add_plugin_title">Add a plugin</translation>
+
+    <translation id="action_list_label_add">Action name</translation>
+
+    <translation id="action_list_btn_add">Create action</translation>
+    <translation id="action_list_btn_add_plugin">Add plugin</translation>
+
+    <translation id="action_list_msg_plugin_updated">Plugin updated.</translation>
+
+    <translation id="action_list_err_required">Action name is mandatory.</translation>
+
+    <translation id="action_list_column_name">Name</translation>
+    <translation id="action_list_column_description">Description</translation>
+</translations>
