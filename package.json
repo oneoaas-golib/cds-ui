@@ -94,7 +94,7 @@
     "node-xml-lite": "0.0.4"
   },
   "scripts": {
-    "start": "node server",
+    "start": "http-server dist/client",
     "test": "make test",
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update"
   },

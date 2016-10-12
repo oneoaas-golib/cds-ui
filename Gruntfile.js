@@ -423,6 +423,7 @@ module.exports = function (grunt) {
                         "assets/fonts/**/*",
                         "bower_components/**/*.{ttf,woff,woff2,svg,eot}",
                         "bower_components/angular-i18n/angular-locale_*-*.js",
+                        "components/ovh-common-style/fonts/**/*.*",
                         "index.html",
                         "version.json"
                     ]

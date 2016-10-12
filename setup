@@ -1,0 +1,19 @@
+#!/bin/sh
+
+cd /data
+
+if [ ! -z ${BASE_URL} ]; then
+    echo "replace base url with ${BASE_URL}"
+    sed -i "s#base.*href.*#base href=\"${BASE_URL}\"\>#" index.html
+fi;
+
+if [ ! -z ${VERSION} ]; then
+    echo "replace version with ${VERSION}"
+    sed -i "s#\"VERSION\"#$VERSION#" version.json
+fi;
+
+
+echo "################"
+echo "S.T.A.R.T.I.N.G"
+echo "################"
+cd /data && http-server -p 8080
