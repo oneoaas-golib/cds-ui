@@ -72,7 +72,7 @@ angular.module("cdsApp", [
                     CDSUIVersionRsc.get({ "ts": (new Date()).getTime() }, function (data) {
                         if (data.version !== VERSION) {
                             self.stopCheckVersion();
-                            if (VERSION !== "devMode") {
+                            if (VERSION !== "devMode" && data.version !== "VERSION") {
                                 self.showRefresh = true;
                             }
                         }
