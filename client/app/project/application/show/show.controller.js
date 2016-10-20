@@ -246,10 +246,9 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
             return CDSPollerRsc.create({ "key": $state.params.key, "appName": $state.params.appName, "pipName":  self.selected.poller.pipeline.name },
                 { name: self.application.repositories_manager.name },
                 function (data) {
-                    if (!self.pollers) {
-                        self.pollers = [];
+                    if (data.pollers) {
+                        self.pollers = data.pollers;
                     }
-                    self.pollers.push(data);
                 }, function (err) {
                     Messaging.error(err);
                     return $q.reject(err);
