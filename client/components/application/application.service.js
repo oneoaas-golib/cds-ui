@@ -41,7 +41,7 @@ angular.module("cdsApp")
                 if (applicationCache.get(key + "-" + name)) {
                     deferred.resolve(applicationCache.get(key + "-" + name));
                 } else {
-                    CDSApplicationRsc.get({ "key": key, "appName": name }, function (data) {
+                    CDSApplicationRsc.get({ "key": key, "appName": name, "withNotifs" : true }, function (data) {
                         applicationCache.put(key + "-" + name, data);
                         deferred.resolve(data);
                     }, function (err) {

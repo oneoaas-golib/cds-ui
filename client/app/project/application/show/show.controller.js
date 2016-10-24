@@ -263,7 +263,9 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                 return CDSHookRsc.createWithRepo({ "key": $state.params.key, "appName": $state.params.appName, "repoManName": self.application.repositories_manager.name },
                     { "repository_fullname": self.application.repository_fullname, "pipeline_name": self.selected.hook.pipeline.name },
                     function (data) {
-                        self.hooks.push(angular.copy(data));
+                        if (data.hooks) {
+                            self.hooks = hooks;
+                        }
                         self.selected.hook = {};
                         self.submitted = false;
                     }, function (err) {
