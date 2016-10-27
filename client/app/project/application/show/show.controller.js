@@ -173,6 +173,11 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     };
 
     this.saveApplicationPipelineParameters = function () {
+        self.application.pipelines.forEach(function (pip) {
+            if (pip.parameters) {
+                pip.parameters = ParameterService.format(pip.parameters);
+            }
+        });
         return CDSApplicationPipelinesRsc.update({
             "key": $state.params.key,
             "appName": $state.params.appName
@@ -529,7 +534,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     this.loadProject = function () {
         Project.getProject($state.params.key).then(function (data) {
             self.project = data;
-            $rootScope.$broadcast("select-application", { project: data, application: { name: $state.params.appName } });
         });
     };
 
@@ -684,119 +688,122 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
      * @description Select tab
      */
     this.selectTab = function (tab) {
-        self.loadProject();
-        $rootScope.$broadcast("stop-application-poller");
+        if ($state.params.appName && $state.params.appName !== "") {
+            self.loadProject();
+            $rootScope.$broadcast("select-application", { project: self.project, application: { name: $state.params.appName } });
+            $rootScope.$broadcast("stop-application-poller");
 
-        switch (tab) {
-            case "workflow":
-                self.cdTree = [];
-                self.tab.active = 0;
-                self.loadApplication();
-                break;
-            case "version":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.canWrite();
-                    CDSApplicationPipelineHistoryRsc.deployHistory({
-                        "key": $state.params.key,
-                        "appName": $state.params.appName
-                    }, function (data) {
-                        if (data) {
-                            self.deployHistory = [];
-                            data.forEach(function (pb) {
-                                var currentEnv = _.find(self.deployHistory, { "envName": pb.environment.name });
-                                if (!currentEnv) {
-                                    currentEnv = {
-                                        envName: pb.environment.name,
-                                        pipelineBuild: []
-                                    };
-                                    self.deployHistory.push(currentEnv);
-                                }
-                                currentEnv.pipelineBuild.push(pb);
-                            });
-                        }
-                    }, function (err) {
-                        Messaging.error(err);
+            switch (tab) {
+                case "workflow":
+                    self.cdTree = [];
+                    self.tab.active = 0;
+                    self.loadApplication();
+                    break;
+                case "version":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.canWrite();
+                        CDSApplicationPipelineHistoryRsc.deployHistory({
+                            "key": $state.params.key,
+                            "appName": $state.params.appName
+                        }, function (data) {
+                            if (data) {
+                                self.deployHistory = [];
+                                data.forEach(function (pb) {
+                                    var currentEnv = _.find(self.deployHistory, { "envName": pb.environment.name });
+                                    if (!currentEnv) {
+                                        currentEnv = {
+                                            envName: pb.environment.name,
+                                            pipelineBuild: []
+                                        };
+                                        self.deployHistory.push(currentEnv);
+                                    }
+                                    currentEnv.pipelineBuild.push(pb);
+                                });
+                            }
+                        }, function (err) {
+                            Messaging.error(err);
+                        });
+                        self.loadBranchHistory();
                     });
-                    self.loadBranchHistory();
-                });
-                self.tab.active = 6;
-                break;
-            case "history":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.canWrite();
-                    self.loadApplicationHistory();
-                });
-                self.tab.active = 1;
-                break;
-            case "pipeline":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.canWrite();
-                    if (data.pipelines) {
-                        data.pipelines.forEach(function (d) {
-                            d.parameters = Application.mergeParams(d.parameters, d.pipeline.parameters);
-                            self.pipelines.push(d.pipeline);
-                        });
-                        if (data.pipelines.length > 0) {
-                            self.selected.hook.pipeline = data.pipelines[0].pipeline;
+                    self.tab.active = 6;
+                    break;
+                case "history":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.canWrite();
+                        self.loadApplicationHistory();
+                    });
+                    self.tab.active = 1;
+                    break;
+                case "pipeline":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.canWrite();
+                        if (data.pipelines) {
+                            data.pipelines.forEach(function (d) {
+                                d.parameters = Application.mergeParams(d.parameters, d.pipeline.parameters);
+                                self.pipelines.push(d.pipeline);
+                            });
+                            if (data.pipelines.length > 0) {
+                                self.selected.hook.pipeline = data.pipelines[0].pipeline;
+                            }
                         }
-                    }
-                    self.loadParamSuggest();
-                });
-                self.tab.active = 2;
-                break;
-            case "parameter":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.loadAudit();
-                    self.canWrite();
-                    self.loadParamSuggest();
-                });
-                self.tab.active = 3;
-                break;
-            case "group":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.groups = angular.copy(data.groups);
-                    self.canWrite();
-                });
-                self.tab.active = 4;
-                break;
-            case "notification":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    self.loadParamSuggest();
-                    self.canWrite();
-                });
-                self.tab.active = 7;
-                break;
-            case "advanced":
-                Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
-                    self.application = data;
-                    if (data.pipelines) {
-                        data.pipelines.forEach(function (d) {
-                            d.parameters = Application.mergeParams(d.parameters, d.pipeline.parameters);
-                            self.pipelines.push(d.pipeline);
-                        });
-                        if (data.pipelines.length > 0) {
-                            self.selected.hook.pipeline = data.pipelines[0].pipeline;
+                        self.loadParamSuggest();
+                    });
+                    self.tab.active = 2;
+                    break;
+                case "parameter":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.loadAudit();
+                        self.canWrite();
+                        self.loadParamSuggest();
+                    });
+                    self.tab.active = 3;
+                    break;
+                case "group":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.groups = angular.copy(data.groups);
+                        self.canWrite();
+                    });
+                    self.tab.active = 4;
+                    break;
+                case "notification":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.loadParamSuggest();
+                        self.canWrite();
+                    });
+                    self.tab.active = 7;
+                    break;
+                case "advanced":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        if (data.pipelines) {
+                            data.pipelines.forEach(function (d) {
+                                d.parameters = Application.mergeParams(d.parameters, d.pipeline.parameters);
+                                self.pipelines.push(d.pipeline);
+                            });
+                            if (data.pipelines.length > 0) {
+                                self.selected.hook.pipeline = data.pipelines[0].pipeline;
+                            }
                         }
-                    }
-                    self.canWrite();
-                    self.loadHooks();
-                    self.loadPollers();
-                    self.loadProjectRepoManager();
-                });
-                self.tab.active = 5;
-                break;
+                        self.canWrite();
+                        self.loadHooks();
+                        self.loadPollers();
+                        self.loadProjectRepoManager();
+                    });
+                    self.tab.active = 5;
+                    break;
+            }
+            $state.go("app.application-show", {
+                "key": $state.params.key,
+                "appName": $state.params.appName,
+                "tab": tab
+            }, { notify: false, reload: false });
         }
-        $state.go("app.application-show", {
-            "key": $state.params.key,
-            "appName": $state.params.appName,
-            "tab": tab
-        }, { notify: false, reload: false });
     };
 
     this.refreshJSPlumb = function () {
@@ -1063,42 +1070,46 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     };
 
     this.init = function () {
-        jsPlumbService.jsplumbInit().then(function () {
-            self.loader.jsplumb = false;
-            self.selected.hookType = self.hookType[0];
-            if ($state.params.branch) {
-                self.choosenBranch.display_id = $state.params.branch;
-            }
-            switch ($state.params.tab) {
-                case "workflow":
-                    self.tab.active = 0;
-                    break;
-                case "version":
-                    self.tab.active = 6;
-                    break;
-                case "history":
-                    self.tab.active = 1;
-                    break;
-                case "pipeline":
-                    self.tab.active = 2;
-                    break;
-                case "parameter":
-                    self.tab.active = 3;
-                    break;
-                case "group":
-                    self.tab.active = 4;
-                    break;
-                case "advanced":
-                    self.tab.active = 5;
-                    break;
-                case "notification":
-                    self.tab.active = 7;
-                    break;
-            }
-            self.listBranches();
-        });
-        self.applicationWarning = Warning.getApplicationInProjectWarning(self.key, self.appName);
-        this.initSelectAudit();
+        if (!$state.params.appName || $state.params.appName === "") {
+            $state.go("app.project-show", { "key": $state.params.key });
+        } else {
+            jsPlumbService.jsplumbInit().then(function () {
+                self.loader.jsplumb = false;
+                self.selected.hookType = self.hookType[0];
+                if ($state.params.branch) {
+                    self.choosenBranch.display_id = $state.params.branch;
+                }
+                switch ($state.params.tab) {
+                    case "workflow":
+                        self.tab.active = 0;
+                        break;
+                    case "version":
+                        self.tab.active = 6;
+                        break;
+                    case "history":
+                        self.tab.active = 1;
+                        break;
+                    case "pipeline":
+                        self.tab.active = 2;
+                        break;
+                    case "parameter":
+                        self.tab.active = 3;
+                        break;
+                    case "group":
+                        self.tab.active = 4;
+                        break;
+                    case "advanced":
+                        self.tab.active = 5;
+                        break;
+                    case "notification":
+                        self.tab.active = 7;
+                        break;
+                }
+                self.listBranches();
+            });
+            self.applicationWarning = Warning.getApplicationInProjectWarning(self.key, self.appName);
+            this.initSelectAudit();
+        }
     };
 
     $scope.$on("refresh-warning-data", function () {
