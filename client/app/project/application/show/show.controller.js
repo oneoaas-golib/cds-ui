@@ -534,6 +534,7 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     this.loadProject = function () {
         Project.getProject($state.params.key).then(function (data) {
             self.project = data;
+            $rootScope.$broadcast("select-application", { project: self.project, application: { name: $state.params.appName } });
         });
     };
 
@@ -690,7 +691,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     this.selectTab = function (tab) {
         if ($state.params.appName && $state.params.appName !== "") {
             self.loadProject();
-            $rootScope.$broadcast("select-application", { project: self.project, application: { name: $state.params.appName } });
             $rootScope.$broadcast("stop-application-poller");
 
             switch (tab) {
