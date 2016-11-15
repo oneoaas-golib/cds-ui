@@ -100,7 +100,6 @@ angular.module("cdsApp").controller("ProjectAddCtrl", function ProjectAddCtrl ($
     };
 
     this.submit = function submit (form) {
-        console.log(form);
         self.submitted = true;
 
         if (form.$valid && self.checkGroups()) {
