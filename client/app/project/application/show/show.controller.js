@@ -450,7 +450,10 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
 
     function updateCDTreeItem (item, application) {
         if (item.application.id === application.id) {
-            var pipelineBuildUpdated = _.find(application.pipelines_build, { pipeline : { id: item.pipeline.id }, environment: { id: item.environment.id } });
+            var pipelineBuildUpdated = _.find(application.pipelines_build, {
+                pipeline: {id: item.pipeline.id},
+                environment: {id: item.environment.id}
+            });
             if (pipelineBuildUpdated) {
                 item.pipeline.last_pipeline_build = pipelineBuildUpdated;
             } else {
@@ -462,7 +465,10 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                             // browse project environment
                             self.project.environments.forEach(function (e, i) {
                                 // for each;  1st erase item, 2nd and after add new Item in CDTREE
-                                var lastPB =  _.find(application.pipelines_build, { pipeline : { id: item.pipeline.id }, environment: { id: e.id } });
+                                var lastPB = _.find(application.pipelines_build, {
+                                    pipeline: {id: item.pipeline.id},
+                                    environment: {id: e.id}
+                                });
                                 if (i === 0) {
                                     item.environment = e;
                                     item.pipeline.last_pipeline_build = lastPB;
@@ -478,25 +484,26 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                 }
             }
 
-            // update parent information
-            if (item.parent && item.parent.pipelineID && item.parent.environmentID) {
-                var parentUpdated = _.find(application.pipelines_build, { pipeline : { id: item.parent.pipelineID }, environment: { id: item.parent.environmentID } });
-
-                if (parentUpdated) {
-                    item.parent.buildNumber = parentUpdated.build_number;
-                    item.parent.version = parentUpdated.version;
-                    if (parentUpdated.trigger) {
-                        item.parent.branch = parentUpdated.trigger.vcs_branch;
-                    }
-                }
-            }
-
             // get parameters
             var pipelineUpdated = _.find(application.pipelines, { pipeline : { id: item.pipeline.id } });
             if (pipelineUpdated) {
                 item.pipeline.parameters = Application.mergeParams(pipelineUpdated.parameters, pipelineUpdated.pipeline.parameters);
             }
         }
+        // update parent information
+        if (item.parent && item.parent.pipelineID && item.parent.environmentID && item.parent.applicationID && item.parent.applicationID === application.id) {
+            var parentUpdated = _.find(application.pipelines_build, { pipeline : { id: item.parent.pipelineID }, environment: { id: item.parent.environmentID } });
+            if (parentUpdated) {
+                item.parent.buildNumber = parentUpdated.build_number;
+                item.parent.version = parentUpdated.version;
+                if (parentUpdated.trigger) {
+                    item.parent.branch = parentUpdated.trigger.vcs_branch;
+                }
+            }
+        }
+
+
+
         if (item.subPipelines) {
             item.subPipelines.forEach(function (s) {
                 updateCDTreeItem(s, application);
