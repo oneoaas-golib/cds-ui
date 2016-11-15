@@ -8,7 +8,7 @@
  * @description Add a new application
  *
  */
-angular.module("cdsApp").controller("ApplicationAddCtrl", function ApplicationShowCtrl ($translate, $q, Project, $rootScope, $state, Messaging, CDSRepoManagerRsc, CDSTemplateProjectRsc, CDSApplicationCloneRsc, ParameterService, Modal) {
+angular.module("cdsApp").controller("ApplicationAddCtrl", function ApplicationShowCtrl ($translate, $q, Project, $rootScope, $state, Messaging, CDSRepoManagerRsc, CDSApplicationRsc, CDSApplicationCloneRsc, ParameterService, Modal) {
     var self = this;
     this.key = $state.params.key;
     this.newApp = {};
@@ -32,10 +32,22 @@ angular.module("cdsApp").controller("ApplicationAddCtrl", function ApplicationSh
         }
 
         if (self.newApp.type === "template") {
-            if (self.newApp.buildTemplate && self.newApp.buildTemplate.params) {
-                self.newApp.buildTemplate.params = ParameterService.format(self.newApp.buildTemplate.params);
+            var optsTemplate = {
+                name : self.newApp.name,
+                application_variables : {},
+                template : self.newApp.buildTemplate.name,
+                template_params : {}
             }
-            return CDSTemplateProjectRsc.save({ "key": self.key }, self.newApp, function () {
+
+            if (self.newApp.buildTemplate.params) {
+                optsTemplate.template_params = ParameterService.format(self.newApp.buildTemplate.params);
+            }
+
+            for (var i = 0; i < self.newApp.variables.length; i++) {
+                optsTemplate.application_variables[self.newApp.variables[i].name] = self.newApp.variables[i].value;
+            }
+
+            return CDSApplicationRsc.applyTemplate({ "key": self.key }, optsTemplate, function () {
                 $rootScope.$broadcast("refreshSideBarEvent");
                 Project.invalidProject(self.key);
                 Project.getProject(self.key);

@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+        <translation id="wizard_add_tab_create_project">Définition du projet</translation>
+        <translation id="wizard_add_tab_create_permission">Définition des permissions</translation>
+
+        <translation id="wizard_add_button_create">Créer</translation>
 </translations>

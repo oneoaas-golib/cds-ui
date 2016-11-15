@@ -30,6 +30,11 @@ angular.module("cdsApp").service("CDSApplicationRsc", function ($resource, Polle
         restoreAudit: {
             url: "/cdsapi/project/:key/application/:appName/variable/audit/:auditId",
             method: "PUT"
+        },
+        applyTemplate: {
+            url: "/cdsapi/project/:key/template",
+            method: "POST",
+            isArray: true,
         }
     });
 
