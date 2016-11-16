@@ -36,12 +36,12 @@ angular.module("cdsApp").controller("ApplicationAddCtrl", function ApplicationSh
                 name : self.newApp.name,
                 application_variables : {},
                 template : self.newApp.buildTemplate.name,
-                template_params : {}
+                template_params : []
             }
 
             if (self.newApp.buildTemplate.params) {
                 optsTemplate.template_params = ParameterService.format(self.newApp.buildTemplate.params);
-            }
+            } 
 
             for (var i = 0; i < self.newApp.variables.length; i++) {
                 optsTemplate.application_variables[self.newApp.variables[i].name] = self.newApp.variables[i].value;
