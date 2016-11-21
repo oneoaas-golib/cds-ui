@@ -104,6 +104,7 @@
                                                           ng-if="a.parameters && a.parameters.length > 0"
                                                           params="a.parameters" run="{{ctrl.edit}}" showtype="false"
                                                           showdescription="false"
+                                                          runlist="{{ctrl.run}}"
                                                           descriptiontooltip="true"></parameter-management>
                                 </td>
                                 <td ng-class="{myHandle: ctrl.edit}">
@@ -236,4 +237,3 @@
         </uib-tab>
     </uib-tabset>
 </div>
-

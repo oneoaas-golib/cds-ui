@@ -3,6 +3,7 @@
 angular.module("cdsApp").component("action", {
     bindings: {
         action: "=",
+        run: "@",
         audit: "=",
         suggest: "=",
         done: "&",
