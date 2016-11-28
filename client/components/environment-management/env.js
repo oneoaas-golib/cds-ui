@@ -31,9 +31,9 @@ angular.module("cdsApp").component("environmentManagement", {
                 return self.save();
             } else {
                 if (!Project.existInCache(self.key)) {
-                    var modal = Modal.confirm.forceUpdate($translate.instant("common_project"));
+                    var modal = Modal.reject.saveEnvs();
                     return modal.then(function () {
-                        return self.updateOneEnv();
+                        return $q.reject("Cancel");
                     }, function () {
                         return $q.reject("Cancel");
                     });

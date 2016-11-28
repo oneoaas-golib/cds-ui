@@ -302,9 +302,9 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
             });
         }
         if (!Project.existInCache(self.key)) {
-            var modal = Modal.confirm.forceUpdate($translate.instant("common_project"));
+            var modal = Modal.reject.saveEnvs();
             return modal.then(function () {
-                return self.updateEnvs(envs);
+                return $q.reject("Cancel");
             }, function () {
                 return $q.reject("Cancel");
             });

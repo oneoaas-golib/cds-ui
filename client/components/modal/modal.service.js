@@ -24,6 +24,30 @@ angular.module("cdsApp")
             return openModal(opts).result;
         },
 
+        reject: {
+          saveEnvs: function saveEnvsModal() {
+              var modal = openModal({
+                  windowClass: "modal modal-alert",
+                  scope: {
+                      modal: {
+                          dismissable: true,
+                          title: $translate.instant("common_msg_reject_title"),
+                          html: "<p>" + $translate.instant("common_msg_overwrite_env") + "</p>",
+                          buttons: [{
+                              classes: "btn-default",
+                              text: "OK",
+                              click: function (e) {
+                                  modal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }
+              });
+
+              return modal.result;
+          }
+        },
+
         /* Confirmation modals */
         confirm: {
 

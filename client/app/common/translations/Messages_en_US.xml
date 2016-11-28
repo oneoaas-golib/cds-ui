@@ -12,7 +12,9 @@
 
     <translation id="common_msg_overwrite">People have updated this {{type}} just before you. You're gonna probably overwrite data.</translation>
     <translation id="common_msg_overwrite_application">People have updated this {{type}} just before you. You're gonna probably overwrite data.</translation>
+    <translation id="common_msg_overwrite_env">Environments have just been updated. You MUST refresh your browser.</translation>
     <translation id="common_msg_overwrite_title">Confirm action</translation>
+    <translation id="common_msg_reject_title">Forbidden action</translation>
     <translation id="common_project">project</translation>
     <translation id="common_application">application</translation>
     <translation id="common_pipeline">pipeline</translation>

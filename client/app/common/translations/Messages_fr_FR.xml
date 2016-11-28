@@ -12,7 +12,9 @@
 
     <translation id="common_msg_overwrite">Un utilisateur vient de modifier ce {{type}}. Vous risquez d'écraser des données.</translation>
     <translation id="common_msg_overwrite_application">Un utilisateur vient de modifier cette {{type}}. Vous risquez d'écraser des données.</translation>
+    <translation id="common_msg_overwrite_env">Un utilisateur vient de modifier les environnements. Vous DEVEZ rafraichir la page de votre navigateur.</translation>
     <translation id="common_msg_overwrite_title">Confirmation</translation>
+    <translation id="common_msg_reject_title">Action impossible</translation>
     <translation id="common_project">projet</translation>
     <translation id="common_application">application</translation>
     <translation id="common_pipeline">pipeline</translation>
