@@ -8,7 +8,7 @@
  * @description Manage worker listing
  *
  */
-angular.module("cdsApp").controller("WorkerListCtrl", function WorkerListCtrl ($q, $rootScope, $scope, EditMode, $translate, CDSWorkerModelsRsc, CDSWorkerModelRsc, CDSWorkersRsc, CDSWorkerModelTypeRsc, Messaging, Auth, CDSApiConstants) {
+angular.module("cdsApp").controller("WorkerListCtrl", function WorkerListCtrl ($q, $rootScope, $state, $scope, EditMode, $translate, CDSWorkerModelsRsc, CDSWorkerModelRsc, CDSGroupsRsc, CDSWorkersRsc, CDSWorkerModelTypeRsc, CDSUserRsc, Messaging) {
 
     var self = this;
     this.workerModel = [];
@@ -16,34 +16,8 @@ angular.module("cdsApp").controller("WorkerListCtrl", function WorkerListCtrl ($
     this.edit = EditMode.get();
     this.modelType = [];
     this.selected = {};
-
-    this.building = CDSApiConstants.STATUS_BUILDING;
-    this.disabled = CDSApiConstants.STATUS_DISABLED;
-    this.waiting = CDSApiConstants.STATUS_WAITING;
-
-    this.setNbWorkerByStatus = function (wm) {
-        var nbBuilding = 0;
-        var nbWaiting = 0;
-        var nbDisabled = 0;
-        if (wm.workers) {
-            for (var i = 0; i < wm.workers.length; i++) {
-                switch (wm.workers[i].status) {
-                    case CDSApiConstants.STATUS_BUILDING:
-                        nbBuilding++;
-                        break;
-                    case CDSApiConstants.STATUS_DISABLED:
-                        nbDisabled++;
-                        break;
-                    case CDSApiConstants.STATUS_WAITING:
-                        nbWaiting++;
-                        break;
-                }
-            }
-        }
-        wm.nbBuilding = nbBuilding;
-        wm.nbWaiting = nbWaiting;
-        wm.nbDisabled = nbDisabled;
-    };
+    this.existingGroups = [];
+    this.allGroups = [];
 
     /**
      * @ngdoc function
@@ -86,7 +60,11 @@ angular.module("cdsApp").controller("WorkerListCtrl", function WorkerListCtrl ($
         CDSWorkerModelsRsc.query(function (data) {
             self.workerModel = data;
             self.workerModel.forEach(function (wm) {
-                self.setNbWorkerByStatus(wm);
+                self.allGroups.forEach(function (g) {
+                    if (g.id === wm.group_id) {
+                        wm.group = g.name;
+                    }
+                });
             });
         }, function (err) {
             Messaging.error(err);
@@ -123,15 +101,38 @@ angular.module("cdsApp").controller("WorkerListCtrl", function WorkerListCtrl ($
         });
     };
 
+    /**
+     * @ngdoc function
+     * @name loadExistingGroups
+     * @description Call API to get all existing groups
+     */
+    this.loadExistingGroups = function () {
+        CDSUserRsc.getGroups({ "userName": $state.params.userName }, {}, function (data) {
+            self.existingGroups = data.groups_admin;
+        }, function (err) {
+            Messaging.error(err);
+        });
+    };
+
+    /**
+     * @ngdoc function
+     * @name loadAllGroups
+     * @description Call API to get all groups
+     */
+    this.loadAllGroups = function () {
+        CDSGroupsRsc.withPublic({}, {}, function (data) {
+            self.allGroups = data;
+        }, function (err) {
+            Messaging.error(err);
+        });
+    };
+
     this.init = function () {
+        self.loadAllGroups();
+        self.loadExistingGroups();
         self.loadWorkerModel();
         self.loadModelType();
         self.loadOrphanWorker();
-        Auth.isAdmin().then(function (isAdmin) {
-            $rootScope.$broadcast("hideEditMode", !isAdmin);
-
-        });
-
     };
     this.init();
 

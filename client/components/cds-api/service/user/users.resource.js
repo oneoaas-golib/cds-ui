@@ -13,6 +13,11 @@ angular.module("cdsApp").service("CDSUserRsc", function ($resource) {
         update: {
             method: "PUT",
             isArray: false
+        },
+        getGroups : {
+            method: "GET",
+            isArray: false,
+            url : "/cdsapi/user/group"
         }
     });
 });

@@ -8,15 +8,18 @@
  * @description Manage worker listing
  *
  */
-angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCtrl ($q, $state, $translate, Auth, CDSWorkerModelRsc, CDSWorkerModelsRsc, CDSWorkerModelTypeRsc, CDSWorkerModelCapabilityTypeRsc, Messaging) {
+angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCtrl ($q, $state, $translate, Auth, CDSWorkerModelRsc, CDSWorkerModelsRsc, CDSGroupsRsc, CDSWorkerModelTypeRsc, CDSWorkerModelCapabilityTypeRsc, CDSUserRsc, Messaging) {
 
     var self = this;
-    this.admin = false;
     this.modelName = $state.params.modelName;
     this.model = {};
     this.modelType = [];
     this.capaType = [];
     this.selected = {};
+    this.existingGroups = [];
+    this.hasRight = false;
+    this.workers = [];
+    this.allGroups = [];
 
     /**
      * @ngdoc function
@@ -33,7 +36,6 @@ angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCt
             Messaging.error(err);
             return $q.reject(err);
         }).$promise;
-
     };
 
     /**
@@ -109,6 +111,7 @@ angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCt
     this.loadWorkerModel = function () {
         CDSWorkerModelsRsc.get({ "name": $state.params.modelName }, {}, function (data) {
             self.model = data;
+            self.loadExistingGroups();
         }, function (err) {
             Messaging.error(err);
         });
@@ -129,14 +132,61 @@ angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCt
         });
     };
 
+    /**
+     * @ngdoc function
+     * @name loadExistingGroups
+     * @description Call API to get all existing groups
+     */
+    this.loadExistingGroups = function () {
+        CDSUserRsc.getGroups({ "userName": $state.params.userName }, {}, function (data) {
+            self.existingGroups = data.groups_admin;
+            self.existingGroups.forEach(function (g) {
+                if (g.id === self.model.group_id) {
+                    self.hasRight = true;
+                }
+            });
+            if (self.hasRight) {
+                self.loadWorkerModelInstance();
+            }
+        }, function (err) {
+            Messaging.error(err);
+        });
+    };
+
+    /**
+     * @ngdoc function
+     * @methodOf cdsApp.controller:loadWorkerModelInstance
+     * @name loadWorkerModelRights
+     * @description Load worker model instance for current model
+     *
+     */
+    this.loadWorkerModelInstance = function () {
+        CDSWorkerModelRsc.getInstances({ "id": self.model.id }, function (data) {
+            self.workers = data;
+        }, function (err) {
+            Messaging.error(err);
+        });
+    };
+
+    /**
+     * @ngdoc function
+     * @name loadAllGroups
+     * @description Call API to get all groups
+     */
+    this.loadAllGroups = function () {
+        CDSGroupsRsc.withPublic({}, {}, function (data) {
+            self.allGroups = data;
+        }, function (err) {
+            Messaging.error(err);
+        });
+    };
+
     this.init = function () {
         self.loadWorkerModel();
         self.loadModelType();
         self.loadCapacities();
-        Auth.isAdmin().then(function (isAdmin) {
-            self.admin = isAdmin;
-        });
-
+        self.loadAllGroups();
     };
+
     this.init();
 });
