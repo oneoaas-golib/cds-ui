@@ -11,7 +11,7 @@
     <translation id="worker_list_model_column_type">Type d'ouvrier</translation>
     <translation id="worker_list_model_column_image">Image</translation>
     <translation id="worker_list_model_column_capabilities">Capacités</translation>
-    <translation id="worker_list_model_column_worker">Ouvriers</translation>
+    <translation id="worker_list_model_column_group">Groupe</translation>
     <translation id="worker_list_no_model_column_owner">Propriétaire</translation>
 
     <translation id="worker_list_btn_add">Ajouter un model</translation>

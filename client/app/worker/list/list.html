@@ -10,9 +10,9 @@
                 </th>
                 <th class="col-md-2" data-translate="worker_list_model_column_name"></th>
                 <th class="col-md-1" data-translate="worker_list_model_column_type"></th>
-                <th class="col-md-4" data-translate="worker_list_model_column_image"></th>
+                <th class="col-md-3" data-translate="worker_list_model_column_image"></th>
+                <th class="col-md-2" data-translate="worker_list_model_column_group"></th>
                 <th class="col-md-3" data-translate="worker_list_model_column_capabilities"></th>
-                <th class="col-md-1" data-translate="worker_list_model_column_worker"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,32 +21,11 @@
                 <td ><a ui-sref="app.worker-model-edit({'modelName': '{{wm.name}}'})" data-ng-bind="wm.name"></a></td>
                 <td data-ng-bind="wm.type"></td>
                 <td data-ng-bind="wm.image"></td>
+                <td data-ng-bind="wm.group"></td>
                 <td>
                     <ul>
                         <li ng-repeat="capa in wm.capabilities" data-ng-bind="capa.name"></li>
                     </ul>
-                </td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-12" ng-if="wm.nbBuilding > 0">
-                            <pipeline-status status="ctrl.building" msg="Building"></pipeline-status>
-                            <div class="worker pull-left">
-                                {{ 'x' + wm.nbBuilding }}
-                            </div>
-                        </div>
-                        <div class="col-md-12" ng-if="wm.nbWaiting > 0">
-                            <pipeline-status status="ctrl.waiting" msg="Waiting"></pipeline-status>
-                            <div class="worker pull-left">
-                                {{ 'x' + wm.nbWaiting }}
-                            </div>
-                        </div>
-                        <div class="col-md-12" ng-if="wm.nbDisabled > 0">
-                            <pipeline-status status="ctrl.disabled" msg="Disabled"></pipeline-status>
-                            <div class="worker pull-left">
-                                {{ 'x' + wm.nbDisabled }}
-                            </div>
-                        </div>
-                    </div>
                 </td>
             </tr>
         </tbody>
@@ -57,8 +36,16 @@
             <input class="form-control" ng-model="ctrl.selected.model.name" placeholder="{{'worker_list_model_column_name' | translate}}">
         </div>
         <div class="form-group col-md-1">
+        <ui-select ng-model="ctrl.selected.model.group_id">
+            <ui-select-match placeholder="Group Owner">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="g.id as g in ctrl.existingGroups | filter: { name : $select.search }">
+                <div ng-bind-html="g.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        </div>
+        <div class="form-group col-md-1">
             <ui-select ng-model="ctrl.selected.model.type">
-                <ui-select-match>{{$select.selected}}</ui-select-match>
+                <ui-select-match placeholder="Type">{{$select.selected}}</ui-select-match>
                 <ui-select-choices repeat="t in ctrl.modelType | filter: $select.search">
                     <div ng-bind-html="t | highlight: $select.search"></div>
                 </ui-select-choices>
