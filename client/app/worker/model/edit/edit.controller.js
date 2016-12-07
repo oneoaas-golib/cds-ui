@@ -155,8 +155,7 @@ angular.module("cdsApp").controller("WorkerModelEditCtrl", function WorkerListCt
 
     /**
      * @ngdoc function
-     * @methodOf cdsApp.controller:loadWorkerModelInstance
-     * @name loadWorkerModelRights
+     * @name loadWorkerModelInstance
      * @description Load worker model instance for current model
      *
      */
