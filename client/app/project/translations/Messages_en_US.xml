@@ -4,4 +4,7 @@
     <translation id="wizard_add_tab_create_permission">Permissions definition</translation>
 
     <translation id="wizard_add_button_create">Create</translation>
+
+     <translation id="wizard_project_add_field_name">Project name</translation>
+     <translation id="wizard_project_add_field_key">Project unique key</translation>
 </translations>
