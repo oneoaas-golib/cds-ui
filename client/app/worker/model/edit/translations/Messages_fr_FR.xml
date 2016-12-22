@@ -14,11 +14,11 @@
     <translation id="model_edit_column_capability_type">Type</translation>
     <translation id="model_edit_column_capability_value">Valeur</translation>
     <translation id="model_edit_column_worker_name">Nom de l'ouvrier</translation>
-    <translation id="model_edit_column_worker_owner">Propriétaire</translation>
+    <translation id="model_edit_column_worker_status">Statut</translation>
 
     <translation id="model_edit_field_model_name">Nom du modèle</translation>
     <translation id="model_edit_field_model_type">Type de modèle</translation>
-    <translation id="model_edit_field_model_image">Image docker du modèle</translation>
+    <translation id="model_edit_field_model_image">Image du modèle</translation>
 
     <translation id="model_edit_btn_capa_add">Ajouter</translation>
     <translation id="model_edit_btn_save_model">Sauvegarder le modèle</translation>

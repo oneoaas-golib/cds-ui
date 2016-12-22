@@ -10,6 +10,11 @@ angular.module("cdsApp").service("CDSGroupsRsc", function ($resource) {
     return $resource("/cdsapi/group/:groupName", {}, {
         updateGroup: {
             method: "PUT"
+        },
+        withPublic: {
+            url: "/cdsapi/group?withPublic=true",
+            method: "GET",
+            isArray: true,
         }
     });
 });

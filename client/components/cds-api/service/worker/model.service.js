@@ -29,6 +29,11 @@ angular.module("cdsApp").service("CDSWorkerModelRsc", function ($resource) {
         update: {
             method: "PUT",
             isArray: false
+        },
+        getInstances: {
+            method : "GET",
+            isArray: true,
+            url : "/cdsapi/worker/model/:id/instances"
         }
     });
 });

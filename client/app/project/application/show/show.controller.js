@@ -269,7 +269,7 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                     { "repository_fullname": self.application.repository_fullname, "pipeline_name": self.selected.hook.pipeline.name },
                     function (data) {
                         if (data.hooks) {
-                            self.hooks = hooks;
+                            self.hooks = data.hooks;
                         }
                         self.selected.hook = {};
                         self.submitted = false;
@@ -451,8 +451,8 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     function updateCDTreeItem (item, application) {
         if (item.application.id === application.id) {
             var pipelineBuildUpdated = _.find(application.pipelines_build, {
-                pipeline: {id: item.pipeline.id},
-                environment: {id: item.environment.id}
+                pipeline: { id: item.pipeline.id },
+                environment: { id: item.environment.id }
             });
             if (pipelineBuildUpdated) {
                 item.pipeline.last_pipeline_build = pipelineBuildUpdated;
@@ -466,8 +466,8 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                             self.project.environments.forEach(function (e, i) {
                                 // for each;  1st erase item, 2nd and after add new Item in CDTREE
                                 var lastPB = _.find(application.pipelines_build, {
-                                    pipeline: {id: item.pipeline.id},
-                                    environment: {id: e.id}
+                                    pipeline: { id: item.pipeline.id },
+                                    environment:  { id: e.id }
                                 });
                                 if (i === 0) {
                                     item.environment = e;
@@ -501,8 +501,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                 }
             }
         }
-
-
 
         if (item.subPipelines) {
             item.subPipelines.forEach(function (s) {

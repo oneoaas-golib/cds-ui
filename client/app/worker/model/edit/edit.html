@@ -1,4 +1,4 @@
-<form id="WorkerModelEdit" ng-if="ctrl.admin" name="form" novalidate data-ng-submit="ctrl.submit(form)">
+<form id="WorkerModelEdit" name="form" novalidate data-ng-submit="ctrl.submit(form)">
     <h2>
         <i class="fa fa-wrench"></i>
         <a href="#" ui-sref="app.worker-list()" data-translate="model_edit_title"></a>
@@ -6,65 +6,84 @@
         <span data-ng-bind="ctrl.modelName"></span>
     </h2>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" ng-if="ctrl.hasRight">
             <delete-button class="pull-right" title="{{ 'model_edit_btn_delete_model' | translate }}" delete="ctrl.deleteModel()" progress="true"></delete-button>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
-                <label data-translate="model_edit_field_model_name"></label>
-                <input type="text" name="modelName" id="modelName" class="form-control" ng-model="ctrl.model.name" required>
-                <div ng-messages="form.modelName.$error" class="has-error" ng-show="ctrl.submitted">
-                    <div ng-message="required">
-                        <p class="help-block" data-translate="model_edit_msg_mandatory"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Model
+                    </h3>
+                </div>
+                <div class="col-md-12">
+                <div class="form-group">
+                    <label data-translate="model_edit_field_model_name"></label>
+                    <input type="text" name="modelName" id="modelName" class="form-control" ng-model="ctrl.model.name" ng-readonly="!ctrl.hasRight" required>
+                    <div ng-messages="form.modelName.$error" class="has-error" ng-show="ctrl.submitted">
+                        <div ng-message="required">
+                            <p class="help-block" data-translate="model_edit_msg_mandatory"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label data-translate="model_edit_field_model_type"></label>
-                <ui-select id="modelType" name="modelType" ng-model="ctrl.model.type" required>
-                    <ui-select-match>{{$select.selected}}</ui-select-match>
-                    <ui-select-choices repeat="t in ctrl.modelType | filter: $select.search">
-                        <div ng-bind-html="t | highlight: $select.search"></div>
-                    </ui-select-choices>
-                </ui-select>
-                <div ng-messages="form.modelType.$error" class="has-error" ng-show="ctrl.submitted">
-                    <div ng-message="required">
-                        <p class="help-block" data-translate="model_edit_msg_mandatory"></p>
+                <div class="form-group">
+                    <label>Group Owner: </label>
+                    <ui-select ng-model="ctrl.model.group_id" ng-if="ctrl.hasRight">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="g.id as g in ctrl.existingGroups | filter: { name : $select.search }">
+                            <div ng-bind-html="g.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <ui-select ng-model="ctrl.model.group_id" ng-if="!ctrl.hasRight" disabled="true">
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="g.id as g in ctrl.allGroups | filter: { name : $select.search }">
+                            <div ng-bind-html="g.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="form-group">
+                    <label data-translate="model_edit_field_model_type"></label>
+                    <ui-select id="modelType" name="modelType" ng-model="ctrl.model.type" ng-disabled="!ctrl.hasRight" required>
+                        <ui-select-match>{{$select.selected}}</ui-select-match>
+                        <ui-select-choices repeat="t in ctrl.modelType | filter: $select.search">
+                            <div ng-bind-html="t | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.modelType.$error" class="has-error" ng-show="ctrl.submitted">
+                        <div ng-message="required">
+                            <p class="help-block" data-translate="model_edit_msg_mandatory"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group" ng-show="ctrl.model.type === 'docker'">
-                <label data-translate="model_edit_field_model_image"></label>
-                <input type="text" class="form-control" ng-model="ctrl.model.image">
-            </div>
-            <div class="form-group">
-                <label>Model Owner: </label>
-                <span data-ng-bind="ctrl.model.owner.username"></span>
+                <div class="form-group" ng-show="ctrl.model.type === 'docker'">
+                    <label data-translate="model_edit_field_model_image"></label>
+                    <textarea class="form-control" ng-model="ctrl.model.image" ng-readonly="!ctrl.hasRight"> </textarea>
+                </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="rocol-md-12">
+        <div class="col-md-6" >
+            <div class="row" ng-if="ctrl.hasRight">
+                <div class="col-md-12">
                     <h3 data-translate="model_edit_title_worker">
                     </h3>
                 </div>
                 <div class="col-md-12">
-                    <div class="content" ng-show="ctrl.model.workers.length === 0">
+                    <div class="content" ng-show="ctrl.workers.length === 0">
                         <p data-translate="model_edit_msg_no_worker"></p>
                     </div>
                 </div>
                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                       ng-show="ctrl.model.workers.length > 0">
+                       ng-show="ctrl.workers.length > 0">
                     <thead>
                     <tr>
                         <th data-translate="model_edit_column_worker_name"></th>
-                        <th data-translate="model_edit_column_worker_owner"></th>
+                        <th data-translate="model_edit_column_worker_status"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="w in ctrl.model.workers">
+                    <tr ng-repeat="w in ctrl.workers">
                         <td data-ng-bind="w.name"></td>
-                        <td data-ng-bind="w.owner.username"></td>
+                        <td data-ng-bind="w.status"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -78,11 +97,11 @@
                          ng-show="ctrl.model.capabilities.length === 0 || ctrl.model.capabilities === null">{{
                         'model_edit_msg_no_capability' | translate }}
                     </div>
-                    <capacity-management capacities="ctrl.model.capabilities" edit="{{ctrl.admin}}"></capacity-management>
+                    <capacity-management capacities="ctrl.model.capabilities" edit="{{ctrl.hasRight}}"></capacity-management>
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" ng-if="ctrl.hasRight">
             <button type="button"
                     progress-button="ctrl.submit(form)"
                     class="button-success pull-right"

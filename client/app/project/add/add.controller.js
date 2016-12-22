@@ -8,12 +8,10 @@
  * @description Manage project creation page
  *
  */
-angular.module("cdsApp").controller("ProjectAddCtrl", function ProjectAddCtrl ($q, $rootScope, $state, CDSProjectsRsc, Messaging, $translate, ParameterService, EditMode) {
+angular.module("cdsApp").controller("ProjectAddCtrl", function ProjectAddCtrl ($q, $rootScope, $state, CDSProjectsRsc, Messaging, $translate, ParameterService, EditMode, $location) {
 
     var self = this;
-    this.project = {
-        application : {}
-    };
+    this.project = {};
 
     /**
      * @ngdoc function
@@ -42,21 +40,6 @@ angular.module("cdsApp").controller("ProjectAddCtrl", function ProjectAddCtrl ($
             });
         }
 
-        if (this.project.application.buildTemplate && this.project.application.buildTemplate.params) {
-            this.project.application.buildTemplate.params = ParameterService.format(this.project.application.buildTemplate.params);
-        }
-        if (this.project.application.deployTemplate && this.project.application.deployTemplate.params) {
-            this.project.application.deployTemplate.params = ParameterService.format(this.project.application.deployTemplate.params);
-        }
-        if (this.project.application.variables) {
-            this.project.application.variables = ParameterService.format(this.project.application.variables);
-        }
-
-        this.project.applications = [];
-        if (this.project.application.name) {
-            this.project.applications.push(this.project.application);
-        }
-
         // Call api to create the project
         return CDSProjectsRsc.create(this.project, function () {
             $rootScope.$broadcast("refreshSideBarEvent");
@@ -71,4 +54,57 @@ angular.module("cdsApp").controller("ProjectAddCtrl", function ProjectAddCtrl ($
         EditMode.switchOn();
     };
     self.init();
+
+    this.checkGroups = function () {
+        if (self.project.groups && self.project.groups.length > 0) {
+            for (var i = 0; i < self.project.groups.length; i++) {
+                if (!self.project.groups[i].group.name || self.project.groups[i].group.name === "") {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    };
+
+    this.keyPattern = new RegExp("^[A-Z0-9]*$");
+
+    /**
+     * @ngdoc function
+     * @name generateKey
+     * @description Auto generate project key from project name
+     *
+     * Auto generate project key from project name
+     */
+    this.generateKey = function () {
+        if (!self.project.name) {
+            return;
+        }
+        if (self.project.key === undefined) {
+            self.project.key = "";
+        }
+        if (self.project.key.length >= 5) {
+            return;
+        }
+        self.project.key = self.project.name.toUpperCase();
+        self.project.key = self.project.key.replace(/([.,; *`§%&#_\-'+?^=!:$\\"{}()|\[\]\/\\])/g, "").substr(0, 5);
+    };
+
+    /**
+     * @ngdoc function
+     * @name getUrl
+     * @description Get current URL
+     */
+    this.getUrl = function () {
+        return $location.absUrl() + "/";
+    };
+
+    this.submit = function submit (form) {
+        self.submitted = true;
+
+        if (form.$valid && self.checkGroups()) {
+            self.createProject();
+        }
+    };
+
 });
