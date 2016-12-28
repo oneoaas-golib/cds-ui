@@ -134,11 +134,6 @@ angular.module("cdsApp").component("wizardApplicationAdd", {
                 }
 
                 switch (self.pipelineCreation) {
-                    case "template":
-                        if (self.application.buildTemplate.params && self.notFilled(self.application.buildTemplate.params)) {
-                            return;
-                        }
-                        break;
                     case "clone":
                         if (self.application.variables && self.notFilled(self.application.variables)) {
                             return;

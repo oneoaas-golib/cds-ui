@@ -20,7 +20,6 @@
     <translation id="wizard_application_add_error_appname_required">Le nom de l'application est requis.</translation>
     <translation id="wizard_application_add_error_appname_pattern">Le nom de l'application est incorrecte. Elle doit contenir uniquement: 0-9, a-z, A-Z, .-_</translation>
     <translation id="wizard_application_add_error_template_required">Un modèle de build est requis.</translation>
-    <translation id="wizard_application_add_error_template_param">Veuillez saisir une valeur pour chaque paramètre du modèle.</translation>
     <translation id="wizard_application_add_error_pipeline_param">Veuillez saisir une valeur pour chaque paramètre du pipeline.</translation>
     <translation id="wizard_application_add_error_application_required">Vous devez choisir l'application à cloner.</translation>
     <translation id="wizard_application_add_error_application_param">Veuillez saisir une valeur pour chaque variable de l'application.</translation>

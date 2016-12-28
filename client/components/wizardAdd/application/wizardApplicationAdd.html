@@ -107,11 +107,8 @@
         <div class="form-group" ng-if="wz.application.buildTemplate.params.length > 0 && wz.pipelineCreation === 'template'">
             <parameter-management params="wz.application.buildTemplate.params" showname="false" showtype="false"
                                   editbutton="false" run="true"></parameter-management>
-            <div class="has-error" ng-show="wz.notFilled(wz.application.buildTemplate.params) && wz.submitted">
-                <p class="help-block" data-translate="wizard_application_add_error_template_param"></p>
-            </div>
         </div>
-        <div class="form-group" ng-if="wz.application.variables  && wz.pipelineCreation === 'clone'">
+        <div class="form-group" ng-if="wz.application.variables && wz.pipelineCreation === 'clone'">
             <parameter-management params="wz.application.variables" showname="true" showtype="false" showdescription="true"
                                   editbutton="false" run="true"></parameter-management>
             <div class="has-error" ng-show="wz.notFilled(wz.application.variables) && wz.submitted">
