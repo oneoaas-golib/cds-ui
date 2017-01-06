@@ -43,10 +43,6 @@ angular.module("cdsApp").controller("ApplicationAddCtrl", function ApplicationSh
                 optsTemplate.template_params = ParameterService.format(self.newApp.buildTemplate.params);
             }
 
-            for (var i = 0; i < self.newApp.variables.length; i++) {
-                optsTemplate.application_variables[self.newApp.variables[i].name] = self.newApp.variables[i].value;
-            }
-
             return CDSApplicationRsc.applyTemplate({ "key": self.key }, optsTemplate, function () {
                 $rootScope.$broadcast("refreshSideBarEvent");
                 Project.invalidProject(self.key);

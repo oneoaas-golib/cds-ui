@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <translation id="wizard_application_name">Application name</translation>
     <translation id="wizard_application_add_field_template">Build model</translation>
     <translation id="wizard_application_add_field_name">Application name</translation>
     <translation id="wizard_application_add_field_repo_git">Choose a repository</translation>

@@ -45,12 +45,6 @@ angular.module("cdsApp").component("wizardApplicationAdd", {
             self.selected.repositories_manager = self.typeRepo[0];
         };
 
-        this.setRepoValue = function (item, model) {
-            self.application.repoGit = model.ssh_url;
-            self.application.repository_fullname = model.fullname;
-            self.getApplicationName();
-        };
-
         this.loadApplicationVariables = function (appToClone) {
             CDSApplicationVarRsc.query({
                 "key": $state.params.key,
@@ -66,45 +60,6 @@ angular.module("cdsApp").component("wizardApplicationAdd", {
                     self.goToParameters();
                 }
             }, function (err) {
-                Messaging.error(err);
-            });
-        };
-
-        /**
-         * @ngdoc function
-         * @name refreshListRepo
-         * @description Refresh the list of available repository
-         */
-        this.refreshListRepo = function ($select) {
-            if ($select.search && $select.search !== "") {
-                self.listReposTemp = [];
-                if (self.listRepos) {
-                    self.listRepos.forEach(function (repo) {
-                        if (repo.fullname.toLowerCase().indexOf($select.search.toLowerCase()) !== -1 || repo.url.toLowerCase().indexOf($select.search.toLowerCase()) !== -1) {
-                            self.listReposTemp.push(repo);
-                        }
-                    });
-                }
-            }
-        };
-
-        /**
-         * @ngdoc function
-         * @name loadRepoFromRepoManager
-         * @description Call API to load all repositories from repository manager
-         */
-        this.loadRepoFromRepoManager = function () {
-            if (self.selected.repositories_manager.id === 0) {
-                return;
-            }
-            self.application.repositories_manager = self.selected.repositories_manager;
-            self.loadingRepos = true;
-            CDSRepoManagerRsc.repos({ "key": $state.params.key, "repoManName" : self.application.repositories_manager.name }, function (data) {
-                self.loadingRepos = false;
-                self.listRepos = data;
-                self.listReposTemp = [];
-            }, function (err) {
-                self.loadingRepos = false;
                 Messaging.error(err);
             });
         };
@@ -126,11 +81,6 @@ angular.module("cdsApp").component("wizardApplicationAdd", {
                     delete self.application.variables;
                 } else {
                     self.application.type = self.pipelineCreation;
-                }
-
-                if (!self.application.variables) {
-                    self.application.variables = [];
-                    self.application.variables.push({ name: "repo", type: "string", value: self.application.repoGit });
                 }
 
                 switch (self.pipelineCreation) {

@@ -17,6 +17,8 @@ angular.module("cdsApp").component("parameterManagement", {
 
         pipelines: "=",
 
+        reposmanager: "=",
+
         run : "@",
         runlist: "@",
 

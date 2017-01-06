@@ -47,6 +47,36 @@
         </ui-select>
         <input ng-if="ctrl.runlist !== 'true'" type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit !== 'true'">
     </div>
+    <div class="parameterValueRepo" ng-switch-when="repository">
+        <div class="radio radiogroup" ng-repeat="t in ctrl.reposmanager track by $index" ng-class="{ 'selected': ctrl.selected.repositories_manager === t }">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" ng-value="t" ng-model="ctrl.selected.repositories_manager" data-ng-change="ctrl.loadRepoFromRepoManager()">
+                <span>
+                <i class="fa fa-github" aria-hidden="true" ng-if="t.type === 'GITHUB'"></i>
+                <i class="fa fa-bitbucket" aria-hidden="true" ng-if="t.type === 'BITBUCKET' || t.type === 'STASH'"></i>
+                <i class="fa fa-git-square" aria-hidden="true" ng-if="t.type === 'GIT'"></i>
+                {{ t.name }}
+            </span>
+            </label>
+        </div>
+        <div ng-switch="ctrl.selected.repositories_manager.id" class="repoGit">
+            <div ng-switch-when="0">
+                <input type="text" id="repoGit" name="repoGit" class="form-control top-space-m8" placeholder="{{ 'wizard_application_add_placeholder_git_url' | translate }}"
+                       data-ng-model="ctrl.param.value" data-ng-change="ctrl.updateValueFromRepo()" required >
+            </div>
+            <div ng-switch-default>
+                <div class="form-group has-feedback search">
+                    <input type="text" class="form-control" data-ng-model="self.selected.repoFromManager" placeholder="{{ 'navbar_search_placeholder' | translate }}"
+                           data-ng-change="ctrl.updateValueFromRepo()"
+                           typeahead-min-length="3" uib-typeahead="repo as repo.fullname for repo in ctrl.listRepos | filter: {fullname: $viewValue}" typeahead-on-select="ctrl.setRepoValue($item, $model)"/>
+                    <i class="fa fa-search form-control-feedback"></i>
+                    <span class="loading pull-right" ng-if="ctrl.loadingRepos">
+                        {{ 'common_loading_repositories' | translate }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div ng-switch-default>
         <input type="text" class="form-control" ng-model="ctrl.param.value"  ng-readonly="ctrl.edit!=='true'"
                mass-autocomplete-item="ctrl.autocomplete_options">

@@ -8,13 +8,16 @@ angular.module("cdsApp").component("parameterValueField", {
         edit: "@",
         runlist: "@",
         pipelines: "=",
-        isaction: "@"
+        isaction: "@",
+        reposmanager: "="
     },
     controllerAs: "ctrl",
-    controller: function ($scope, $sce) {
+    controller: function ($scope, $sce, CDSRepoManagerRsc, $state, Messaging) {
 
         var self = this;
         this.listValues = [];
+        this.selected = {};
+        this.showRepos = false;
         this.listLanguages = [
             "dockerfile",
             "javascript",
@@ -30,6 +33,14 @@ angular.module("cdsApp").component("parameterValueField", {
             lineWrapping : true,
             lineNumbers: true
         };
+
+        $scope.$watch(function () {
+            return self.reposmanager;
+        }, function () {
+            if (self.reposmanager) {
+                self.selected.repositories_manager = self.reposmanager[0];
+            }
+        }, true);
 
         $scope.$watch(function () {
             return self.param;
@@ -55,6 +66,31 @@ angular.module("cdsApp").component("parameterValueField", {
                 }
             }
         }, true);
+
+        this.setRepoValue = function (item, model) {
+            self.param.value = self.selected.repositories_manager.name + "##" + model.fullname;
+            console.log(self.param);
+        };
+
+        /**
+         * @ngdoc function
+         * @name loadRepoFromRepoManager
+         * @description Call API to load all repositories from repository manager
+         */
+        this.loadRepoFromRepoManager = function () {
+            if (self.selected.repositories_manager.id === 0) {
+                return;
+            }
+            self.loadingRepos = true;
+            CDSRepoManagerRsc.repos({ "key": $state.params.key, "repoManName" : self.selected.repositories_manager.name }, function (data) {
+                self.loadingRepos = false;
+                self.listRepos = data;
+                self.listReposTemp = [];
+            }, function (err) {
+                self.loadingRepos = false;
+                Messaging.error(err);
+            });
+        };
 
         this.getHeight = function (value) {
             var nbReturn = 0;

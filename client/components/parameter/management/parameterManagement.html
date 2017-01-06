@@ -33,7 +33,7 @@
                 <textarea rows="{{ctrl.getHeight(p.description)}}" type="text" class="form-control" ng-model="p.description" ng-readonly="ctrl.ro === 'true' || !ctrl.edit || ctrl.run === 'true'"></textarea>
             </td>
             <td ng-if="ctrl.showvalue  !== 'false'">
-                <parameter-value-field isaction="{{ctrl.isaction}}" param="p" type="p.type" edit="{{ctrl.canEditValue()}}" runlist="{{ctrl.runlist }}" suggest="ctrl.suggest" pipelines="ctrl.pipelines"></parameter-value-field>
+                <parameter-value-field reposmanager="ctrl.reposmanager" isaction="{{ctrl.isaction}}" param="p" type="p.type" edit="{{ctrl.canEditValue()}}" runlist="{{ctrl.runlist }}" suggest="ctrl.suggest" pipelines="ctrl.pipelines"></parameter-value-field>
             </td>
         </tr>
         </tbody>
