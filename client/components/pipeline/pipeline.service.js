@@ -9,8 +9,8 @@ angular.module("cdsApp")
             if (pipelineCache.get(key + "-" + pipName)) {
                 var pipeline = pipelineCache.get(key + "-" + pipName);
                 var stage = _.find(pipeline.stages, { id: parseInt(stageID) });
-                if (stage && _.find(stage.actions, { id: parseInt(actionID) })) {
-                    return _.find(stage.actions, { id: parseInt(actionID) });
+                if (stage && _.find(stage.jobs, { action: { id: parseInt(actionID) } })) {
+                    return _.find(stage.jobs, { action: { id: parseInt(actionID) }});
                 }
             }
             return null;

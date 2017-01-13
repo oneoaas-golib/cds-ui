@@ -37,7 +37,7 @@ angular.module("cdsApp").controller("PipelineRunVariablesCtrl", function Applica
     };
 
     this.init = function () {
-        this.build.args.forEach(function (v) {
+        this.build.parameters.forEach(function (v) {
             if (v.name.lastIndexOf("cds.proj.", 0) === 0) {
                 self.variables.project.push(v);
             } else if (v.name.lastIndexOf("cds.app.", 0) === 0) {

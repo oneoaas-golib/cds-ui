@@ -34,7 +34,7 @@ angular.module("cdsApp").service("CDSApplicationRsc", function ($resource, Polle
         applyTemplate: {
             url: "/cdsapi/project/:key/template",
             method: "POST",
-            isArray: true,
+            isArray: false,
         }
     });
 

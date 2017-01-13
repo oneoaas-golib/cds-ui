@@ -58,22 +58,22 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
             });
         };
 
-        this.updatePipelineAction = function (stage, action, newValue) {
-            action.enabled = newValue;
+        this.updatePipelineAction = function (stage, job, newValue) {
+            job.enabled = newValue;
             if (!Pipeline.existInCache(self.key, $state.params.pipName)) {
                 var modal = Modal.confirm.forceUpdate($translate.instant("common_pipeline"));
                 return modal.then(function () {
-                    return self.savePipelineAction(action);
+                    return self.savePipelineAction(job);
                 }, function () {
                     return $q.reject("Cancel");
                 });
             } else {
-                return self.savePipelineAction(action);
+                return self.savePipelineAction(job);
             }
         };
 
-        this.savePipelineAction = function (action) {
-            CDSPipelineActionRsc.update({ "key": $state.params.key, "pipName": $state.params.pipName, "pipelineActionId": action.pipeline_action_id }, action, function () {
+        this.savePipelineAction = function (job) {
+            CDSPipelineActionRsc.update({ "key": $state.params.key, "pipName": $state.params.pipName, "pipelineActionId": job.pipeline_action_id }, job, function () {
                 Pipeline.invalidPipeline($state.params.key, $state.params.pipName);
                 Pipeline.getPipeline($state.params.key, $state.params.pipName).then(function (pip) {
                     self.pipeline = pip;
@@ -111,13 +111,13 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
             }).$promise;
         };
 
-        this.addNewJoinedAction = function (action, stage) {
-            return Pipeline.addJoinedAction($state.params.key, $state.params.pipName, stage.id, action).then(function (action) {
-                action.pipeline_stage_id = stage.id;
-                if (!stage.actions) {
-                    stage.actions = [];
+        this.addNewJoinedAction = function (job, stage) {
+            return Pipeline.addJoinedAction($state.params.key, $state.params.pipName, stage.id, job).then(function (job) {
+                job.pipeline_stage_id = stage.id;
+                if (!stage.jobs) {
+                    stage.jobs = [];
                 }
-                stage.actions.push(action);
+                stage.jobs.push(job);
                 Pipeline.invalidPipeline($state.params.key, $state.params.pipName);
                 return Pipeline.getPipeline($state.params.key, $state.params.pipName).then(function (pip) {
                     self.pipeline = pip;
@@ -125,23 +125,23 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
             }).$promise;
         };
 
-        this.deleteAction = function (stage, action, index) {
+        this.deleteAction = function (stage, job, index) {
             if (!Pipeline.existInCache(self.key, $state.params.pipName)) {
                 var modal = Modal.confirm.forceUpdate($translate.instant("common_pipeline"));
                 return modal.then(function () {
-                    return self.removePipelineAction(stage, action, index);
+                    return self.removePipelineAction(stage, job, index);
                 }, function () {
                     return $q.reject("Cancel");
                 });
             } else {
-                return self.removePipelineAction(stage, action, index);
+                return self.removePipelineAction(stage, job, index);
             }
         };
 
-        this.removePipelineAction = function (stage, action, index) {
-            return Pipeline.deletePipelineAction($state.params.key, $state.params.pipName, stage.id, action.id).then(function () {
+        this.removePipelineAction = function (stage, job, index) {
+            return Pipeline.deletePipelineAction($state.params.key, $state.params.pipName, stage.id, job.action.id).then(function () {
                 Messaging.success($translate.instant("pipeline_build_workflow_msg_action_deleted"));
-                stage.actions.splice(index, 1);
+                stage.jobs.splice(index, 1);
                 Pipeline.invalidPipeline($state.params.key, $state.params.pipName);
                 return Pipeline.getPipeline($state.params.key, $state.params.pipName).then(function (pip) {
                     self.pipeline = pip;
@@ -211,11 +211,13 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
             }).$promise;
         };
 
-        this.hasWarning = function (a) {
-            if (self.pipelineWarning && self.pipelineWarning.jobs) {
-                var action = _.find(self.pipelineWarning.jobs, { action: { id: a.id } });
-                if (action) {
-                    return true;
+        this.hasWarning = function (j) {
+            if (j.action) {
+                if (self.pipelineWarning && self.pipelineWarning.jobs) {
+                    var action = _.find(self.pipelineWarning.jobs, { action: { id: j.action.id } });
+                    if (action) {
+                        return true;
+                    }
                 }
             }
             return false;

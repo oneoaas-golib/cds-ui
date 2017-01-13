@@ -137,82 +137,11 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
     /**
      * @ngdoc function
      * @methodOf cdsApp.controller:PipelineRunCtrl
-     * @name getStagePanelClass
-     * @description Return panel class for stage
-     *
-     */
-    this.getStagePanelClass = function (stage) {
-        var finalClass = "panel-default";
-        if (stage.builds) {
-            for (var i = 0; i < stage.builds.length; i++) {
-                var cssClass = self.getPanelClassByStatus(stage, stage.builds[i].status);
-                switch (cssClass) {
-                    case "panel-info" :
-                        return cssClass; // still building
-                    case "panel-warning":
-                        switch (finalClass) {
-                            case "panel-default":
-                            case "panel-skipped":
-                            case "panel-disabled":
-                                finalClass = cssClass;
-                                break;
-                            case "panel-success":
-                            case "panel-danger":
-                                finalClass = "panel-info";
-                                break;
-                        }
-                        break;
-                    case "panel-success":
-                        switch (finalClass) {
-                            case "panel-default":
-                            case "panel-skipped":
-                            case "panel-disabled":
-                                finalClass = cssClass;
-                                break;
-                            case "panel-warning":
-                                finalClass = "panel-info";
-                                break;
-                        }
-                        break;
-                    case "panel-danger":
-                        switch (finalClass) {
-                            case "panel-default":
-                            case "panel-skipped":
-                            case "panel-disabled":
-                            case "panel-success":
-                                finalClass = cssClass;
-                                break;
-                            case "panel-warning":
-                                finalClass = "panel-info";
-                                break;
-                        }
-                        break;
-                    case "panel-skipped":
-                        if (finalClass === "panel-default") {
-                            finalClass = cssClass;
-                        }
-                        break;
-                    case "panel-disabled":
-                        if (finalClass === "panel-default") {
-                            finalClass = cssClass;
-                        }
-                        break;
-                }
-            }
-        } else {
-            return "panel-default";
-        }
-        return finalClass;
-    };
-
-    /**
-     * @ngdoc function
-     * @methodOf cdsApp.controller:PipelineRunCtrl
      * @name getPanelClassByStatus
      * @description Return panel class for build
      *
      */
-    this.getPanelClassByStatus = function (stage, status) {
+    this.getPanelClassByStatus = function (status) {
         switch (status) {
             case "Waiting":
                 return "panel-warning";
@@ -407,7 +336,7 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                     nb += s.builds.length;
                 } else {
                     if (self.pipeline) {
-                        nb += self.pipeline.stages[i].actions.length;
+                        nb += self.pipeline.stages[i].jobs.length;
                     }
                 }
             });

@@ -58,12 +58,12 @@
                             </div>
                         </div>
                         <div ng-class="{'col-md-8': ctrl.artifacts.length > 0, 'col-md-12' : ctrl.artifacts.length === 0}" class="top-space-lg-m20">
-                            <div class="panel {{ctrl.getStagePanelClass(s)}}"  ng-repeat="s in ctrl.currentBuild.stages track by $index">
+                            <div class="panel {{ctrl.getPanelClassByStatus(s.status)}}"  ng-repeat="s in ctrl.currentBuild.stages track by $index">
                                 <div class="panel-heading">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <strong><span data-translate="application_pipeline_label_skipped" ng-if="ctrl.getStagePanelClass(s) === 'panel-skipped'"></span></strong>
-                                            <strong><span data-translate="application_pipeline_label_disabled" ng-if="ctrl.getStagePanelClass(s) === 'panel-disabled'"></span></strong>
+                                            <strong><span data-translate="application_pipeline_label_skipped" ng-if="s.status === 'Skipped'"></span></strong>
+                                            <strong><span data-translate="application_pipeline_label_disabled" ng-if="s.status === 'Disabled'"></span></strong>
                                             <span data-ng-bind="s.name"></span>
                                             <div ng-if="ctrl.isStageFinished(s)" style="display: inline">
                                                 {{ ' ('}}
@@ -76,7 +76,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="b in s.builds track by $index">
-                                            <div class="panel {{ctrl.getPanelClassByStatus(s, b.status)}}">
+                                            <div class="panel {{ctrl.getPanelClassByStatus(b.status)}}">
                                                 <div class="panel-heading">
                                                     <div ng-switch="b.status">
                                                         <div  ng-switch-when="Building">

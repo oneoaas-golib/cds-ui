@@ -19,21 +19,21 @@
                     <button type="button" ng-if="ctrl.edit"
                             progress-button="ctrl.addEmptyAction(s)" class="button-success right-space-lg-m12 pull-right" pb-random-progress="true" pb-style="fill" >{{ 'pipeline_build_workflow_label_new_action' | translate }}</button>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ng-repeat="a in s.actions track by $index">
-                    <div class="panel" ng-class=" { 'panel-default': !ctrl.hasWarning(a), 'panel-danger': ctrl.hasWarning(a) }"
-                         data-ng-mouseenter="a.showButton = true" data-ng-mouseleave="a.showButton = false">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ng-repeat="j in s.jobs track by $index">
+                    <div class="panel" ng-class=" { 'panel-default': !ctrl.hasWarning(j), 'panel-danger': ctrl.hasWarning(j) }"
+                         data-ng-mouseenter="j.showButton = true" data-ng-mouseleave="j.showButton = false">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
-                                    <span data-ng-bind="a.name"></span>
+                                    <span data-ng-bind="j.action.name"></span>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="pull-right">
-                                        <switcher class="switcher" ng-model="a.enabled" ng-if="ctrl.edit" ng-change="ctrl.updatePipelineAction(s, a, newValue)">
+                                        <switcher class="switcher" ng-model="j.enabled" ng-if="ctrl.edit" ng-change="ctrl.updatePipelineAction(s, j, newValue)">
                                         </switcher>
                                         <strong>
-                                            <span data-translate="pipeline_build_workflow_label_enable" ng-if="!ctrl.edit && a.enabled"></span>
-                                            <span data-translate="pipeline_build_workflow_label_disable" ng-if="!ctrl.edit && !a.enabled"></span>
+                                            <span data-translate="pipeline_build_workflow_label_enable" ng-if="!ctrl.edit && j.enabled"></span>
+                                            <span data-translate="pipeline_build_workflow_label_disable" ng-if="!ctrl.edit && !j.enabled"></span>
                                         </strong>
                                     </div>
                                 </div>
@@ -42,11 +42,11 @@
                         <div class="panel-body action">
                             <div class="pull-left">
                                 <a href="#"
-                                   ui-sref="app.pipeline-action-show({'key': ctrl.key, 'pipName':ctrl.pipeline.name, 'stageId': s.id, 'actionId': a.id, 'tab': 'action' })"
+                                   ui-sref="app.pipeline-action-show({'key': ctrl.key, 'pipName':ctrl.pipeline.name, 'stageId': s.id, 'actionId': j.action.id, 'tab': 'action' })"
                                    data-translate="pipeline_build_workflow_label_edit"></a>
                             </div>
                             <div class="pull-right">
-                                <delete-button ng-if="a.showButton  && ctrl.edit" delete="ctrl.deleteAction(s, a, $index)" title="{{ 'common_btn_delete' | translate }}" progress="true"></delete-button>
+                                <delete-button ng-if="j.showButton  && ctrl.edit" delete="ctrl.deleteAction(s, j, $index)" title="{{ 'common_btn_delete' | translate }}" progress="true"></delete-button>
                             </div>
                         </div>
                     </div>
