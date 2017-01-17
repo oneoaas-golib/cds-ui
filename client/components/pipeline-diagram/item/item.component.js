@@ -195,10 +195,14 @@ angular.module("cdsApp").component("pipelineDiagramItem", {
 
         this.runPipeline = function () {
             var hasEmptyParams = false;
+            var hasListParams = false;
             if (self.item.pipeline.parameters) {
                 self.item.pipeline.parameters.forEach(function (p) {
                     if (!p.value || p.value === "") {
                         hasEmptyParams = true;
+                    }
+                    if (p.type === "list") {
+                        hasListParams = true;
                     }
                 });
             }
@@ -217,7 +221,7 @@ angular.module("cdsApp").component("pipelineDiagramItem", {
                 currentBranch = self.branch;
             }
 
-            if ((!self.item.parent && !hasEmptyParams)  || (self.item.parent && !self.item.trigger.manual && currentBranch === parentBranch)) {
+            if (!hasListParams && ((!self.item.parent && !hasEmptyParams)  || (self.item.parent && !self.item.trigger.manual && currentBranch === parentBranch))) {
                 var request =  { parameters: [] };
                 if (self.item.environment.id > 1) {
                     request.env = self.item.environment;
