@@ -82,7 +82,7 @@
                                                         <div  ng-switch-when="Building">
                                                             <uib-progressbar class="progress-striped active" value="ctrl.currentActionPercent[b.pipeline_action_id]" type="info">
                                                             <span>
-                                                                {{ b.action_name}}
+                                                                {{ b.job.action.name}}
                                                                 {{ ctrl.currentActionTimeLeft[b.pipeline_action_id] | duration:'mm\'min\' ss\'s\'' }}
                                                             </span>
                                                             </uib-progressbar>
@@ -91,24 +91,24 @@
                                                             <uib-progressbar class="progress-striped active" value="100" type="warning">
                                                             <span>
                                                                 <strong>{{ 'application_pipeline_label_waiting' | translate }}</strong>
-                                                                {{ b.action_name }}
+                                                                {{ b.job.action.name }}
                                                             </span>
                                                             </uib-progressbar>
                                                         </div>
                                                         <div ng-switch-when="Success">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                             <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
                                                         </div>
                                                         <div ng-switch-when="Fail">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                             <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
                                                         </div>
                                                         <div ng-switch-when="Disabled">
                                                             <strong>{{ 'application_pipeline_label_disabled' | translate }}</strong>
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                         </div>
                                                         <div ng-switch-when="Skipped">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -134,10 +134,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3" ng-if="!s.builds" ng-repeat="a in ctrl.pipeline.stages[$index].actions">
-                                            <div class="panel" ng-class="{ 'panel-disabled' : !s.enabled || !a.enabled, 'panel-default': s.enabled && a.enabled }">
+                                        <div class="col-md-3" ng-if="!s.builds" ng-repeat="j in ctrl.pipeline.stages[$index].jobs">
+                                            <div class="panel" ng-class="{ 'panel-disabled' : !s.enabled || !j.enabled, 'panel-default': s.enabled && j.enabled }">
                                                 <div class="panel-heading">
-                                                    <div data-ng-bind="a.name"></div>
+                                                    <div data-ng-bind="j.action.name"></div>
                                                 </div>
                                             </div>
                                         </div>
