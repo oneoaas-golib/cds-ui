@@ -336,7 +336,9 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                     nb += s.builds.length;
                 } else {
                     if (self.pipeline) {
-                        nb += self.pipeline.stages[i].jobs.length;
+                        if (self.pipeline.stages[i].jobs) {
+                            nb += self.pipeline.stages[i].jobs.length;
+                        }
                     }
                 }
             });

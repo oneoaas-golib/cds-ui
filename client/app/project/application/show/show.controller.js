@@ -32,7 +32,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     this.additionnalApplication = [];
 
     // Build history
-    this.applicationHistory = [];
     this.deployHistory = [];
 
     this.pipelines = [];
@@ -546,20 +545,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
     /**
      * @ngdoc function
      * @methodOf cdsApp.controller:ApplicationShowCtrl
-     * @name loadApplicationPipelinesAndHistory
-     * @description Load all application pipelines
-     */
-    this.loadApplicationHistory = function () {
-        CDSApplicationHistoryRsc.query({ "key": $state.params.key, "appName": $state.params.appName }, function (data) {
-            self.applicationHistory = data;
-        }, function (err) {
-            Messaging.error(err);
-        });
-    };
-
-    /**
-     * @ngdoc function
-     * @methodOf cdsApp.controller:ApplicationShowCtrl
      * @name loadParamSuggest
      * @description Load parameters suggestion
      */
@@ -737,7 +722,6 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                     Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
                         self.application = data;
                         self.canWrite();
-                        self.loadApplicationHistory();
                     });
                     self.tab.active = 1;
                     break;
