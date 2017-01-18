@@ -16,6 +16,23 @@ angular.module("cdsApp").service("CDSApplicationPipelinesRsc", function ($resour
             method: "GET",
             isArray: true,
             params: { envName: "@envName", hash: "@hash" }
+        },
+        schedulers: {
+            url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler",
+            method: "GET",
+            isArray: true
+        },
+        addScheduler: {
+            url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler",
+            method: "POST"
+        },
+        updateScheduler: {
+            url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler",
+            method: "PUT"
+        },
+        deleteScheduler: {
+            url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler/:id",
+            method: "DELETE"
         }
     });
 });

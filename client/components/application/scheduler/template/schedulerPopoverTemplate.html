@@ -1,0 +1,28 @@
+<delete-button class="pull-right" delete="ctrl.deleteScheduler(v, key)" title="{{ 'common_btn_delete' | translate }}"
+               progress="true"></delete-button>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 data-translate="scheduler_label_crontab"></h4>
+                <div>
+                    <span class="cronresult">{{ 'scheduler_cron_generated' | translate }} <b>{{v.crontab}}</b></span>
+                    <cron-selection ng-model="v.crontab" id="crontab" name="crontab"></cron-selection>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12" ng-if="v.args && v.args.length > 0">
+        <h4 data-translate="scheduler_parameter_title"></h4>
+        <parameter-management params="v.args" run="true" showtype="false" showdescription="true"
+                              suggest="ctrl.suggest"></parameter-management>
+    </div>
+</div>
+<div class="pull-right top-space-m8 bottom-space-m8">
+    <button type="button" class="btn btn-default" data-translate="common_btn_cancel" data-ng-click="ctrl.schedulerPopover.close(v);"></button>
+    <button type="button" progress-button="ctrl.updateScheduler(v, key)" class="button-success" pb-random-progress="true" pb-style="fill">{{
+        'common_btn_save' | translate }}
+    </button>
+</div>
