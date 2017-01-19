@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="scheduler_title_list">Schedulers list</translation>
+    <translation id="scheduler_title_add">Add a scheduler</translation>
+    <translation id="scheduler_label_crontab">Crontab</translation>
+    <translation id="scheduler_cron_generated">Generated crontab: </translation>
+    <translation id="scheduler_parameter_title">Scheduler parameters</translation>
+    <translation id="scheduler_column_pipeline">Pipeline</translation>
+    <translation id="scheduler_column_environment">Environment</translation>
+    <translation id="scheduler_collumn_data">Crontab</translation>
+</translations>

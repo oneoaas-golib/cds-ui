@@ -767,6 +767,34 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                     });
                     self.tab.active = 7;
                     break;
+                case "scheduler":
+                    Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
+                        self.application = data;
+                        self.canWrite();
+                        if (self.application.pipelines) {
+                            self.application.pipelines.forEach(function (p) {
+                                CDSApplicationPipelinesRsc.schedulers({
+                                    "key": $state.params.key,
+                                    "appName": $state.params.appName,
+                                    "pipName": p.pipeline.name
+                                }, function (schedulers) {
+                                    if (schedulers.length > 0) {
+                                        if (!self.application.schedulers) {
+                                            self.application.schedulers = {};
+                                        }
+                                        if (!self.application.schedulers[p.pipeline.name]) {
+                                            self.application.schedulers[p.pipeline.name] = [];
+                                        }
+                                        self.application.schedulers[p.pipeline.name] = schedulers;
+                                    }
+                                }, function (err) {
+                                    Messaging.error(err);
+                                });
+                            });
+                        }
+                    });
+                    self.tab.active = 8;
+                    break;
                 case "advanced":
                     Application.getApplication($state.params.key, $state.params.appName).then(function (data) {
                         self.application = data;
@@ -1092,6 +1120,9 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                         break;
                     case "notification":
                         self.tab.active = 7;
+                        break;
+                    case "scheduler":
+                        self.tab.active = 8;
                         break;
                 }
                 self.listBranches();
