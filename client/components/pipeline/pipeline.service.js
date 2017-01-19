@@ -80,15 +80,12 @@ angular.module("cdsApp")
                 }
                 return deferred.promise;
             },
-            addJoinedAction: function (key, pipName, stageId, action) {
+            addJoinedAction: function (key, pipName, stageId, job) {
                 var deferred = $q.defer();
-                CDSPipelineJoinedActionRsc.save({ "key": key, "pipName": pipName, "stageId": stageId }, action,
+                CDSPipelineJoinedActionRsc.save({ "key": key, "pipName": pipName, "stageId": stageId }, job,
                     function (data) {
                         Pipeline.invalidPipeline(key, pipName);
-                        action.id = data.id;
-                        action.pipeline_action_id = data.pipeline_action_id;
-                        action.enabled = data.enabled;
-                        deferred.resolve(action);
+                        deferred.resolve(data);
                     }, function (err) {
                         Messaging.error(err);
                         deferred.reject(err);

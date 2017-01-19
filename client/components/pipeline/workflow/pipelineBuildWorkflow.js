@@ -7,7 +7,7 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
         prerequisites: "="
     },
     controllerAs: "ctrl",
-    controller: function ($q, $scope, $state, $translate, CDSStageRsc, CDSPipelineActionRsc, Messaging, EditMode, Warning, Pipeline, Modal) {
+    controller: function ($q, $scope, $state, $translate, CDSStageRsc, CDSPipelineActionRsc, Messaging, EditMode, Warning, Pipeline, Modal, CDSPipelineJoinedActionRsc) {
         var self = this;
         this.key = $state.params.key;
         this.edit = EditMode.get();
@@ -37,11 +37,13 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
         };
 
         this.addNewJobOnStage = function (stage) {
-            var action = {
-                name: "MyNewJob",
-                type: "Joined"
+            var job = {
+                action : {
+                    name: "MyNewJob",
+                    type: "Joined"
+                }
             };
-            return self.addNewJoinedAction(action, stage);
+            return self.addNewJoinedAction(job, stage);
         };
 
         this.deletePrerequisite = function (stage, index) {
@@ -73,7 +75,7 @@ angular.module("cdsApp").component("pipelineBuildWorkflow", {
         };
 
         this.savePipelineAction = function (job) {
-            CDSPipelineActionRsc.update({ "key": $state.params.key, "pipName": $state.params.pipName, "pipelineActionId": job.pipeline_action_id }, job, function () {
+            CDSPipelineJoinedActionRsc.updateJob({ "key": $state.params.key, "pipName": $state.params.pipName, "stageId": job.pipeline_stage_id, "jobID": job.pipeline_action_id }, job, function () {
                 Pipeline.invalidPipeline($state.params.key, $state.params.pipName);
                 Pipeline.getPipeline($state.params.key, $state.params.pipName).then(function (pip) {
                     self.pipeline = pip;
