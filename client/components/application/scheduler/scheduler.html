@@ -34,13 +34,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                         <h4 data-translate="scheduler_label_crontab"></h4>
-                        <div>
-                            <span class="cronresult">{{ 'scheduler_cron_generated' | translate }} <b>{{ctrl.newScheduler.crontab}}</b></span>
-                            <cron-selection ng-model="ctrl.newScheduler.crontab" id="crontab" name="crontab"></cron-selection>
-                        </div>
-
+                        <input type="text" class="form-control"  ng-model="ctrl.newScheduler.crontab">
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                         <div class="form-group">

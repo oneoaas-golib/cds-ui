@@ -32,6 +32,7 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
     this.listAuditForEnv = [];
     this.envFilter = "";
     this.edit = EditMode.get();
+    this.newEnv = {};
 
     // Repo managers
     this.repoManagers = [];
@@ -399,9 +400,14 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
             }
 
             switch (tab) {
-                case "environment":
+                case "environments":
                     self.initEnvData();
-                    self.canWriteEnv();
+                    break;
+                case "environment":
+                    if (self.project.environments && self.project.environments.length > 0) {
+                        self.selectedEnvAudit = self.project.environments[0];
+                        self.updateListeOfAudit();
+                    }
                     break;
                 default :
                     self.canWrite();
@@ -425,9 +431,18 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
             case "pipeline":
                 self.tab.active = 1;
                 break;
+            case "environments":
+                self.loadSuggest();
+                self.initEnvData();
+                self.tab.active = 2;
+                break;
             case "environment":
                 self.loadSuggest();
-                self.tab.active = 2;
+                if (self.project.environments && self.project.environments.length > 0) {
+                    self.selectedEnvAudit = self.project.environments[0];
+                    self.updateListeOfAudit();
+                }
+                self.tab.active = 6;
                 break;
             case "parameter":
                 self.loadAudit();
@@ -476,6 +491,22 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
         } else {
             return self.addNewRepositoryManager();
         }
+    };
+
+    this.addEnv = function () {
+        return CDSEnvRsc.save({"key": $state.params.key }, self.newEnv, function(data) {
+            Messaging.success($translate.instant('env_added'));
+            return Project.updateCacheAllEnv(data).then(function (p) {
+                self.project = p;
+                self.selectedEnvAudit = _.find(self.project.environments, function (e) {
+                    return e.name === self.newEnv.name;
+                });
+                self.newEnv = {};
+            });
+        }, function (err) {
+            Messaging.error(err);
+            return $q.reject(err);
+        });
     };
 
     this.addNewRepositoryManager = function () {
@@ -563,8 +594,11 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
             case "pipeline":
                 self.tab.active = 1;
                 break;
-            case "environment":
+            case "environments":
                 self.tab.active = 2;
+                break;
+            case "environment":
+                self.tab.active = 6;
                 break;
             case "parameter":
                 self.tab.active = 3;

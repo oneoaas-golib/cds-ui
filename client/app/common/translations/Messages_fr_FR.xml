@@ -23,6 +23,8 @@
 
     <translation id="common_loading_repositories">Récupération des dépôts en cours...</translation>
 
+    <translation id="common_variable_add">Ajouter une variable</translation>
+
     <translation id="cds_urgent_out_of_date">L'interface vient d'être mise à jour. Merci de cliquer dans cette zone pour rafraichir votre page.</translation>
 
     <translation id="group_management_permission_read">Lecture</translation>
