@@ -494,8 +494,8 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
     };
 
     this.addEnv = function () {
-        return CDSEnvRsc.save({"key": $state.params.key }, self.newEnv, function(data) {
-            Messaging.success($translate.instant('env_added'));
+        return CDSEnvRsc.save({ "key": $state.params.key }, self.newEnv, function (data) {
+            Messaging.success($translate.instant("env_added"));
             return Project.updateCacheAllEnv(data).then(function (p) {
                 self.project = p;
                 self.selectedEnvAudit = _.find(self.project.environments, function (e) {
@@ -506,7 +506,7 @@ angular.module("cdsApp").controller("ProjectShowCtrl", function ProjectAddCtrl (
         }, function (err) {
             Messaging.error(err);
             return $q.reject(err);
-        });
+        }).$promise;
     };
 
     this.addNewRepositoryManager = function () {
