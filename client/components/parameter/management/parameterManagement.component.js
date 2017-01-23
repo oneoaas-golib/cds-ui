@@ -62,7 +62,7 @@ angular.module("cdsApp").component("parameterManagement", {
                             var varName = w.message_param.VarName;
                             if (varName) {
                                 self.params.forEach(function (p) {
-                                    if (p.value.indexOf("." + varName + "}}") !== -1) {
+                                    if (p.value.toString().indexOf("." + varName + "}}") !== -1) {
                                         result = true;
                                     }
                                 });
