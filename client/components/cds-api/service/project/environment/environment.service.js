@@ -20,6 +20,18 @@ angular.module("cdsApp").service("CDSEnvRsc", function ($resource) {
         restoreAudit: {
             method: "PUT",
             url: "/cdsapi/project/:key/environment/:envName/audit/:auditId",
+        },
+        addVar: {
+            method: "POST",
+            url: "/cdsapi/project/:key/environment/:envName/variable/:varName"
+        },
+        updateVar: {
+            method: "PUT",
+            url: "/cdsapi/project/:key/environment/:envName/variable/:varName"
+        },
+        deleteVar: {
+            method: "DELETE",
+            url: "/cdsapi/project/:key/environment/:envName/variable/:varName"
         }
     });
 });

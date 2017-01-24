@@ -8,4 +8,11 @@
 
     <translation id="env_management_placeholder_filter_variable">variable</translation>
     <translation id="env_management_placeholder_filter_env">environnement</translation>
+
+    <translation id="env_added">Environnement ajouté</translation>
+    <translation id="env_deleted">Environnement supprimé</translation>
+    <translation id="env_var_added">Variable ajoutée</translation>
+    <translation id="env_var_updated">Variable mise à jour</translation>
+    <translation id="env_var_deleted">Variable supprimée</translation>
+    <translation id="warning_select_env">Selectionnez un environnement au dessus</translation>
 </translations>

@@ -34,6 +34,19 @@ angular.module("cdsApp")
                     return $q.reject(err);
                 }).$promise;
             },
+            updateCacheAllEnv: function (project) {
+                var deferred = $q.defer();
+                var projectInCached = projectCache.get(project.key);
+                if (projectInCached) {
+                    projectInCached.last_modified = project.last_modified;
+                    projectInCached.environments = project.environments;
+                    deferred.resolve(projectInCached);
+                    return deferred.promise;
+                } else {
+                    return Project.getProject(project.key);
+                }
+
+            },
             updateCacheEnv: function (project) {
                 var deferred = $q.defer();
                 var projectInCached = projectCache.get(project.key);

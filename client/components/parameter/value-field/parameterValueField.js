@@ -45,6 +45,9 @@ angular.module("cdsApp").component("parameterValueField", {
         $scope.$watch(function () {
             return self.param;
         }, function (n, o) {
+            if (n && o && n.value && o.value && n.value !== o.value && n.name === o.name) {
+                self.param.updated = true;
+            }
             if (n !== o && self.param.value) {
                 if (self.param.type === "text") {
                     var firstLine = self.param.value.split("\n")[0];

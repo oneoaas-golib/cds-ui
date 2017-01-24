@@ -20,9 +20,9 @@
             </uib-tab-heading>
             <pipeline-list project="ctrl.project"></pipeline-list>
         </uib-tab>
-        <uib-tab
+        <uib-tab ng-show="false"
             index="2"
-            select="ctrl.selectTab('environment')">
+            select="ctrl.selectTab('environments')">
             <uib-tab-heading>
                 <i class="fa fa-tree"></i><span data-translate="project_show_title_tab_environment"></span>
             </uib-tab-heading>
@@ -59,6 +59,66 @@
                                                original="ctrl.envVarsOrigin" description="false" title="false"
                                                onechange="ctrl.auditsEnvChanges" ></parameter-management-diff>
                     <button type="button" progress-button="ctrl.restoreEnvAudit()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_restore' | translate }}</button>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab
+                index="6"
+                select="ctrl.selectTab('environment')">
+            <uib-tab-heading>
+                <i class="fa fa-tree"></i><span data-translate="project_show_title_tab_environment"></span>
+            </uib-tab-heading>
+            <div class="row top-space-lg-m20">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ui-select class="inline" ng-model="ctrl.selectedEnvAudit" on-select="ctrl.updateListeOfAudit()">
+                                        <ui-select-match placeholder="{{ 'project_show_env_filter_placeholder' | translate }}">
+                                            {{$select.selected.name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="p in ctrl.project.environments | filter: { name : $select.search }">
+                                            <div ng-bind-html="p.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-control inline" ng-disabled="!ctrl.selectedEnvAudit || !ctrl.selectedEnvAudit.name" ng-change="ctrl.updateSelectedEnvAudit()" ng-options="item as item.value for item in ctrl.listAuditForEnv track by item.id" ng-model="ctrl.selectedAuditVersion" required></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-if="ctrl.selectedEnvAudit && (!ctrl.selectedAuditVersion.id || ctrl.selectedAuditVersion.id === 0)">
+                    <environment-management-single project="ctrl.project" env="ctrl.selectedEnvAudit"></environment-management-single>
+                </div>
+                <div class="col-md-12 top-space-m8" ng-if="ctrl.selectedAuditVersion.id && ctrl.selectedAuditVersion.id !== 0">
+                    <p data-translate="common_no_change" ng-if="!ctrl.auditsEnvChanges"></p>
+                    <parameter-management-diff params="ctrl.selectedAuditVersion.variables"
+                                               original="ctrl.envVarsOrigin" description="false" title="false"
+                                               onechange="ctrl.auditsEnvChanges" ></parameter-management-diff>
+                    <button type="button" progress-button="ctrl.restoreEnvAudit()" class="button-success pull-right" pb-random-progress="true" pb-style="fill" >{{ 'common_btn_restore' | translate }}</button>
+                </div>
+                <div class="col-md-12 top-space-lg-m20">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>{{'env_management_button_add_env' | translate}}</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="ctrl.newEnv.name">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" progress-button="ctrl.addEnv()" class="button-success" pb-random-progress="true" pb-style="fill" >{{ 'env_management_button_save' | translate }}</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </uib-tab>

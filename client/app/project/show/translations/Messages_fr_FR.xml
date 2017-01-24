@@ -35,4 +35,6 @@
     <translation id="project_show_column_repo_manager_url">URL du gestionnaire</translation>
 
     <translation id="project_show_env_filter_placeholder">Filtrer sur un environnement</translation>
+
+    <translation id="env_no_variables">Aucune variable sur cet environnement</translation>
 </translations>
