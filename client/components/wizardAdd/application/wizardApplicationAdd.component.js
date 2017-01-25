@@ -56,6 +56,9 @@ angular.module("cdsApp").component("wizardApplicationAdd", {
                         if (v.name === "repo") {
                             v.value = self.application.repoGit;
                         }
+                        if (v.type === "password") {
+                            v.value = "";
+                        }
                     });
                     self.goToParameters();
                 }
