@@ -153,8 +153,10 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                 return "panel-danger";
             case "Skipped":
                 return "panel-skipped";
-            default:
+            case "Disabled":
                 return "panel-disabled";
+            default:
+                return "panel-default";
         }
     };
 
