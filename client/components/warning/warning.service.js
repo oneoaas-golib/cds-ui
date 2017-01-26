@@ -65,6 +65,9 @@ angular.module("cdsApp")
                                         actions: []
                                     };
                                 }
+                                //if (w.pipeline.id === 0 && w.action.id === 0) {
+                                    newWarning[w.project.key].applications[w.application.name].variables.push(w);
+                                //}
                             }
 
                             // Warning on Environment
@@ -88,6 +91,7 @@ angular.module("cdsApp")
                 }
             },
             getPipelineInProjectWarning: function (projectKey, pipName) {
+                debugger;
                 if (warning[projectKey]) {
                     return warning[projectKey].pipelines[pipName];
                 }
