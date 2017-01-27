@@ -36,7 +36,7 @@ angular.module("cdsApp").controller("PipelineRunLogsCtrl", function ($sce, $scop
                 "appName" : appName,
                 "pipName": pipelineName,
                 "id": buildID,
-                "actionID": self.build.pipeline_action_id,
+                "actionID": self.build.job.pipeline_action_id,
                 "offset": self.offset
             }, { "envName" : self.envName }, function (data) {
                 self.callingApi = false;

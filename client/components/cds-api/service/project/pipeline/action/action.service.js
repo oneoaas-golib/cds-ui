@@ -16,6 +16,10 @@ angular.module("cdsApp").service("CDSPipelineJoinedActionRsc", function ($resour
             url: "/cdsapi/project/:key/pipeline/:pipName/stage/:stageId/joined/:actionId/audit",
             method: "GET",
             isArray: true
+        },
+        updateJob: {
+            method: "PUT",
+            url: "/cdsapi/project/:key/pipeline/:pipName/stage/:stageId/job/:jobID"
         }
     });
 });

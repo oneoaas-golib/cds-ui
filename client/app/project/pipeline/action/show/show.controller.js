@@ -13,7 +13,7 @@ angular.module("cdsApp").controller("PipelineActionShowCtrl", function PipelineA
     var self = this;
 
     this.canEditAction = false;
-    this.action = {};
+    this.job = {};
     this.pipelineName = $state.params.pipName;
     this.pipeline = {};
     this.project = {};
@@ -57,7 +57,7 @@ angular.module("cdsApp").controller("PipelineActionShowCtrl", function PipelineA
             });
         }
         return Pipeline.updatePipelineAction($state.params.key, $state.params.pipName, $state.params.stageId, $state.params.actionId, a).then(function (data) {
-            self.action = data;
+            self.job.action = data;
             self.loadAudit();
         }).$promise;
     };
@@ -82,28 +82,28 @@ angular.module("cdsApp").controller("PipelineActionShowCtrl", function PipelineA
      */
     this.loadPipelineAction = function () {
         Pipeline.getJoinedAction($state.params.key, $state.params.pipName, $state.params.stageId, $state.params.actionId).then(function (data) {
-            self.action = data;
+            self.job = data;
             self.loadAudit();
         });
     };
 
     this.loadAudit = function () {
-        self.action.parameters = ParameterService.unformat(self.action.parameters);
-        if (self.action.actions) {
-            self.action.actions.forEach(function (sub) {
+        self.job.action.parameters = ParameterService.unformat(self.job.action.parameters);
+        if (self.job.action.actions) {
+            self.job.action.actions.forEach(function (sub) {
                 sub.parameters =   ParameterService.unformat(sub.parameters);
             });
         }
 
-        CDSPipelineJoinedActionRsc.audit({ key: $state.params.key, pipName: $state.params.pipName, stageId: $state.params.stageId, actionId: self.action.id }, function (data) {
+        CDSPipelineJoinedActionRsc.audit({ key: $state.params.key, pipName: $state.params.pipName, stageId: $state.params.stageId, actionId: self.job.action.id }, function (data) {
             self.audit = data;
             if (self.audit && self.audit.length > 0) {
                 self.audit.forEach(function (a) {
-                    if (!self.action.requirements) {
-                        self.action.requirements = [];
+                    if (!self.job.action.requirements) {
+                        self.job.action.requirements = [];
                     }
-                    if (!self.action.parameters) {
-                        self.action.parameters = [];
+                    if (!self.job.action.parameters) {
+                        self.job.action.parameters = [];
                     }
 
                     if (!a.action.requirements) {

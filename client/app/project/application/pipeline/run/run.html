@@ -58,12 +58,12 @@
                             </div>
                         </div>
                         <div ng-class="{'col-md-8': ctrl.artifacts.length > 0, 'col-md-12' : ctrl.artifacts.length === 0}" class="top-space-lg-m20">
-                            <div class="panel {{ctrl.getStagePanelClass(s)}}"  ng-repeat="s in ctrl.currentBuild.stages track by $index">
+                            <div class="panel {{ctrl.getPanelClassByStatus(s.status)}}"  ng-repeat="s in ctrl.currentBuild.stages track by $index">
                                 <div class="panel-heading">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <strong><span data-translate="application_pipeline_label_skipped" ng-if="ctrl.getStagePanelClass(s) === 'panel-skipped'"></span></strong>
-                                            <strong><span data-translate="application_pipeline_label_disabled" ng-if="ctrl.getStagePanelClass(s) === 'panel-disabled'"></span></strong>
+                                            <strong><span data-translate="application_pipeline_label_skipped" ng-if="s.status === 'Skipped'"></span></strong>
+                                            <strong><span data-translate="application_pipeline_label_disabled" ng-if="s.status === 'Disabled'"></span></strong>
                                             <span data-ng-bind="s.name"></span>
                                             <div ng-if="ctrl.isStageFinished(s)" style="display: inline">
                                                 {{ ' ('}}
@@ -76,13 +76,13 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="b in s.builds track by $index">
-                                            <div class="panel {{ctrl.getPanelClassByStatus(s, b.status)}}">
+                                            <div class="panel {{ctrl.getPanelClassByStatus(b.status)}}">
                                                 <div class="panel-heading">
                                                     <div ng-switch="b.status">
                                                         <div  ng-switch-when="Building">
                                                             <uib-progressbar class="progress-striped active" value="ctrl.currentActionPercent[b.pipeline_action_id]" type="info">
                                                             <span>
-                                                                {{ b.action_name}}
+                                                                {{ b.job.action.name}}
                                                                 {{ ctrl.currentActionTimeLeft[b.pipeline_action_id] | duration:'mm\'min\' ss\'s\'' }}
                                                             </span>
                                                             </uib-progressbar>
@@ -91,24 +91,24 @@
                                                             <uib-progressbar class="progress-striped active" value="100" type="warning">
                                                             <span>
                                                                 <strong>{{ 'application_pipeline_label_waiting' | translate }}</strong>
-                                                                {{ b.action_name }}
+                                                                {{ b.job.action.name }}
                                                             </span>
                                                             </uib-progressbar>
                                                         </div>
                                                         <div ng-switch-when="Success">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                             <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
                                                         </div>
                                                         <div ng-switch-when="Fail">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                             <span>{{ ' ('}}{{ ctrl.getBuildDuration(b) | duration:'mm\'min\' ss\'s\'' }}{{')'}}</span>
                                                         </div>
                                                         <div ng-switch-when="Disabled">
                                                             <strong>{{ 'application_pipeline_label_disabled' | translate }}</strong>
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                         </div>
                                                         <div ng-switch-when="Skipped">
-                                                            {{b.action_name}}
+                                                            {{b.job.action.name}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,7 +116,7 @@
                                                     <div ng-switch="b.status">
                                                         <div ng-switch-when="Waiting">
                                                             <span data-translate="application_pipeline_txt_action_require"></span>
-                                                            <span ng-repeat="r in b.requirements track by $index">
+                                                            <span ng-repeat="r in b.job.action.requirements track by $index">
                                                             {{ r.value + ' ('}}
                                                             <i class="fa fa-desktop" ng-if="r.type === 'hostname'" uib-tooltip="{{r.type}}"></i>
                                                             <i class="fa fa-wifi" ng-if="r.type === 'network'"  uib-tooltip="{{r.type}}"></i>
@@ -134,10 +134,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3" ng-if="!s.builds" ng-repeat="a in ctrl.pipeline.stages[$index].actions">
-                                            <div class="panel" ng-class="{ 'panel-disabled' : !s.enabled || !a.enabled, 'panel-default': s.enabled && a.enabled }">
+                                        <div class="col-md-3" ng-if="!s.builds" ng-repeat="j in ctrl.pipeline.stages[$index].jobs">
+                                            <div class="panel" ng-class="{ 'panel-disabled' : !s.enabled || !j.enabled, 'panel-default': s.enabled && j.enabled }">
                                                 <div class="panel-heading">
-                                                    <div data-ng-bind="a.name"></div>
+                                                    <div data-ng-bind="j.action.name"></div>
                                                 </div>
                                             </div>
                                         </div>
