@@ -205,7 +205,7 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                             stage.builds.forEach(function (b) {
                                 var dateStageStart = new Date(b.start);
                                 var dateStageEnd = new Date(b.done);
-                                self.previousStageStats[b.pipeline_action_id] = dateStageEnd.getTime() - dateStageStart.getTime();
+                                self.previousStageStats[b.job.pipeline_action_id] = dateStageEnd.getTime() - dateStageStart.getTime();
                             });
                         }
                     });
@@ -236,7 +236,9 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
         }, function (data) {
             self.fullHistory = data;
             var build = _.findLast(self.fullHistory, function (b) {
-                return b.status === "Building" && b.trigger.vcs_branch === self.currentBuild.trigger.vcs_branch && self.currentBuild.build_number > b.build_number;
+                if (b.trigger && self.currentBuild.trigger) {
+                    return b.status === "Building" && b.trigger.vcs_branch === self.currentBuild.trigger.vcs_branch && self.currentBuild.build_number > b.build_number;
+                }
             });
             if (build && build.build_number.toString() !== $state.params.buildId) {
                 self.simultaneousBuild = build;
@@ -265,27 +267,22 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                 self.currentBuild = data;
                 self.isLoading = false;
 
-                var ended = true;
                 self.currentBuild.stages.forEach(function (s) {
                     if (s.builds) {
                         s.builds.forEach(function (b) {
-                            if (b.status !== "Success" && b.status !== "Fail" && b.status !== "Disabled" && b.status !== "Skipped") {
-                                ended = false;
-                            }
-
-                            if (self.previousStageStats[b.pipeline_action_id]) {
+                            if (self.previousStageStats[b.job.pipeline_action_id]) {
                                 var time = (new Date()).getTime() - (new Date(b.start)).getTime();
-                                self.currentActionPercent[b.pipeline_action_id] = time * 100 / self.previousStageStats[b.pipeline_action_id];
-                                self.currentActionTimeLeft[b.pipeline_action_id] = self.previousStageStats[b.pipeline_action_id] - time;
-                                if (self.currentActionTimeLeft[b.pipeline_action_id] < 0) {
-                                    self.currentActionTimeLeft[b.pipeline_action_id] = 0;
+                                self.currentActionPercent[b.job.pipeline_action_id] = time * 100 / self.previousStageStats[b.job.pipeline_action_id];
+                                self.currentActionTimeLeft[b.job.pipeline_action_id] = self.previousStageStats[b.job.pipeline_action_id] - time;
+                                if (self.currentActionTimeLeft[b.job.pipeline_action_id] < 0) {
+                                    self.currentActionTimeLeft[b.job.pipeline_action_id] = 0;
                                 }
                             }
                         });
                     }
 
                 });
-                if (ended && (self.currentBuild.status === "Fail" || self.currentBuild.status === "Success")) {
+                if (self.currentBuild.status === "Fail" || self.currentBuild.status === "Success") {
                     self.stopTimer();
 
                     favicon.setProgress(1);

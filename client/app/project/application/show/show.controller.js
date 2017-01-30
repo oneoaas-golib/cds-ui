@@ -609,7 +609,7 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                     pipelineName: item.pipeline.name,
                     applicationName: item.application.name,
                     applicationID: item.application.id,
-                    environmentID: item.environment.id,
+                    environmentID: item.environment.id
                 };
 
                 item.subPipelines[i].id = item.id + "N" + i;

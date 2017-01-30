@@ -80,10 +80,10 @@
                                                 <div class="panel-heading">
                                                     <div ng-switch="b.status">
                                                         <div  ng-switch-when="Building">
-                                                            <uib-progressbar class="progress-striped active" value="ctrl.currentActionPercent[b.pipeline_action_id]" type="info">
+                                                            <uib-progressbar class="progress-striped active" value="ctrl.currentActionPercent[b.job.pipeline_action_id]" type="info">
                                                             <span>
                                                                 {{ b.job.action.name}}
-                                                                {{ ctrl.currentActionTimeLeft[b.pipeline_action_id] | duration:'mm\'min\' ss\'s\'' }}
+                                                                {{ ctrl.currentActionTimeLeft[b.job.pipeline_action_id] | duration:'mm\'min\' ss\'s\'' }}
                                                             </span>
                                                             </uib-progressbar>
                                                         </div>
