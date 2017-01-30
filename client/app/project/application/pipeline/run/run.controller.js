@@ -106,17 +106,26 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
      *
      */
     this.getError = function (te) {
-        var err = "";
-        if (te.error && te.error !== "") {
-            err = te.error;
+        var errs = [];
+        if (te.errors && te.errors !== "") {
+            for (var f in te.errors) {
+              errs.push(te.errors[f].value);
+            }
         }
-        if (te.failure && te.failure !== "") {
-            err = te.failure;
+        if (te.failures && te.failures.length > 0) {
+          for (var f in te.failures) {
+            errs.push(te.failures[f].value);
+          }
         }
-        var error = err.replace(/[^\n]+/g, function (replacement) {
-            return "<p>" + replacement + "</p>";
-        });
-        return $sce.trustAsHtml(error);
+
+        var out = "";
+        for (var o in errs) {
+          out += errs[o].replace(/[^\n]+/g, function (replacement) {
+              return "<p>" + replacement + "</p>";
+          });
+        }
+
+        return $sce.trustAsHtml(out);
     };
 
     /**
