@@ -41,7 +41,7 @@
                     <i class="fa fa-stop-circle-o fa-2x hvr-buzz-out" aria-hidden="true"></i>
                 </button>
 
-                <a href="#" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build" class="separated pull-right" ui-sref="app.application-pipeline-build(
+                <a href="#" ng-if="PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build && PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.build_number && PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.build_number > 0" class="separated pull-right" ui-sref="app.application-pipeline-build(
                         {'key': PipelineDiagramItemCtrl.projectKey, 'appName': PipelineDiagramItemCtrl.item.application.name, 'pipName': PipelineDiagramItemCtrl.item.pipeline.name,
                         'buildId': PipelineDiagramItemCtrl.item.pipeline.last_pipeline_build.build_number, 'env': PipelineDiagramItemCtrl.item.environment.name})" uib-tooltip="{{'pipeline_diagram_item_label_see_run' | translate }}">
                     <span class="fa fa-newspaper-o btn-link" style="color:black;"></span>

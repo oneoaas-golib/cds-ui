@@ -69,6 +69,9 @@ angular.module("cdsApp").component("environmentManagementSingle", {
         };
 
         this.addVar = function () {
+            if (!this.newVar.value) {
+                this.newVar.value = "";
+            }
             this.newVar.value = this.newVar.value.toString();
             return CDSEnvRsc.addVar({ "key": self.project.key, "envName": self.env.name, "varName": this.newVar.name }, this.newVar, function (data) {
                 Messaging.success($translate.instant("env_var_added"));

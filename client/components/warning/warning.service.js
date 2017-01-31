@@ -65,6 +65,7 @@ angular.module("cdsApp")
                                         actions: []
                                     };
                                 }
+                                newWarning[w.project.key].applications[w.application.name].variables.push(w);
                             }
 
                             // Warning on Environment

@@ -5,6 +5,9 @@
                      repo="{{ctrl.application.repository_fullname}}" applications="ctrl.project.applications"></breadcrumbs>
     </nav>
     <warning-application warning="ctrl.applicationWarning" key="{{ctrl.key}}" appname="{{ctrl.appname}}"></warning-application>
+    <div ng-repeat="appPip in ctrl.application.pipelines">
+        <warning-pipeline warning="ctrl.getPipelineWarning(appPip.pipeline)" key="{{ctrl.key}}" pipname="appPip.pipeline.name"></warning-pipeline>
+    </div>
     <uib-tabset active="ctrl.tab.active">
         <uib-tab
             index="0"

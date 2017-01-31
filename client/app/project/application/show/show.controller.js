@@ -1086,6 +1086,10 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
         }
     };
 
+    this.getPipelineWarning = function (pip) {
+        return  Warning.getPipelineInProjectWarning(self.key, pip.name);
+    };
+
     this.init = function () {
         if (!$state.params.appName || $state.params.appName === "") {
             $state.go("app.project-show", { "key": $state.params.key });
