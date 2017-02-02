@@ -29,29 +29,7 @@ angular.module("cdsApp").component("pipelineHistory", {
 
         this.getTriggeredBy = function (pb) {
             if (pb.trigger) {
-                switch (PipelineBuild.getTriggeredBy(pb)) {
-                    case BUILD_CONSTANTS.TRIGGER_AUTO_HUMAN:
-                        return $translate.instant("pipeline_trigger_auto_manual_run", {
-                            username: pb.trigger.triggered_by.username,
-                            pipelineName: pb.trigger.parent_pipeline_build.pipeline.name,
-                            pipelineNumber: pb.trigger.parent_pipeline_build.version
-                        });
-                    case BUILD_CONSTANTS.TRIGGER_AUTO_PIPELINE:
-                        return $translate.instant("pipeline_trigger_auto", {
-                            pipelineName: pb.trigger.parent_pipeline_build.pipeline.name,
-                            pipelineNumber: pb.trigger.parent_pipeline_build.version
-                        });
-                    case BUILD_CONSTANTS.TRIGGER_MANUAL_HUMAN:
-                        if (pb.trigger.triggered_by) {
-                            return $translate.instant("pipeline_trigger_manual", { username: pb.trigger.triggered_by.username });
-                        }
-                        break;
-                    case BUILD_CONSTANTS.TRIGGER_VCS:
-                        return $translate.instant("pipeline_trigger_auto_vcs", {
-                            branch: pb.trigger.vcs_branch,
-                            author: pb.trigger.vcs_author
-                        });
-                }
+                return PipelineBuild.getTriggeredBy(pb);
             }
         };
 

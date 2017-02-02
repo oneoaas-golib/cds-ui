@@ -17,7 +17,6 @@ angular.module("cdsApp").controller("PipelineRunLogsCtrl", function ($sce, $scop
     var refreshDelay = 2000;
 
     this.logs = "";
-    this.offset = 0;
     this.callingApi = false;
     this.appName = appName;
     this.envName = envName;
@@ -36,21 +35,18 @@ angular.module("cdsApp").controller("PipelineRunLogsCtrl", function ($sce, $scop
                 "appName" : appName,
                 "pipName": pipelineName,
                 "id": buildID,
-                "actionID": self.build.job.pipeline_action_id,
-                "offset": self.offset
+                "actionID": self.build.job.pipeline_action_id
             }, { "envName" : self.envName }, function (data) {
                 self.callingApi = false;
-                if ((data.status === "Success" || data.status === "Fail") && data.logs.length < 5000) {
+                if (data.status === "Success" || data.status === "Fail") {
                     self.stopTimer();
                 }
                 if (data.logs.length > 0) {
-                    self.offset = data.logs[data.logs.length - 1].id;
+                    self.logs = "";
                     for (var i = 0; i < data.logs.length; i++) {
-                        self.logs += "[" + data.logs[i].timestamp + "] " + data.logs[i].value;
+                        self.logs += "[" + data.logs[i].start.substr(0, 19) + "] " + data.logs[i].value;
                     }
-
                     self.logs = ansi_up.ansi_to_html(self.logs);
-
                 }
             }, function (err) {
                 self.callingApi = false;

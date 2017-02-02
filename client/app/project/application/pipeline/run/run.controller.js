@@ -98,6 +98,38 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
         }).$promise;
     };
 
+    this.hasReason = function () {
+        var result = false;
+        if (this.currentBuild.stages) {
+            this.currentBuild.stages.forEach(function (s) {
+                if (s.builds) {
+                    s.builds.forEach(function (b) {
+                       if (b.job.reason && b.job.reason !== "") {
+                           result = true;
+                       }
+                    });
+                }
+            });
+        }
+        return result;
+    };
+
+    this.getReason = function () {
+        var result = "";
+        if (this.currentBuild.stages) {
+            this.currentBuild.stages.forEach(function (s) {
+                if (s.builds) {
+                    s.builds.forEach(function (b) {
+                        if (b.job.reason && b.job.reason !== "") {
+                            result = b.job.reason;
+                        }
+                    });
+                }
+            });
+        }
+        return result;
+    };
+
     /**
      * @ngdoc function
      * @methodOf cdsApp.controller:PipelineRunCtrl
@@ -108,21 +140,21 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
     this.getError = function (te) {
         var errs = [];
         if (te.errors && te.errors !== "") {
-            for (var f in te.errors) {
-              errs.push(te.errors[f].value);
+            for (var e in te.errors) {
+                errs.push(te.errors[e].value);
             }
         }
         if (te.failures && te.failures.length > 0) {
-          for (var f in te.failures) {
-            errs.push(te.failures[f].value);
-          }
+            for (var f in te.failures) {
+                errs.push(te.failures[f].value);
+            }
         }
 
         var out = "";
         for (var o in errs) {
-          out += errs[o].replace(/[^\n]+/g, function (replacement) {
-              return "<p>" + replacement + "</p>";
-          });
+            out += errs[o].replace(/[^\n]+/g, function (replacement) {
+                return "<p>" + replacement + "</p>";
+            });
         }
 
         return $sce.trustAsHtml(out);
@@ -420,14 +452,7 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
 
     this.getTriggerBy = function () {
         if (self.currentBuild.trigger) {
-            switch (PipelineBuild.getTriggeredBy(self.currentBuild)) {
-                case BUILD_CONSTANTS.TRIGGER_AUTO_HUMAN:
-                    return self.currentBuild.trigger.triggered_by.username;
-                case BUILD_CONSTANTS.TRIGGER_MANUAL_HUMAN:
-                    return self.currentBuild.trigger.triggered_by.username;
-                default:
-                    return self.currentBuild.trigger.vcs_author;
-            }
+            return PipelineBuild.getTriggeredBy(self.currentBuild);
         }
     };
 

@@ -121,29 +121,7 @@ angular.module("cdsApp").component("pipelineDiagramItem", {
 
         this.getBy = function () {
             if (self.item && self.item.pipeline && self.item.pipeline.last_pipeline_build) {
-                var by = PipelineBuild.getTriggeredBy(self.item.pipeline.last_pipeline_build);
-                switch (by) {
-                    case BUILD_CONSTANTS.TRIGGER_MANUAL_HUMAN:
-                        if (self.item.pipeline.last_pipeline_build.trigger && self.item.pipeline.last_pipeline_build.trigger.triggered_by) {
-                            return self.item.pipeline.last_pipeline_build.trigger.triggered_by.username;
-                        }
-                        return "";
-                    case BUILD_CONSTANTS.TRIGGER_AUTO_HUMAN:
-                        if (self.item.pipeline.last_pipeline_build.trigger && self.item.pipeline.last_pipeline_build.trigger.triggered_by) {
-                            return self.item.pipeline.last_pipeline_build.trigger.triggered_by.username;
-                        }
-                        return "";
-                    case BUILD_CONSTANTS.TRIGGER_AUTO_PIPELINE:
-                        if (self.item.pipeline.last_pipeline_build.trigger) {
-                            return self.item.pipeline.last_pipeline_build.trigger.vcs_author;
-                        }
-                        return "";
-                    default:
-                        if (self.item.pipeline.last_pipeline_build.trigger) {
-                            return self.item.pipeline.last_pipeline_build.trigger.vcs_author;
-                        }
-                        return "";
-                }
+                return PipelineBuild.getTriggeredBy(self.item.pipeline.last_pipeline_build);
             }
         };
 

@@ -8,7 +8,7 @@
     <translation id="pipeline_history_column_status">Status</translation>
     <translation id="pipeline_history_column_date">Date</translation>
     <translation id="pipeline_history_column_last">Duration</translation>
-    <translation id="pipeline_history_column_triggered_by">Trigger</translation>
+    <translation id="pipeline_history_column_triggered_by">Triggered by</translation>
     <translation id="pipeline_history_column_delete">Delete</translation>
 
     <translation id="pipeline_trigger_manual">Manual run by {{username}}</translation>

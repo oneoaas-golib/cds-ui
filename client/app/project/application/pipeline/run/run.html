@@ -21,6 +21,10 @@
                     <span data-translate="application_pipeline_data_date_done"></span>
                     <span>{{ ctrl.currentBuild.done | amDateFormat: 'YYYY-DD-MM HH:mm:ss' }}</span>
                 </h4>
+                <h4 ng-if="ctrl.currentBuild.status === 'Fail' && ctrl.hasReason()">
+                    <span data-translate="application_pipeline_data_reason"></span>
+                    <span>{{ ctrl.getReason() }}</span>
+                </h4>
             </div>
             <div class="col-md-6">
                 <h4>

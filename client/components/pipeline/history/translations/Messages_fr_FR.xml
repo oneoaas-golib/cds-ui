@@ -8,7 +8,7 @@
     <translation id="pipeline_history_column_status">Statut</translation>
     <translation id="pipeline_history_column_date">Date</translation>
     <translation id="pipeline_history_column_last">Durée</translation>
-    <translation id="pipeline_history_column_triggered_by">Déclencheur</translation>
+    <translation id="pipeline_history_column_triggered_by">Déclenché par</translation>
     <translation id="pipeline_history_column_delete">Suppression</translation>
 
     <translation id="pipeline_trigger_manual">Lancement manuel par {{username}}</translation>

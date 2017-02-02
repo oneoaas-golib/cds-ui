@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module("cdsApp")
-    .factory("PipelineBuild", function PipelineBuildFactory (BUILD_CONSTANTS) {
+    .factory("PipelineBuild", function PipelineBuildFactory () {
 
         var PipelineBuild = {
 
@@ -14,18 +14,11 @@ angular.module("cdsApp")
              */
             getTriggeredBy: function (pb) {
                 if (pb && pb.trigger) {
-                    if (pb.trigger.manual_trigger) {
-                        return BUILD_CONSTANTS.TRIGGER_MANUAL_HUMAN;
-                    } else {
-                        if (pb.trigger.parent_pipeline_build) {
-                            if (pb.trigger.triggered_by && pb.trigger.triggered_by.username !== "") {
-                                return BUILD_CONSTANTS.TRIGGER_AUTO_HUMAN;
-                            } else {
-                                return BUILD_CONSTANTS.TRIGGER_AUTO_PIPELINE;
-                            }
-                        } else {
-                            return BUILD_CONSTANTS.TRIGGER_VCS;
-                        }
+                    if (pb.trigger.triggered_by && pb.trigger.triggered_by.username) {
+                        return pb.trigger.triggered_by.username;
+                    }
+                    if (pb.trigger.vcs_author) {
+                        return pb.trigger.vcs_author;
                     }
                 }
             }
