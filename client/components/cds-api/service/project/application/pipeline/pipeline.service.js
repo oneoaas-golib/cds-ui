@@ -24,7 +24,8 @@ angular.module("cdsApp").service("CDSApplicationPipelinesRsc", function ($resour
         },
         addScheduler: {
             url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler",
-            method: "POST"
+            method: "POST",
+            params: { envName: "@envName" }
         },
         updateScheduler: {
             url: "/cdsapi/project/:key/application/:appName/pipeline/:pipName/scheduler",

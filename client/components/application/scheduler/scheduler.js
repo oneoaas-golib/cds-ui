@@ -92,7 +92,7 @@ angular.module("cdsApp").component("schedulers", {
                 self.newScheduler.args = ParameterService.format(self.newScheduler.args);
             }
             return CDSApplicationPipelinesRsc.addScheduler(
-                { "key": $state.params.key, "appName": self.application.name, "pipName": self.selected.pipeline.name }, self.newScheduler,
+                { "key": $state.params.key, "appName": self.application.name, "pipName": self.selected.pipeline.name, "envName": self.selected.environment.name }, self.newScheduler,
                 function () {
                     Application.invalidApplication($state.params.key, $state.params.appName);
                     return Application.getApplication($state.params.key, $state.params.appName).then(function (app) {
