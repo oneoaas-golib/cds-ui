@@ -569,7 +569,6 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
                 envName: function () {
                     return $state.params.env;
                 }
-
             }
         });
     };

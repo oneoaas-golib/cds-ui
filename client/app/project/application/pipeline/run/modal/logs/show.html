@@ -1,6 +1,6 @@
 <div id="LogModal">
     <div class="modal-header">
-        <h4>{{ctrl.build.action_name}}</h4>
+        <h4>{{ctrl.build.job.action.name + ' : ' + ctrl.build.model + ' / ' + ctrl.build.job.worker_name}}</h4>
     </div>
     <div class="modal-body pipelineLog">
         <pre scroll-glue>
