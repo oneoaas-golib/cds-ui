@@ -3,7 +3,6 @@
 angular.module("cdsApp", [
     "mgo-angular-wizard",
     "angularMoment",
-    "angular-cron-jobs",
     "angular-duration-format",
     "angular.filter",
     "angular-progress-button-styles",
