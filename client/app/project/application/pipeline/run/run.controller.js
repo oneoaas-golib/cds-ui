@@ -153,7 +153,7 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
         var out = "";
         errs.forEach(function (e) {
             out += e.replace(/[^\n]+/g, function (replacement) {
-                return replacement;
+                return replacement+'<br/>';
             }).replace('<![CDATA[', '').replace(']]>', '');
         });
 
