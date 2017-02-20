@@ -197,7 +197,7 @@
             <uib-accordion close-others="true">
                 <uib-accordion-group ng-repeat="tc in ctrl.testsResult.test_suites track by $index" heading="{{tc.name}}" panel-class="{{ctrl.getPanelClass(tc)}}">
                         <ul class="list-unstyled">
-                            <li ng-repeat="te in tc.tests | orderBy:['-errors', '-failures'] track by $index" class="link">
+                            <li ng-repeat="te in tc.tests | orderBy:['errors', 'failures'] track by $index" class="link">
                                 <div ng-click="te.show = !te.show" ng-if="(te.errors && te.errors.length > 0) || (te.failures && te.failures.length > 0)">
                                     <i class="fa fa-caret-right" ng-show="!te.show"></i>
                                     <i class="fa fa-caret-down" ng-show="te.show"></i>

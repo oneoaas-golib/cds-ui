@@ -151,11 +151,11 @@ angular.module("cdsApp").controller("PipelineRunCtrl", function ApplicationShowC
         }
 
         var out = "";
-        for (var o in errs) {
-            out += errs[o].replace(/[^\n]+/g, function (replacement) {
-                return "<p>" + replacement + "</p>";
-            });
-        }
+        errs.forEach(function (e) {
+            out += e.replace(/[^\n]+/g, function (replacement) {
+                return replacement;
+            }).replace('<![CDATA[', '').replace(']]>', '');
+        });
 
         return $sce.trustAsHtml(out);
     };
