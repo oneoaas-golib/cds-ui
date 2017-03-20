@@ -287,7 +287,9 @@ angular.module("cdsApp").controller("ApplicationShowCtrl", function ApplicationS
                 return CDSHookRsc.create({ "key": $state.params.key, "appName": $state.params.appName, "pipName": self.selected.hook.pipeline.name }, self.selected.hook, function (data) {
                     Messaging.success($translate.instant("application_show_hook_msg_created"));
                     self.submitted = false;
-                    self.hooks.push(angular.copy(data));
+                    if (data.hooks) {
+                        self.hooks = data.hooks;
+                    }
                     self.selected.hook = {};
                 }, function (err) {
                     Messaging.error(err);
