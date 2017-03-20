@@ -11,7 +11,7 @@ angular.module("cdsApp")
                 if (projectCache.get(key)) {
                     deferred.resolve(projectCache.get(key));
                 } else {
-                    CDSProjectRsc.get({ "key": key, "applicationHistory": 5 }, function (data) {
+                    CDSProjectRsc.get({ "key": key}, function (data) {
                         projectCache.put(key, data);
                         deferred.resolve(data);
                     }, function (err) {

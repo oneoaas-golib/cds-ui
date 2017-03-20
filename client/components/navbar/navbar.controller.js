@@ -109,6 +109,11 @@ angular.module("cdsApp")
          * @description  Load project
          */
         this.loadProjects = function () {
+            self.loadApplications();
+            var tmp = $localStorage["cds-projects"];
+            if (tmp) {
+                self.projects = tmp;
+            }
             CDSProjectsRsc.list({ application: true }, function (data) {
                 self.projects = data;
                 self.fuzzyApp = [];
@@ -138,6 +143,7 @@ angular.module("cdsApp")
                             });
                         }
                     });
+                    $localStorage["cds-projects"] = self.projects;
                     self.loadApplications();
                 }
             }, function (err) {
